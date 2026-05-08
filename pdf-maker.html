@@ -176,6 +176,7 @@
             font-weight: 600;
             font-size: 0.9rem;
             text-align: center;
+            flex-shrink: 0;
         }
         .ad-banner-horizontal {
             width: 100%;
@@ -184,12 +185,12 @@
             margin: 20px auto;
         }
 
-        /* Workspace Area (Fitview) */
+        /* Workspace Area (Perfect Fitview) */
         main {
             flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center; /* Vertically centers the workspace */
             padding: 20px;
             width: 100%;
         }
@@ -200,10 +201,9 @@
             border-radius: 24px;
             padding: 40px;
             width: 100%;
-            max-width: 800px; /* Limits width for a centered, clean fitview */
+            max-width: 800px; /* Responsive width */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
             text-align: center;
-            margin: auto; /* Keeps it perfectly centered vertically and horizontally */
         }
 
         .workspace h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.03em; }
@@ -237,7 +237,15 @@
             gap: 15px;
             margin-bottom: 30px;
             text-align: left;
+            max-height: 300px; /* Prevents container from taking over entire screen if too many images */
+            overflow-y: auto;
+            padding-right: 5px;
         }
+        
+        /* Custom Scrollbar for Preview */
+        .preview-container::-webkit-scrollbar { width: 6px; }
+        .preview-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
         .preview-item {
             position: relative;
             border-radius: 8px;
@@ -317,6 +325,7 @@
         footer {
             text-align: center; padding: 20px; border-top: 1px solid var(--border);
             color: var(--text-gray); font-size: 0.9rem; background: white; margin-top: auto;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -324,7 +333,7 @@
 
     <div class="gradient-orb"></div>
 
-    <!-- Header (Updated with Back Button moved to the right side) -->
+    <!-- Header -->
     <header>
         <!-- Left Side: Logo Only -->
         <div class="header-left">
@@ -336,7 +345,6 @@
 
         <!-- Right Side: Back Button & User Dropdown -->
         <div class="header-right">
-            <!-- Back Button Now on Right, before the User Icon -->
             <a href="index.html" class="back-link" title="Go Back"><i class="fas fa-arrow-left"></i></a>
             
             <div class="user-dropdown">
@@ -344,7 +352,6 @@
                     <i class="fas fa-user-circle"></i>
                 </button>
                 
-                <!-- Future Auth Dropdown Menu -->
                 <div class="dropdown-menu" id="user-menu">
                     <div class="menu-header">
                         <strong>Guest User</strong>
