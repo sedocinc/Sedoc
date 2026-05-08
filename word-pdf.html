@@ -260,9 +260,9 @@
         let downloadTimer = null; 
 
         // ==========================================
-        // YAHAN APNA API SECRET DAALEN (ConvertAPI.com se free mil jayega)
+        // YAHAN API SECRET ADD KAR DIYA GAYA HAI
         // ==========================================
-        const API_SECRET = "YOUR_FREE_API_SECRET_HERE"; 
+        const API_SECRET = "t0VExmju6Luwll3DtCvUFD2ksP2Jiiu4"; 
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); });
@@ -316,11 +316,6 @@
         generateBtn.addEventListener('click', () => {
             if (!selectedFile) return;
 
-            if(API_SECRET === "t0VExmju6Luwll3DtCvUFD2ksP2Jiiu4") {
-                alert("Please add your ConvertAPI Secret in the code (Line 375) to make it work!");
-                return;
-            }
-
             processingState.classList.remove('hidden');
             downloadState.classList.add('hidden');
             processModal.classList.add('active');
@@ -371,12 +366,12 @@
                     }, 1000);
 
                 } else {
-                    throw new Error("Conversion failed.");
+                    throw new Error(data.Message || "Conversion failed.");
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Error connecting to server. Please try again.");
+                alert("Error connecting to server. Please ensure your file is a valid Word document.");
                 processModal.classList.remove('active');
             });
         });
