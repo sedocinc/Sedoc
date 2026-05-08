@@ -59,79 +59,71 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-link img { height: 32px; width: auto; }
-        .brand-name { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.03em; }
+        /* Logo Set to Left Corner */
+        .logo-link { 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+        }
+        
+        .logo-link img { 
+            height: 40px; 
+            width: auto; 
+            display: block;
+        }
 
         /* Main Content */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 5%;
+            padding: 40px 5%; /* Reduced top padding */
         }
 
-        .hero-text { text-align: center; margin-bottom: 60px; }
-        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 15px; }
+        .hero-text { text-align: center; margin-bottom: 40px; } /* Reduced margin for fit view */
+        .hero-text h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 10px; }
+        .hero-text p { font-size: 0.95rem; }
         .text-gradient { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Bento Box Grid */
+        /* Compact Bento Box Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Scaled down for more tools */
+            gap: 16px; /* Tighter gap */
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 32px;
-            border-radius: 24px;
+            padding: 20px; /* Reduced padding */
+            border-radius: 16px; /* Scaled down radius */
             text-decoration: none;
             color: inherit;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px; /* Reduced gap between internal elements */
             position: relative;
             overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px); /* Subtle hover for compact design */
             border-color: rgba(163, 2, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(4, 6, 51, 0.05);
+            box-shadow: 0 15px 30px rgba(4, 6, 51, 0.05);
             background: #ffffff;
         }
 
         .card i {
-            font-size: 2rem;
+            font-size: 1.6rem; /* Scaled down icon */
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
-        .card h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
-        .card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; }
+        .card h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+        .card p { color: var(--text-gray); font-size: 0.85rem; line-height: 1.4; }
 
-        /* Featured First Card (PDF Maker) */
-        .card.featured {
-            grid-column: span 2;
-            background: var(--text-dark); /* #040633 */
-            color: #ffffff;
-            box-shadow: 0 10px 30px rgba(4, 6, 51, 0.2);
-        }
-
-        .card.featured p { color: rgba(255,255,255,0.7); }
-        .card.featured:hover { 
-            background: #080a45; 
-            border-color: transparent;
-            box-shadow: 0 20px 40px rgba(4, 6, 51, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .card.featured { grid-column: span 1; }
-        }
     </style>
 </head>
 <body>
@@ -142,8 +134,7 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo-link">
-            <img src="logo.png" alt="sedoc" onerror="this.style.display='none'">
-            <span class="brand-name">sedoc</span>
+            <img src="logo.png" alt="sedoc logo">
         </a>
     </header>
 
@@ -151,36 +142,50 @@
     <main>
         <div class="hero-text">
             <h1>All <span class="text-gradient">Tools.</span> One Place.</h1>
-            <p>Select a tool below to start working with your documents securely in your browser.</p>
+            <p>Select a tool below to start working with your documents securely.</p>
         </div>
 
         <div class="grid">
-            <!-- 1. PDF Maker (Main Featured Card) -->
-            <a href="pdf-maker.html" class="card featured">
-                <i class="fas fa-file-pdf"></i>
-                <h3>PDF Maker (Images to PDF)</h3>
-                <p>Instantly convert your images into a high-quality PDF document. 100% secure, processed directly on your device.</p>
+            <!-- 1. Image to PDF -->
+            <a href="image-to-pdf.html" class="card">
+                <i class="fas fa-images"></i>
+                <h3>Image to PDF</h3>
+                <p>Instantly convert JPG, PNG, and other images into a PDF.</p>
             </a>
 
-            <!-- 2. Invoice Generator -->
-            <a href="invoice.html" class="card">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <h3>Invoice Generator</h3>
-                <p>Create professional, custom-branded invoices and download them as PDFs in seconds.</p>
-            </a>
-
-            <!-- 3. Protect PDF -->
-            <a href="protect.html" class="card">
-                <i class="fas fa-user-shield"></i>
-                <h3>Protect PDF</h3>
-                <p>Add strong password encryption to secure your sensitive documents.</p>
-            </a>
-
-            <!-- 4. Word to PDF -->
-            <a href="#" class="card">
+            <!-- 2. Word to PDF -->
+            <a href="word-to-pdf.html" class="card">
                 <i class="fas fa-file-word"></i>
                 <h3>Word to PDF</h3>
-                <p>Seamlessly convert your DOC and DOCX files into universally readable PDFs.</p>
+                <p>Convert your DOC and DOCX files into universally readable PDFs.</p>
+            </a>
+
+            <!-- 3. Excel to PDF -->
+            <a href="excel-to-pdf.html" class="card">
+                <i class="fas fa-file-excel"></i>
+                <h3>Excel to PDF</h3>
+                <p>Transform spreadsheets (XLS, XLSX) into secure PDF files.</p>
+            </a>
+
+            <!-- 4. PDF to Image -->
+            <a href="pdf-to-image.html" class="card">
+                <i class="fas fa-file-image"></i>
+                <h3>PDF to Image</h3>
+                <p>Extract pages from your PDF and convert them into images.</p>
+            </a>
+
+            <!-- 5. PDF to Word -->
+            <a href="pdf-to-word.html" class="card">
+                <i class="fas fa-file-alt"></i>
+                <h3>PDF to Word</h3>
+                <p>Convert PDF documents back into fully editable Word files.</p>
+            </a>
+
+            <!-- 6. Image to Text -->
+            <a href="image-to-text.html" class="card">
+                <i class="fas fa-font"></i>
+                <h3>Image to Text</h3>
+                <p>Extract text from images seamlessly using advanced OCR.</p>
             </a>
         </div>
     </main>
