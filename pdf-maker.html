@@ -69,10 +69,9 @@
         .header-left, .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
 
-        /* Back Link */
+        /* Back Link (Now properly set in right corner) */
         .back-link {
             text-decoration: none;
             color: var(--text-gray);
@@ -81,8 +80,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: #f1f5f9;
         }
@@ -101,70 +100,6 @@
             letter-spacing: -1px;
             display: none;
         }
-
-        /* User Dropdown */
-        .user-dropdown { position: relative; }
-        
-        .dropdown-toggle {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: #cbd5e1;
-            cursor: pointer;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            padding: 0;
-        }
-        .dropdown-toggle:hover { color: #fe0097; }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 130%;
-            right: 0;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            width: 220px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 200;
-        }
-        .dropdown-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .menu-header {
-            padding: 20px 15px;
-            background: #f8fafc;
-            border-radius: 16px 16px 0 0;
-            text-align: left;
-        }
-        .menu-header strong { display: block; font-size: 1rem; color: var(--text-dark); }
-        .menu-header span { display: block; font-size: 0.8rem; color: var(--text-gray); margin-top: 3px; }
-        
-        .dropdown-menu hr { border: none; border-top: 1px solid var(--border); margin: 0; }
-        
-        .dropdown-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: background 0.2s, color 0.2s;
-        }
-        .dropdown-menu a i { font-size: 1.1rem; color: var(--text-gray); transition: color 0.2s; }
-        .dropdown-menu a:hover { background: #f1f5f9; color: #fe0097; }
-        .dropdown-menu a:hover i { color: #fe0097; }
-        .dropdown-menu a:last-child { border-radius: 0 0 16px 16px; }
 
         /* Ad Banners Layout */
         .ad-banner {
@@ -349,25 +284,9 @@
             </a>
         </div>
 
-        <!-- Right Side: Back Button & User Dropdown -->
+        <!-- Right Side: Back Button Only -->
         <div class="header-right">
             <a href="index.html" class="back-link" title="Go Back"><i class="fas fa-arrow-left"></i></a>
-            
-            <div class="user-dropdown">
-                <button class="dropdown-toggle" id="user-menu-btn">
-                    <i class="fas fa-user-circle"></i>
-                </button>
-                
-                <div class="dropdown-menu" id="user-menu">
-                    <div class="menu-header">
-                        <strong>Guest User</strong>
-                        <span>Login to save history</span>
-                    </div>
-                    <hr>
-                    <a href="#"><i class="fas fa-id-badge"></i> User Information</a>
-                    <a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -461,24 +380,10 @@
         const downloadState = document.getElementById('modal-download-state');
         const finalDownloadBtn = document.getElementById('final-download-btn');
         const closeModalBtn = document.getElementById('close-modal-btn');
-        
-        const userMenuBtn = document.getElementById('user-menu-btn');
-        const userMenu = document.getElementById('user-menu');
 
         let selectedFiles = [];
         let generatedPdfObject = null;
         let downloadTimer = null; 
-
-        userMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userMenu.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!userMenu.contains(e.target) && e.target !== userMenuBtn) {
-                userMenu.classList.remove('active');
-            }
-        });
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, preventDefaults, false);
