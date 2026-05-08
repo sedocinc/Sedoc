@@ -1,1 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Maker - sedoc</title>
+    <!-- Premium Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* Locked sedoc Theme Variables */
+        :root {
+            --text-dark: #040633;
+            --text-gray: #4b5563;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --card-bg: #ffffff;
+            --border: rgba(4, 6, 51, 0.08);
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: #f9fafb;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* The Locked Background Orb */
+        .gradient-orb {
+            position: fixed;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            height: 600px;
+            background: var(--brand-gradient);
+            filter: blur(150px);
+            opacity: 0.12;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Minimal Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-link img { height: 32px; width: auto; }
+        .brand-name { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.03em; }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--text-dark); }
+
+        /* Workspace Area */
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 20px;
+        }
+
+        .workspace {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .workspace h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.03em; }
+        .workspace p { color: var(--text-gray); margin-bottom: 30px; }
+
+        /* Drag & Drop Zone */
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 50px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8fafc;
+            margin-bottom: 24px;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #a302ff;
+            background: rgba(163, 2, 255, 0.03);
+        }
+
+        .drop-zone i { font-size: 3rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+        .drop-zone h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; }
+        .drop-zone p { font-size: 0.9rem; color: #94a3b8; margin: 0; }
+
+        /* Image Preview Grid */
+        .preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Action Buttons */
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-primary { background: var(--brand-gradient); color: white; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.2); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        .btn-secondary { background: #f1f5f9; color: var(--text-dark); }
+        .btn-secondary:hover { background: #e2e8f0; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-orb"></div>
+
+    <header>
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="sedoc" onerror="this.style.display='none'">
+            <span class="brand-name">sedoc</span>
+        </a>
+        <a href="index.html" class="back-link">&larr; Back to Dashboard</a>
+    </header>
+
+    <main>
+        <div class="workspace">
+            <h1>Images to PDF</h1>
+            <p>Convert JPG, PNG, or JPEG images to a single PDF document instantly.</p>
+
+            <!-- Upload Area -->
+            <div class="drop-zone" id="drop-zone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Click to upload or drag & drop</h3>
+                <p>Supports JPG, PNG (Max 20 images)</p>
+                <input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg" class="hidden">
+            </div>
+
+            <!-- Preview Area -->
+            <div id="preview-section" class="hidden">
+                <h4 style="text-align: left; margin-bottom: 15px; color: var(--text-dark);">Selected Images:</h4>
+                <div class="preview-container" id="preview-grid"></div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" id="clear-btn">Clear All</button>
+                    <button class="btn btn-primary" id="generate-btn">
+                        <i class="fas fa-file-pdf"></i> Generate PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewSection = document.getElementById('preview-section');
+        const previewGrid = document.getElementById('preview-grid');
+        const clearBtn = document.getElementById('clear-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        
+        let selectedFiles = [];
+
+        // Drag & Drop Events
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            if (newFiles.length === 0) return;
+
+            selectedFiles = [...selectedFiles, ...newFiles];
+            updatePreview();
+        }
+
+        function updatePreview() {
+            previewGrid.innerHTML = '';
+            if (selectedFiles.length > 0) {
+                previewSection.classList.remove('hidden');
+                dropZone.style.display = 'none';
+            } else {
+                previewSection.classList.add('hidden');
+                dropZone.style.display = 'block';
+            }
+
+            selectedFiles.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `<img src="${e.target.result}" alt="preview">`;
+                    previewGrid.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        clearBtn.addEventListener('click', () => {
+            selectedFiles = [];
+            fileInput.value = '';
+            updatePreview();
+        });
+
+        // PDF Generation Logic
+        generateBtn.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+
+            const originalText = generateBtn.innerHTML;
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            generateBtn.disabled = true;
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const base64Data = await readFileAsBase64(file);
+                
+                // Add new page for subsequent images
+                if (i > 0) pdf.addPage();
+
+                // Wait for image to load to get dimensions
+                const img = await loadImage(base64Data);
+                
+                // Calculate aspect ratio to fit image within A4 page
+                const imgRatio = img.width / img.height;
+                const pageRatio = pdfWidth / pdfHeight;
+                
+                let renderWidth = pdfWidth;
+                let renderHeight = pdfWidth / imgRatio;
+
+                if (renderHeight > pdfHeight) {
+                    renderHeight = pdfHeight;
+                    renderWidth = pdfHeight * imgRatio;
+                }
+
+                // Center the image
+                const x = (pdfWidth - renderWidth) / 2;
+                const y = (pdfHeight - renderHeight) / 2;
+
+                pdf.addImage(base64Data, getFileType(file), x, y, renderWidth, renderHeight);
+            }
+
+            pdf.save('sedoc_document.pdf');
+            
+            generateBtn.innerHTML = originalText;
+            generateBtn.disabled = false;
+        });
+
+        function readFileAsBase64(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function loadImage(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.src = src;
+            });
+        }
+
+        function getFileType(file) {
+            return file.type === 'image/png' ? 'PNG' : 'JPEG';
+        }
+    </script>
+</body>
+</html>
