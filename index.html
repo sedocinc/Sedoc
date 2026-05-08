@@ -27,6 +27,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column; /* Added to keep footer at bottom */
         }
 
         /* The Locked Background Orb */
@@ -77,6 +79,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 5%; /* Reduced top padding */
+            flex-grow: 1; /* Pushes footer to the bottom */
+            width: 100%;
         }
 
         .hero-text { text-align: center; margin-bottom: 40px; } /* Reduced margin for fit view */
@@ -123,6 +127,17 @@
 
         .card h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
         .card p { color: var(--text-gray); font-size: 0.85rem; line-height: 1.4; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
 
     </style>
 </head>
@@ -189,6 +204,11 @@
             </a>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 sedoc. All Rights Reserved.
+    </footer>
 
 </body>
 </html>
