@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
+    <!-- Libraries for API-Less Word to PDF Conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         /* Theme Variables */
         :root {
@@ -23,13 +27,13 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-        /* FIT VIEW SETTINGS: Locked Body */
+        /* FIT VIEW SETTINGS */
         body {
             background-color: #f9fafb;
             color: var(--text-dark);
-            height: 100vh;
+            height: 100vh; 
             width: 100vw;
-            overflow: hidden;
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
             position: relative;
@@ -37,159 +41,78 @@
 
         /* Background Orb */
         .gradient-orb {
-            position: fixed;
-            top: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90vw;
-            height: 600px;
-            background: var(--brand-gradient);
-            filter: blur(150px);
-            opacity: 0.12;
-            z-index: -1;
-            pointer-events: none;
+            position: fixed; top: -10%; left: 50%; transform: translateX(-50%);
+            width: 90vw; height: 600px; background: var(--brand-gradient);
+            filter: blur(150px); opacity: 0.12; z-index: -1; pointer-events: none;
         }
 
-        /* Header Layout */
+        /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-            z-index: 100;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 15px 5%; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 1px solid var(--border);
+            flex-shrink: 0; z-index: 100;
         }
 
-        .header-left, .header-right {
-            display: flex;
-            align-items: center;
-        }
+        .header-left, .header-right { display: flex; align-items: center; }
 
         /* Back Link */
         .back-link {
-            text-decoration: none;
-            color: var(--text-gray);
-            font-size: 1.2rem;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #f1f5f9;
+            text-decoration: none; color: var(--text-gray); font-size: 1.2rem;
+            transition: all 0.2s; display: flex; align-items: center;
+            justify-content: center; width: 42px; height: 42px;
+            border-radius: 50%; background: #f1f5f9;
         }
         .back-link:hover { color: var(--text-dark); background: #e2e8f0; transform: translateX(-3px); }
 
-        /* Logo */
         .logo-link { display: flex; align-items: center; text-decoration: none; }
         .logo-link img { height: 40px; width: auto; display: block; }
-        
-        .text-logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-            display: none;
-        }
 
         /* Ad Banners Layout */
         .ad-banner {
-            background-color: var(--ad-bg);
-            border: 2px dashed #cbd5e1;
-            color: #94a3b8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-align: center;
-            flex-shrink: 0;
+            background-color: var(--ad-bg); border: 2px dashed #cbd5e1; color: #94a3b8;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 600; font-size: 0.9rem; text-align: center; flex-shrink: 0;
         }
         .ad-banner-horizontal {
-            width: 100%;
-            max-width: 900px;
-            height: 90px;
-            margin: 10px auto;
-            border-radius: 8px;
+            width: 100%; max-width: 900px; height: 90px; margin: 10px auto; border-radius: 8px;
         }
 
         /* Workspace Area */
         main {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            width: 100%;
-            overflow-y: auto;
+            flex-grow: 1; display: flex; justify-content: center; align-items: center;
+            padding: 15px; width: 100%; overflow-y: auto;
         }
-
         main::-webkit-scrollbar { width: 6px; }
         main::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
         .workspace {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 30px 40px;
-            width: 100%;
-            max-width: 800px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-            text-align: center;
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px;
+            padding: 30px 40px; width: 100%; max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04); text-align: center;
         }
-
         .workspace h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.03em; }
         .workspace p { color: var(--text-gray); margin-bottom: 25px; font-size: 0.95rem; }
 
         /* Drag & Drop Zone */
         .drop-zone {
-            border: 2px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 40px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #f8fafc;
-            margin-bottom: 20px;
+            border: 2px dashed #cbd5e1; border-radius: 16px; padding: 40px 20px;
+            cursor: pointer; transition: all 0.3s; background: #f8fafc; margin-bottom: 20px;
         }
-        .drop-zone:hover, .drop-zone.dragover { border-color: #a302ff; background: rgba(163, 2, 255, 0.03); }
-        .drop-zone i { 
-            font-size: 2.5rem; 
-            color: #2b579a; /* Word Blue Color */
-            margin-bottom: 10px; 
-        }
+        .drop-zone:hover, .drop-zone.dragover { border-color: #2b579a; background: rgba(43, 87, 154, 0.05); }
+        .drop-zone i { font-size: 2.5rem; color: #2b579a; margin-bottom: 10px; }
         .drop-zone h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
         .drop-zone p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
 
-        /* Document Preview List (Updated for Docs instead of Images) */
+        /* Preview Item */
         .preview-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-            text-align: left;
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 5px;
+            display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+            text-align: left; max-height: 200px; overflow-y: auto; padding-right: 5px;
         }
-        
-        .preview-container::-webkit-scrollbar { width: 6px; }
-        .preview-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
         .preview-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f8fafc;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px; background: #f8fafc;
+            padding: 12px 15px; border-radius: 8px; border: 1px solid var(--border);
         }
         .preview-item i { font-size: 1.5rem; color: #2b579a; }
         .preview-item span { font-size: 0.9rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-grow: 1; }
@@ -197,22 +120,13 @@
         /* Action Buttons */
         .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
         .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            padding: 12px 24px; border: none; border-radius: 12px; font-size: 0.95rem;
+            font-weight: 600; cursor: pointer; transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-primary { background: var(--brand-gradient); color: white; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.2); }
         .btn-primary:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(254, 0, 151, 0.3); }
         .btn-primary:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; opacity: 0.8; }
-        
         .btn-secondary { background: #f1f5f9; color: var(--text-dark); border: 1px solid #e2e8f0; }
         .btn-secondary:hover { background: #e2e8f0; }
 
@@ -220,10 +134,8 @@
 
         /* Modal Styles */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(4, 6, 51, 0.6);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(4, 6, 51, 0.6);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
             display: flex; justify-content: center; align-items: center;
             z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
@@ -231,8 +143,7 @@
         .modal-box {
             background: var(--card-bg); border-radius: 24px; padding: 40px;
             width: 90%; max-width: 450px; text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            transform: translateY(20px); transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); transform: translateY(20px); transition: transform 0.3s ease;
         }
         .modal-overlay.active .modal-box { transform: translateY(0); }
         .modal-box h3 { margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark); }
@@ -250,20 +161,20 @@
         }
 
         .modal-ad-space {
-            width: 100%; height: 90px; background: var(--ad-bg);
-            border: 1px dashed #cbd5e1; margin-bottom: 20px;
-            display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 90px; background: var(--ad-bg); border: 1px dashed #cbd5e1;
+            margin-bottom: 20px; display: flex; justify-content: center; align-items: center;
             color: #94a3b8; font-size: 0.85rem; border-radius: 8px;
         }
 
         .full-width { width: 100%; }
         .mt-3 { margin-top: 15px; }
 
-        /* Footer */
+        /* Hidden Div for PDF generation */
+        #pdf-content-container { display: none; }
+
         footer {
             text-align: center; padding: 15px; border-top: 1px solid var(--border);
-            color: var(--text-gray); font-size: 0.85rem; background: white;
-            flex-shrink: 0;
+            color: var(--text-gray); font-size: 0.85rem; background: white; flex-shrink: 0;
         }
     </style>
 </head>
@@ -279,13 +190,11 @@
                 <span id="fallback-logo" class="text-logo">sedoc</span>
             </a>
         </div>
-
         <div class="header-right">
             <a href="index.html" class="back-link" title="Go Back"><i class="fas fa-arrow-left"></i></a>
         </div>
     </header>
 
-    <!-- Top Ad Banner -->
     <div class="ad-banner ad-banner-horizontal">
         Google Adsense Code Here (Top Banner 728x90)
     </div>
@@ -294,20 +203,18 @@
     <main>
         <div class="workspace">
             <h1>Word to PDF</h1>
-            <p>Securely convert your DOC and DOCX files to a PDF document. Fast and reliable processing.</p>
+            <p>Convert your DOCX files to PDF instantly in your browser without any server uploads.</p>
 
             <div class="drop-zone" id="drop-zone">
                 <i class="fas fa-file-word"></i>
                 <h3>Click to upload or drag & drop</h3>
-                <p>Supports DOC, DOCX</p>
-                <!-- Accepted File types modified for Word documents -->
-                <input type="file" id="file-input" accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
+                <p>Supports .docx files</p>
+                <input type="file" id="file-input" accept=".docx" class="hidden">
             </div>
 
             <div id="preview-section" class="hidden">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h4 style="color: var(--text-dark); margin: 0;">Selected File:</h4>
-                    <span id="file-count" style="font-size: 0.85rem; color: var(--text-gray); font-weight: 600;">0 files</span>
                 </div>
                 
                 <div class="preview-container" id="preview-grid"></div>
@@ -322,12 +229,10 @@
         </div>
     </main>
 
-    <!-- Bottom Ad Banner -->
     <div class="ad-banner ad-banner-horizontal">
         Google Adsense Code Here (Bottom Banner 728x90)
     </div>
 
-    <!-- Footer -->
     <footer>
         &copy; 2026 sedoc. All Rights Reserved.
     </footer>
@@ -338,8 +243,8 @@
             
             <div id="modal-processing-state">
                 <div class="spinner"></div>
-                <h3>Uploading & Processing...</h3>
-                <p>Please wait while we convert your Word file to PDF.</p>
+                <h3>Extracting Document...</h3>
+                <p>Please wait while we render your Word file into PDF format.</p>
             </div>
 
             <div id="modal-download-state" class="hidden">
@@ -351,6 +256,7 @@
                     Adsense Ad Inside Modal
                 </div>
                 
+                <!-- Notice the ID change to final-download-btn -->
                 <button class="btn btn-primary full-width" id="final-download-btn" disabled>
                     <i class="fas fa-spinner fa-spin"></i> Please wait 10s...
                 </button>
@@ -362,6 +268,9 @@
         </div>
     </div>
 
+    <!-- Hidden container to hold converted Word HTML -->
+    <div id="pdf-content-container"></div>
+
     <script>
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
@@ -369,30 +278,29 @@
         const previewGrid = document.getElementById('preview-grid');
         const clearBtn = document.getElementById('clear-btn');
         const generateBtn = document.getElementById('generate-btn');
-        const fileCountTxt = document.getElementById('file-count');
         
         const processModal = document.getElementById('process-modal');
         const processingState = document.getElementById('modal-processing-state');
         const downloadState = document.getElementById('modal-download-state');
         const finalDownloadBtn = document.getElementById('final-download-btn');
         const closeModalBtn = document.getElementById('close-modal-btn');
+        const pdfContentContainer = document.getElementById('pdf-content-container');
 
-        let selectedFiles = [];
+        let selectedFile = null;
+        let generatedPdfBlob = null;
         let downloadTimer = null; 
 
-        // Drag & Drop Handlers
+        // Drag & Drop
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false);
+            dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); });
+            document.body.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); });
         });
-
-        function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
 
         ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'));
         });
         ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'));
         });
 
         dropZone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
@@ -400,104 +308,133 @@
         fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
         function handleFiles(files) {
-            // Filter only Word documents
-            const newFiles = Array.from(files).filter(file => 
-                file.name.match(/\.(doc|docx)$/i) || 
-                file.type === "application/msword" || 
-                file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            );
+            if (files.length === 0) return;
+            const file = files[0];
             
-            if (newFiles.length === 0) {
-                return alert("Please select a valid Word file (.doc or .docx).");
+            // Only accept .docx
+            if (!file.name.match(/\.docx$/i)) {
+                return alert("Browser conversion only supports .docx files. Please select a valid DOCX file.");
             }
             
-            // For Word to PDF, usually we process one file at a time, but keeping array for flexibility
-            selectedFiles = [...selectedFiles, ...newFiles];
+            selectedFile = file;
             updatePreview();
         }
 
         function updatePreview() {
             previewGrid.innerHTML = '';
-            fileCountTxt.innerText = `${selectedFiles.length} file(s)`;
 
-            if (selectedFiles.length > 0) {
+            if (selectedFile) {
                 previewSection.classList.remove('hidden');
                 dropZone.style.display = 'none';
-            } else {
-                previewSection.classList.add('hidden');
-                dropZone.style.display = 'block';
-            }
-
-            // Create file list items instead of image thumbnails
-            selectedFiles.forEach((file) => {
+                
                 const div = document.createElement('div');
                 div.className = 'preview-item';
                 div.innerHTML = `
                     <i class="fas fa-file-word"></i>
-                    <span>${file.name}</span>
+                    <span>${selectedFile.name}</span>
                 `;
                 previewGrid.appendChild(div);
-            });
+            } else {
+                previewSection.classList.add('hidden');
+                dropZone.style.display = 'block';
+            }
         }
 
         clearBtn.addEventListener('click', () => {
-            selectedFiles = []; fileInput.value = ''; updatePreview();
+            selectedFile = null; fileInput.value = ''; updatePreview();
         });
 
-        // Convert Button Click
+        // Convert Button logic (Mammoth + HTML2PDF)
         generateBtn.addEventListener('click', () => {
-            if (selectedFiles.length === 0) return;
+            if (!selectedFile) return;
 
             processingState.classList.remove('hidden');
             downloadState.classList.add('hidden');
             processModal.classList.add('active');
 
-            // SIMULATED API CALL: 
-            // Here you will send 'selectedFiles' to your backend via fetch/axios
-            // For template purposes, we simulate a 3-second processing delay.
-            setTimeout(() => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
                 
-                // Show Download State
-                processingState.classList.add('hidden');
-                downloadState.classList.remove('hidden');
-                
-                let timeLeft = 10;
-                finalDownloadBtn.disabled = true;
-                finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
-                
-                if(downloadTimer) clearInterval(downloadTimer);
+                // Step 1: Convert Word to HTML using Mammoth
+                mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+                    .then(function(result) {
+                        const htmlContent = result.value;
+                        
+                        // Put HTML inside our hidden container, wrap with some styling for PDF padding
+                        pdfContentContainer.innerHTML = `
+                            <div style="padding: 40px; font-family: sans-serif; color: #000; font-size: 14px; line-height: 1.6;">
+                                ${htmlContent}
+                            </div>
+                        `;
 
-                // Start 10-second Ad Timer
-                downloadTimer = setInterval(() => {
-                    timeLeft--;
-                    finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
-                    
-                    if (timeLeft <= 0) {
-                        clearInterval(downloadTimer);
-                        finalDownloadBtn.disabled = false;
-                        finalDownloadBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Download PDF`;
-                    }
-                }, 1000);
+                        // Step 2: Convert HTML to PDF using html2pdf
+                        const opt = {
+                            margin:       10,
+                            filename:     selectedFile.name.replace('.docx', '.pdf'),
+                            image:        { type: 'jpeg', quality: 0.98 },
+                            html2canvas:  { scale: 2 },
+                            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                        };
 
-            }, 3000); // 3 seconds simulation
+                        // Use outputPdf to keep it in browser memory, not download automatically yet
+                        html2pdf().set(opt).from(pdfContentContainer).outputPdf('blob').then((pdfBlob) => {
+                            generatedPdfBlob = pdfBlob;
+                            
+                            // Move to Download State
+                            processingState.classList.add('hidden');
+                            downloadState.classList.remove('hidden');
+                            
+                            let timeLeft = 10;
+                            finalDownloadBtn.disabled = true;
+                            finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
+                            
+                            if(downloadTimer) clearInterval(downloadTimer);
+
+                            downloadTimer = setInterval(() => {
+                                timeLeft--;
+                                finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
+                                
+                                if (timeLeft <= 0) {
+                                    clearInterval(downloadTimer);
+                                    finalDownloadBtn.disabled = false;
+                                    finalDownloadBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Download PDF`;
+                                }
+                            }, 1000);
+                        });
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                        alert("Error reading the Word Document. Make sure it's a valid .docx file.");
+                        processModal.classList.remove('active');
+                    });
+            };
+            
+            reader.readAsArrayBuffer(selectedFile);
         });
 
-        // Final Download Button
+        // Final Download Click
         finalDownloadBtn.addEventListener('click', () => {
-            if (!finalDownloadBtn.disabled) {
+            if (generatedPdfBlob && !finalDownloadBtn.disabled) {
                 
-                // TRIGGER ACTUAL DOWNLOAD HERE
-                // Example: window.location.href = 'your_backend_download_url';
-                alert("This is a Frontend Template.\n\nIntegrate your backend API logic here to download the processed PDF file.");
+                // Create a temporary link to download the Blob
+                const url = window.URL.createObjectURL(generatedPdfBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = selectedFile.name.replace('.docx', '.pdf');
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
                 
                 setTimeout(() => {
                     processModal.classList.remove('active');
-                    selectedFiles = []; fileInput.value = ''; updatePreview();
+                    selectedFile = null; fileInput.value = ''; updatePreview();
                 }, 1000);
             }
         });
 
-        // Close Modal
         closeModalBtn.addEventListener('click', () => {
             if(downloadTimer) clearInterval(downloadTimer); 
             processModal.classList.remove('active');
