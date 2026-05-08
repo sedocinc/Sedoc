@@ -49,7 +49,7 @@
             pointer-events: none;
         }
 
-        /* Minimal Header */
+        /* Minimal Header (As requested) */
         header {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
@@ -165,6 +165,7 @@
             transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
 
@@ -180,12 +181,81 @@
         .btn-secondary:hover { background: #e2e8f0; }
 
         .hidden { display: none !important; }
+
+        /* --- NEW MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(4, 6, 51, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-box h3 { margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark); }
+        .modal-box p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; }
+
+        /* Spinner Animation */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f1f5f9;
+            border-top: 5px solid #fe0097;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Icon */
+        .success-icon {
+            font-size: 60px;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .full-width { width: 100%; }
+        .mt-3 { margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="gradient-orb"></div>
 
+    <!-- Header exactly as requested -->
     <header>
         <a href="index.html" class="logo-link">
             <img src="logo.png" alt="sedoc logo" onerror="this.style.display='none'">
@@ -217,13 +287,42 @@
                 
                 <div class="btn-group">
                     <button class="btn btn-secondary" id="clear-btn"><i class="fas fa-trash"></i> Clear All</button>
+                    <!-- Changed text to "Generate PDF" -->
                     <button class="btn btn-primary" id="generate-btn">
-                        <i class="fas fa-file-pdf"></i> Download PDF
+                        <i class="fas fa-cogs"></i> Generate PDF
                     </button>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- NEW: Processing & Download Modal -->
+    <div class="modal-overlay" id="process-modal">
+        <div class="modal-box">
+            
+            <!-- Step 1: Processing Animation -->
+            <div id="modal-processing-state">
+                <div class="spinner"></div>
+                <h3>Processing...</h3>
+                <p>Please wait, converting images to PDF format.</p>
+            </div>
+
+            <!-- Step 2: Download Option -->
+            <div id="modal-download-state" class="hidden">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>Successfully Converted!</h3>
+                <p>Your PDF file is ready to be downloaded.</p>
+                
+                <button class="btn btn-primary full-width" id="final-download-btn">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </button>
+                <button class="btn btn-secondary full-width mt-3" id="close-modal-btn">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
 
     <script>
         const dropZone = document.getElementById('drop-zone');
@@ -234,7 +333,15 @@
         const generateBtn = document.getElementById('generate-btn');
         const fileCountTxt = document.getElementById('file-count');
         
+        // Modal Elements
+        const processModal = document.getElementById('process-modal');
+        const processingState = document.getElementById('modal-processing-state');
+        const downloadState = document.getElementById('modal-download-state');
+        const finalDownloadBtn = document.getElementById('final-download-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        
         let selectedFiles = [];
+        let generatedPdfObject = null; // Store PDF globally so we can download it later
 
         // Drag & Drop Events
         dropZone.addEventListener('click', () => fileInput.click());
@@ -292,60 +399,81 @@
             updatePreview();
         });
 
-        // PDF Generation Logic using jsPDF
-        generateBtn.addEventListener('click', async () => {
+        // PDF Generation Trigger
+        generateBtn.addEventListener('click', () => {
             if (selectedFiles.length === 0) return;
 
-            const originalText = generateBtn.innerHTML;
-            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            generateBtn.disabled = true;
+            // 1. Show Modal in Processing State
+            processingState.classList.remove('hidden');
+            downloadState.classList.add('hidden');
+            processModal.classList.add('active');
 
-            try {
-                const { jsPDF } = window.jspdf;
-                // Create A4 PDF (portrait, millimeters)
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
+            // 2. Wait 1 Second for animation, then process PDF
+            setTimeout(async () => {
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
 
-                for (let i = 0; i < selectedFiles.length; i++) {
-                    const file = selectedFiles[i];
-                    const base64Data = await readFileAsBase64(file);
-                    
-                    // Add new page for images after the first one
-                    if (i > 0) pdf.addPage();
+                    for (let i = 0; i < selectedFiles.length; i++) {
+                        const file = selectedFiles[i];
+                        const base64Data = await readFileAsBase64(file);
+                        
+                        if (i > 0) pdf.addPage();
 
-                    // Load image to get its original dimensions
-                    const img = await loadImage(base64Data);
-                    
-                    // Calculate aspect ratio to fit the image properly within A4 dimensions
-                    const imgRatio = img.width / img.height;
-                    
-                    let renderWidth = pdfWidth;
-                    let renderHeight = pdfWidth / imgRatio;
+                        const img = await loadImage(base64Data);
+                        const imgRatio = img.width / img.height;
+                        
+                        let renderWidth = pdfWidth;
+                        let renderHeight = pdfWidth / imgRatio;
 
-                    // If height is greater than A4 height, scale by height instead
-                    if (renderHeight > pdfHeight) {
-                        renderHeight = pdfHeight;
-                        renderWidth = pdfHeight * imgRatio;
+                        if (renderHeight > pdfHeight) {
+                            renderHeight = pdfHeight;
+                            renderWidth = pdfHeight * imgRatio;
+                        }
+
+                        const x = (pdfWidth - renderWidth) / 2;
+                        const y = (pdfHeight - renderHeight) / 2;
+
+                        pdf.addImage(base64Data, getFileType(file), x, y, renderWidth, renderHeight);
                     }
 
-                    // Center the image on the page
-                    const x = (pdfWidth - renderWidth) / 2;
-                    const y = (pdfHeight - renderHeight) / 2;
+                    // Save PDF object in memory
+                    generatedPdfObject = pdf;
 
-                    pdf.addImage(base64Data, getFileType(file), x, y, renderWidth, renderHeight);
+                    // 3. Switch Modal to Download State
+                    processingState.classList.add('hidden');
+                    downloadState.classList.remove('hidden');
+
+                } catch (error) {
+                    alert("An error occurred while generating the PDF.");
+                    console.error(error);
+                    processModal.classList.remove('active'); // Close modal on error
                 }
+            }, 1000); // 1000ms = 1 Second delay
+        });
 
-                pdf.save('sedoc_converted.pdf');
-            } catch (error) {
-                alert("An error occurred while generating the PDF.");
-                console.error(error);
-            } finally {
-                generateBtn.innerHTML = originalText;
-                generateBtn.disabled = false;
+        // Final Download Button Action (Inside Modal)
+        finalDownloadBtn.addEventListener('click', () => {
+            if (generatedPdfObject) {
+                generatedPdfObject.save('sedoc_converted.pdf');
+                
+                // Optional: Close modal and reset after downloading
+                setTimeout(() => {
+                    processModal.classList.remove('active');
+                    selectedFiles = [];
+                    updatePreview();
+                }, 1000);
             }
         });
 
+        // Close Modal Button Action
+        closeModalBtn.addEventListener('click', () => {
+            processModal.classList.remove('active');
+        });
+
+        // Helper Functions
         function readFileAsBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
