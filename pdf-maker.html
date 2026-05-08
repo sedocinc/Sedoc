@@ -65,6 +65,8 @@
         }
 
         .logo-link { display: flex; align-items: center; text-decoration: none; }
+        
+        /* Set max-height for Logo */
         .logo-link img { height: 40px; width: auto; display: block; }
         
         /* Fallback Text Logo */
@@ -268,9 +270,9 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo-link">
-            <!-- Yeh image aapki Logo.png file ko call kar rahi hai -->
-            <img src="logo.png" alt="sedoc logo" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-            <!-- Agar image nahi mili toh yeh khubsurat text show hoga -->
+            <!-- Updated src to exact "Logo.png" to fix casing issues -->
+            <img src="Logo.png" alt="sedoc logo" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+            <!-- Agar image nahi mili toh yeh text show hoga -->
             <span id="fallback-logo" class="text-logo">sedoc</span>
         </a>
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
