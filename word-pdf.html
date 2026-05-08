@@ -169,8 +169,14 @@
         .full-width { width: 100%; }
         .mt-3 { margin-top: 15px; }
 
-        /* Hidden Div for PDF generation */
-        #pdf-content-container { display: none; }
+        /* BUG FIX: Do NOT use display: none. Use off-screen positioning so library can read it */
+        #pdf-content-container { 
+            position: absolute; 
+            left: -9999px; 
+            top: 0; 
+            width: 800px; 
+            background: #ffffff; 
+        }
 
         footer {
             text-align: center; padding: 15px; border-top: 1px solid var(--border);
@@ -182,7 +188,6 @@
 
     <div class="gradient-orb"></div>
 
-    <!-- Header -->
     <header>
         <div class="header-left">
             <a href="index.html" class="logo-link">
@@ -199,7 +204,6 @@
         Google Adsense Code Here (Top Banner 728x90)
     </div>
 
-    <!-- Main Workspace -->
     <main>
         <div class="workspace">
             <h1>Word to PDF</h1>
@@ -256,7 +260,6 @@
                     Adsense Ad Inside Modal
                 </div>
                 
-                <!-- Notice the ID change to final-download-btn -->
                 <button class="btn btn-primary full-width" id="final-download-btn" disabled>
                     <i class="fas fa-spinner fa-spin"></i> Please wait 10s...
                 </button>
@@ -287,7 +290,7 @@
         const pdfContentContainer = document.getElementById('pdf-content-container');
 
         let selectedFile = null;
-        let generatedPdfBlob = null;
+        let pdfWorker = null; // Changed to hold the library worker
         let downloadTimer = null; 
 
         // Drag & Drop
@@ -313,7 +316,7 @@
             
             // Only accept .docx
             if (!file.name.match(/\.docx$/i)) {
-                return alert("Browser conversion only supports .docx files. Please select a valid DOCX file.");
+                return alert("Please select a valid .docx file.");
             }
             
             selectedFile = file;
@@ -344,7 +347,7 @@
             selectedFile = null; fileInput.value = ''; updatePreview();
         });
 
-        // Convert Button logic (Mammoth + HTML2PDF)
+        // Convert Button logic
         generateBtn.addEventListener('click', () => {
             if (!selectedFile) return;
 
@@ -359,29 +362,31 @@
                 // Step 1: Convert Word to HTML using Mammoth
                 mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
                     .then(function(result) {
-                        const htmlContent = result.value;
                         
-                        // Put HTML inside our hidden container, wrap with some styling for PDF padding
+                        // Default fallback if file is empty
+                        let htmlContent = result.value || "<p>No readable text found in document.</p>";
+                        
+                        // Inject into our off-screen container
                         pdfContentContainer.innerHTML = `
-                            <div style="padding: 40px; font-family: sans-serif; color: #000; font-size: 14px; line-height: 1.6;">
+                            <div style="padding: 40px; font-family: 'Inter', sans-serif; color: #000; font-size: 14px; line-height: 1.6; background: #fff;">
                                 ${htmlContent}
                             </div>
                         `;
 
-                        // Step 2: Convert HTML to PDF using html2pdf
+                        // Step 2: Prepare html2pdf options
                         const opt = {
                             margin:       10,
-                            filename:     selectedFile.name.replace('.docx', '.pdf'),
+                            filename:     selectedFile.name.replace(/\.docx$/i, '.pdf'),
                             image:        { type: 'jpeg', quality: 0.98 },
-                            html2canvas:  { scale: 2 },
+                            html2canvas:  { scale: 2, useCORS: true, logging: false },
                             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                         };
 
-                        // Use outputPdf to keep it in browser memory, not download automatically yet
-                        html2pdf().set(opt).from(pdfContentContainer).outputPdf('blob').then((pdfBlob) => {
-                            generatedPdfBlob = pdfBlob;
-                            
-                            // Move to Download State
+                        // Step 3: Run the conversion and hold the worker
+                        pdfWorker = html2pdf().set(opt).from(pdfContentContainer).toPdf();
+                        
+                        // When PDF is successfully generated in memory
+                        pdfWorker.then(() => {
                             processingState.classList.add('hidden');
                             downloadState.classList.remove('hidden');
                             
@@ -401,6 +406,10 @@
                                     finalDownloadBtn.innerHTML = `<i class="fas fa-file-pdf"></i> Download PDF`;
                                 }
                             }, 1000);
+                        }).catch(err => {
+                            console.error(err);
+                            alert("Sorry, an error occurred during PDF rendering.");
+                            processModal.classList.remove('active');
                         });
 
                     })
@@ -416,22 +425,15 @@
 
         // Final Download Click
         finalDownloadBtn.addEventListener('click', () => {
-            if (generatedPdfBlob && !finalDownloadBtn.disabled) {
+            if (pdfWorker && !finalDownloadBtn.disabled) {
                 
-                // Create a temporary link to download the Blob
-                const url = window.URL.createObjectURL(generatedPdfBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = selectedFile.name.replace('.docx', '.pdf');
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-                
-                setTimeout(() => {
-                    processModal.classList.remove('active');
-                    selectedFile = null; fileInput.value = ''; updatePreview();
-                }, 1000);
+                // Directly trigger the download from the worker
+                pdfWorker.save().then(() => {
+                    setTimeout(() => {
+                        processModal.classList.remove('active');
+                        selectedFile = null; fileInput.value = ''; updatePreview();
+                    }, 1000);
+                });
             }
         });
 
