@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-        /* Locked sedoc Theme Variables */
+        /* Theme Variables */
         :root {
             --text-dark: #040633;
             --text-gray: #4b5563;
@@ -34,7 +34,7 @@
             position: relative;
         }
 
-        /* The Locked Background Orb */
+        /* Background Orb */
         .gradient-orb {
             position: fixed;
             top: -10%;
@@ -49,7 +49,7 @@
             pointer-events: none;
         }
 
-        /* Minimal Header (As requested) */
+        /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
@@ -66,6 +66,17 @@
 
         .logo-link { display: flex; align-items: center; text-decoration: none; }
         .logo-link img { height: 40px; width: auto; display: block; }
+        
+        /* Fallback Text Logo */
+        .text-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            display: none; /* Hidden by default, shows if img fails */
+        }
 
         .back-link {
             text-decoration: none;
@@ -175,14 +186,13 @@
             box-shadow: 0 4px 15px rgba(254, 0, 151, 0.2); 
         }
         .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(254, 0, 151, 0.3); }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
         .btn-secondary { background: #f1f5f9; color: var(--text-dark); border: 1px solid #e2e8f0; }
         .btn-secondary:hover { background: #e2e8f0; }
 
         .hidden { display: none !important; }
 
-        /* --- NEW MODAL STYLES --- */
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -255,10 +265,13 @@
 
     <div class="gradient-orb"></div>
 
-    <!-- Header exactly as requested -->
+    <!-- Header -->
     <header>
         <a href="index.html" class="logo-link">
-            <img src="logo.png" alt="sedoc logo" onerror="this.style.display='none'">
+            <!-- Yeh image aapki logo.png file ko call kar rahi hai -->
+            <img src="logo.png" alt="sedoc logo" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+            <!-- Agar image nahi mili toh yeh khubsurat text show hoga -->
+            <span id="fallback-logo" class="text-logo">sedoc</span>
         </a>
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
     </header>
@@ -272,7 +285,7 @@
             <div class="drop-zone" id="drop-zone">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <h3>Click to upload or drag & drop</h3>
-                <p>Supports JPG, PNG (Max 20 images recommended)</p>
+                <p>Supports JPG, PNG</p>
                 <input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg" class="hidden">
             </div>
 
@@ -287,7 +300,6 @@
                 
                 <div class="btn-group">
                     <button class="btn btn-secondary" id="clear-btn"><i class="fas fa-trash"></i> Clear All</button>
-                    <!-- Changed text to "Generate PDF" -->
                     <button class="btn btn-primary" id="generate-btn">
                         <i class="fas fa-cogs"></i> Generate PDF
                     </button>
@@ -296,7 +308,7 @@
         </div>
     </main>
 
-    <!-- NEW: Processing & Download Modal -->
+    <!-- Processing & Download Modal -->
     <div class="modal-overlay" id="process-modal">
         <div class="modal-box">
             
@@ -325,6 +337,7 @@
     </div>
 
     <script>
+        // DOM Elements
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
         const previewSection = document.getElementById('preview-section');
@@ -333,7 +346,6 @@
         const generateBtn = document.getElementById('generate-btn');
         const fileCountTxt = document.getElementById('file-count');
         
-        // Modal Elements
         const processModal = document.getElementById('process-modal');
         const processingState = document.getElementById('modal-processing-state');
         const downloadState = document.getElementById('modal-download-state');
@@ -341,34 +353,48 @@
         const closeModalBtn = document.getElementById('close-modal-btn');
         
         let selectedFiles = [];
-        let generatedPdfObject = null; // Store PDF globally so we can download it later
+        let generatedPdfObject = null;
 
-        // Drag & Drop Events
-        dropZone.addEventListener('click', () => fileInput.click());
-        
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
+        // Prevent Default Behaviors for Drag & Drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
         });
 
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-
-        dropZone.addEventListener('drop', (e) => {
+        function preventDefaults(e) {
             e.preventDefault();
-            dropZone.classList.remove('dragover');
+            e.stopPropagation();
+        }
+
+        // Drop Zone Highlighting
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        // Handle File Drop & Click
+        dropZone.addEventListener('drop', (e) => {
             handleFiles(e.dataTransfer.files);
         });
 
+        dropZone.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
+        // Process Files
         function handleFiles(files) {
             const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-            if (newFiles.length === 0) return;
-
+            if (newFiles.length === 0) {
+                alert("Please select valid image files (JPG or PNG).");
+                return;
+            }
             selectedFiles = [...selectedFiles, ...newFiles];
             updatePreview();
         }
 
+        // Update UI Preview
         function updatePreview() {
             previewGrid.innerHTML = '';
             fileCountTxt.innerText = `${selectedFiles.length} file(s)`;
@@ -393,22 +419,28 @@
             });
         }
 
+        // Clear All Button
         clearBtn.addEventListener('click', () => {
             selectedFiles = [];
             fileInput.value = '';
             updatePreview();
         });
 
-        // PDF Generation Trigger
+        // Generate PDF Button Click
         generateBtn.addEventListener('click', () => {
             if (selectedFiles.length === 0) return;
 
-            // 1. Show Modal in Processing State
+            if (typeof window.jspdf === 'undefined') {
+                alert("PDF Library is still loading or failed to load. Please check your connection.");
+                return;
+            }
+
+            // Show Processing Modal
             processingState.classList.remove('hidden');
             downloadState.classList.add('hidden');
             processModal.classList.add('active');
 
-            // 2. Wait 1 Second for animation, then process PDF
+            // Wait 1 second before processing
             setTimeout(async () => {
                 try {
                     const { jsPDF } = window.jspdf;
@@ -439,41 +471,41 @@
                         pdf.addImage(base64Data, getFileType(file), x, y, renderWidth, renderHeight);
                     }
 
-                    // Save PDF object in memory
                     generatedPdfObject = pdf;
 
-                    // 3. Switch Modal to Download State
+                    // Switch to Download View
                     processingState.classList.add('hidden');
                     downloadState.classList.remove('hidden');
 
                 } catch (error) {
-                    alert("An error occurred while generating the PDF.");
-                    console.error(error);
-                    processModal.classList.remove('active'); // Close modal on error
+                    console.error("Error generating PDF:", error);
+                    alert("An error occurred during generation. Image might be too large.");
+                    processModal.classList.remove('active');
                 }
-            }, 1000); // 1000ms = 1 Second delay
+            }, 1000);
         });
 
-        // Final Download Button Action (Inside Modal)
+        // Final Download Click
         finalDownloadBtn.addEventListener('click', () => {
             if (generatedPdfObject) {
                 generatedPdfObject.save('sedoc_converted.pdf');
                 
-                // Optional: Close modal and reset after downloading
+                // Reset everything after 1 second
                 setTimeout(() => {
                     processModal.classList.remove('active');
                     selectedFiles = [];
+                    fileInput.value = '';
                     updatePreview();
                 }, 1000);
             }
         });
 
-        // Close Modal Button Action
+        // Close Modal
         closeModalBtn.addEventListener('click', () => {
             processModal.classList.remove('active');
         });
 
-        // Helper Functions
+        // Utility: Read File as Base64
         function readFileAsBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -483,6 +515,7 @@
             });
         }
 
+        // Utility: Load Image for Dimensions
         function loadImage(src) {
             return new Promise((resolve, reject) => {
                 const img = new Image();
@@ -492,8 +525,9 @@
             });
         }
 
+        // Utility: Check File Type for jsPDF
         function getFileType(file) {
-            return file.type === 'image/png' ? 'PNG' : 'JPEG';
+            return (file.type === 'image/png') ? 'PNG' : 'JPEG';
         }
     </script>
 </body>
