@@ -3,227 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sedoc - The Future of Documents</title>
+    <title>sedoc - Smart Document Solutions</title>
     <!-- Premium Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Locked sedoc Theme Variables */
         :root {
             --text-dark: #040633;
             --text-gray: #4b5563;
             --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --border: rgba(4, 6, 51, 0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: #ffffff;
             color: var(--text-dark);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Subtle Gradient Glow Background (Big Brand Graphic Style) */
+        /* The Locked Background Orb */
         .gradient-orb {
-            position: absolute;
+            position: fixed;
             top: -10%;
             left: 50%;
             transform: translateX(-50%);
-            width: 80vw;
-            height: 500px;
+            width: 90vw;
+            height: 600px;
             background: var(--brand-gradient);
             filter: blur(150px);
-            opacity: 0.15;
+            opacity: 0.12;
             z-index: -1;
-            border-radius: 50%;
             pointer-events: none;
         }
 
-        /* Sleek Minimal Header */
+        /* Minimal Header */
         header {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px 5%;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 5%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
+        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-link img { height: 32px; width: auto; }
+        .brand-name { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.03em; }
 
-        .logo-link img {
-            height: 32px;
-            width: auto;
-        }
-
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.03em;
-        }
-
-        /* Main Hero Section */
+        /* Main Content */
         main {
-            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5%;
+        }
+
+        .hero-text { text-align: center; margin-bottom: 60px; }
+        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 15px; }
+        .text-gradient { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Bento Box Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 40px 20px;
-            max-width: 900px;
-            margin: 0 auto;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Typography */
-        .badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background-color: rgba(4, 6, 51, 0.05);
-            color: var(--text-dark);
-            border-radius: 100px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            letter-spacing: 0.02em;
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(163, 2, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(4, 6, 51, 0.05);
+            background: #ffffff;
         }
 
-        h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            margin-bottom: 24px;
-            color: var(--text-dark);
-        }
-
-        /* Text Gradient Accent */
-        .text-gradient {
+        .card i {
+            font-size: 2rem;
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
 
-        p.subtitle {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto 48px auto;
+        .card h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+        .card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; }
+
+        /* Featured First Card (PDF Maker) */
+        .card.featured {
+            grid-column: span 2;
+            background: var(--text-dark); /* #040633 */
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(4, 6, 51, 0.2);
         }
 
-        /* Clean Input Form */
-        .notify-form {
-            display: flex;
-            width: 100%;
-            max-width: 500px;
-            gap: 12px;
-            background: #ffffff;
-            padding: 8px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .card.featured p { color: rgba(255,255,255,0.7); }
+        .card.featured:hover { 
+            background: #080a45; 
+            border-color: transparent;
+            box-shadow: 0 20px 40px rgba(4, 6, 51, 0.3);
         }
 
-        .notify-form input {
-            flex-grow: 1;
-            border: none;
-            padding: 16px 20px;
-            font-size: 1rem;
-            outline: none;
-            background: transparent;
-            color: var(--text-dark);
-            font-family: inherit;
-        }
-
-        .notify-form input::placeholder {
-            color: #9ca3af;
-        }
-
-        .notify-form button {
-            background: var(--brand-gradient);
-            color: white;
-            border: none;
-            padding: 0 32px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-
-        .notify-form button:hover {
-            opacity: 0.9;
-            transform: scale(0.98);
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 600px) {
-            .notify-form {
-                flex-direction: column;
-                background: transparent;
-                box-shadow: none;
-                border: none;
-                padding: 0;
-            }
-            .notify-form input {
-                background: #ffffff;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-                border: 1px solid #e5e7eb;
-                border-radius: 8px;
-            }
-            .notify-form button {
-                padding: 16px;
-            }
+        @media (max-width: 768px) {
+            .card.featured { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Soft Background Graphic -->
+    <!-- Soft Premium Background -->
     <div class="gradient-orb"></div>
 
-    <!-- Minimal Header -->
+    <!-- Header -->
     <header>
-        <a href="#" class="logo-link">
-            <!-- Aapka logo yahan aayega -->
-            <img src="logo.png" alt="sedoc logo" onerror="this.style.display='none'">
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="sedoc" onerror="this.style.display='none'">
             <span class="brand-name">sedoc</span>
         </a>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Dashboard -->
     <main>
-        <div class="badge">Coming Soon</div>
-        
-        <h1>Document solutions, <br><span class="text-gradient">reimagined.</span></h1>
-        
-        <p class="subtitle">A sleek, fast, and powerful platform to convert, generate, and manage your documents. Join the waitlist for early access.</p>
-        
-        <form class="notify-form" onsubmit="event.preventDefault(); alert('Welcome to sedoc! We will notify you.');">
-            <input type="email" placeholder="name@company.com" required>
-            <button type="submit">Get Early Access</button>
-        </form>
+        <div class="hero-text">
+            <h1>All <span class="text-gradient">Tools.</span> One Place.</h1>
+            <p>Select a tool below to start working with your documents securely in your browser.</p>
+        </div>
+
+        <div class="grid">
+            <!-- 1. PDF Maker (Main Featured Card) -->
+            <a href="pdf-maker.html" class="card featured">
+                <i class="fas fa-file-pdf"></i>
+                <h3>PDF Maker (Images to PDF)</h3>
+                <p>Instantly convert your images into a high-quality PDF document. 100% secure, processed directly on your device.</p>
+            </a>
+
+            <!-- 2. Invoice Generator -->
+            <a href="invoice.html" class="card">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Invoice Generator</h3>
+                <p>Create professional, custom-branded invoices and download them as PDFs in seconds.</p>
+            </a>
+
+            <!-- 3. Protect PDF -->
+            <a href="protect.html" class="card">
+                <i class="fas fa-user-shield"></i>
+                <h3>Protect PDF</h3>
+                <p>Add strong password encryption to secure your sensitive documents.</p>
+            </a>
+
+            <!-- 4. Word to PDF -->
+            <a href="#" class="card">
+                <i class="fas fa-file-word"></i>
+                <h3>Word to PDF</h3>
+                <p>Seamlessly convert your DOC and DOCX files into universally readable PDFs.</p>
+            </a>
+        </div>
     </main>
 
 </body>
