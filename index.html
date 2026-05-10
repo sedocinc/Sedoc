@@ -28,7 +28,7 @@
             overflow-x: hidden;
             position: relative;
             display: flex;
-            flex-direction: column; /* Added to keep footer at bottom */
+            flex-direction: column; 
         }
 
         /* The Locked Background Orb */
@@ -76,57 +76,64 @@
 
         /* Main Content */
         main {
-            max-width: 1200px;
+            max-width: 1000px; /* Thora narrow kiya taake chotay cards pyare lagain */
             margin: 0 auto;
-            padding: 40px 5%; /* Reduced top padding */
-            flex-grow: 1; /* Pushes footer to the bottom */
+            padding: 40px 5%; 
+            flex-grow: 1; 
             width: 100%;
         }
 
-        .hero-text { text-align: center; margin-bottom: 40px; } /* Reduced margin for fit view */
+        .hero-text { text-align: center; margin-bottom: 40px; } 
         .hero-text h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 10px; }
         .hero-text p { font-size: 0.95rem; }
         .text-gradient { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Compact Bento Box Grid */
+        /* Compact Bento Box Grid - Chotay aur square cards ke liye */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Scaled down for more tools */
-            gap: 16px; /* Tighter gap */
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Size chota kiya hai */
+            gap: 16px; 
+            justify-content: center;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 20px; /* Reduced padding */
-            border-radius: 16px; /* Scaled down radius */
+            padding: 25px 15px; /* Square/App Icon style padding */
+            border-radius: 16px; 
             text-decoration: none;
             color: inherit;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Reduced gap between internal elements */
+            align-items: center; /* Center alignment */
+            justify-content: center;
+            gap: 12px; 
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
         .card:hover {
-            transform: translateY(-5px); /* Subtle hover for compact design */
+            transform: translateY(-5px); 
             border-color: rgba(163, 2, 255, 0.3);
             box-shadow: 0 15px 30px rgba(4, 6, 51, 0.05);
             background: #ffffff;
         }
 
         .card i {
-            font-size: 1.6rem; /* Scaled down icon */
+            font-size: 2rem; /* Subheading nikalne ki wajah se icon thora bara kiya hai */
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
         }
 
-        .card h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
-        .card p { color: var(--text-gray); font-size: 0.85rem; line-height: 1.4; }
+        .card h3 { 
+            font-size: 1.05rem; 
+            font-weight: 700; 
+            letter-spacing: -0.02em; 
+            margin: 0;
+        }
 
         /* Footer */
         footer {
@@ -136,7 +143,7 @@
             color: var(--text-gray);
             font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.8);
-            margin-top: auto; /* Pushes footer to the bottom */
+            margin-top: auto; 
         }
 
     </style>
@@ -161,46 +168,22 @@
         </div>
 
         <div class="grid">
-            <!-- 1. Image to PDF (Updated Link) -->
+            <!-- 1. Image to PDF -->
             <a href="pdf-maker.html" class="card">
                 <i class="fas fa-images"></i>
                 <h3>Image to PDF</h3>
-                <p>Instantly convert JPG, PNG, and other images into a PDF.</p>
             </a>
 
             <!-- 2. Word to PDF -->
-            <a href="word-to-pdf.html" class="card">
+            <a href="word-pdf.html" class="card">
                 <i class="fas fa-file-word"></i>
                 <h3>Word to PDF</h3>
-                <p>Convert your DOC and DOCX files into universally readable PDFs.</p>
             </a>
 
-            <!-- 3. Excel to PDF -->
-            <a href="excel-to-pdf.html" class="card">
-                <i class="fas fa-file-excel"></i>
-                <h3>Excel to PDF</h3>
-                <p>Transform spreadsheets (XLS, XLSX) into secure PDF files.</p>
-            </a>
-
-            <!-- 4. PDF to Image -->
-            <a href="pdf-to-image.html" class="card">
-                <i class="fas fa-file-image"></i>
-                <h3>PDF to Image</h3>
-                <p>Extract pages from your PDF and convert them into images.</p>
-            </a>
-
-            <!-- 5. PDF to Word -->
-            <a href="pdf-to-word.html" class="card">
-                <i class="fas fa-file-alt"></i>
-                <h3>PDF to Word</h3>
-                <p>Convert PDF documents back into fully editable Word files.</p>
-            </a>
-
-            <!-- 6. Image to Text -->
-            <a href="image-to-text.html" class="card">
-                <i class="fas fa-font"></i>
-                <h3>Image to Text</h3>
-                <p>Extract text from images seamlessly using advanced OCR.</p>
+            <!-- 3. Compress PDF -->
+            <a href="compressed.html" class="card">
+                <i class="fas fa-compress-arrows-alt"></i>
+                <h3>Compress PDF</h3>
             </a>
         </div>
     </main>
