@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Excel - sedoc</title>
+    <!-- Premium Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google AdSense Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
+
+    <style>
+        /* Theme Variables */
+        :root {
+            --text-dark: #040633;
+            --text-gray: #4b5563;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --card-bg: #ffffff;
+            --border: rgba(4, 6, 51, 0.08);
+            --ad-bg: #e2e8f0;
+            --excel-green: #10b981; /* Excel Tool Specific Green */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: #f9fafb; color: var(--text-dark);
+            height: 100vh; width: 100vw; overflow: hidden; 
+            display: flex; flex-direction: column; position: relative;
+        }
+
+        .gradient-orb {
+            position: fixed; top: -10%; left: 50%; transform: translateX(-50%);
+            width: 90vw; height: 600px; background: var(--brand-gradient);
+            filter: blur(150px); opacity: 0.12; z-index: -1; pointer-events: none;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 15px 5%; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 1px solid var(--border);
+            flex-shrink: 0; z-index: 100;
+        }
+
+        .header-left, .header-right { display: flex; align-items: center; }
+
+        .back-link {
+            text-decoration: none; color: var(--text-gray); font-size: 1.2rem;
+            transition: all 0.2s; display: flex; align-items: center;
+            justify-content: center; width: 42px; height: 42px;
+            border-radius: 50%; background: #f1f5f9;
+        }
+        .back-link:hover { color: var(--text-dark); background: #e2e8f0; transform: translateX(-3px); }
+
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 40px; width: auto; display: block; }
+
+        .ad-banner {
+            background-color: var(--ad-bg); border: 2px dashed #cbd5e1; color: #94a3b8;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 600; font-size: 0.9rem; text-align: center; flex-shrink: 0;
+        }
+        .ad-banner-horizontal { width: 100%; max-width: 900px; height: 90px; margin: 10px auto; border-radius: 8px; }
+
+        main {
+            flex-grow: 1; display: flex; justify-content: center; align-items: center;
+            padding: 15px; width: 100%; overflow-y: auto;
+        }
+        main::-webkit-scrollbar { width: 6px; }
+        main::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        .workspace {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px;
+            padding: 30px 40px; width: 100%; max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04); text-align: center;
+        }
+        .workspace h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.03em; }
+        .workspace p { color: var(--text-gray); margin-bottom: 25px; font-size: 0.95rem; }
+
+        .drop-zone {
+            border: 2px dashed #cbd5e1; border-radius: 16px; padding: 40px 20px;
+            cursor: pointer; transition: all 0.3s; background: #f8fafc; margin-bottom: 20px;
+        }
+        .drop-zone:hover, .drop-zone.dragover { border-color: var(--excel-green); background: rgba(16, 185, 129, 0.05); }
+        .drop-zone i { font-size: 2.5rem; color: var(--excel-green); margin-bottom: 10px; }
+        .drop-zone h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
+        .drop-zone p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+        .preview-container {
+            display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+            text-align: left; max-height: 200px; overflow-y: auto; padding-right: 5px;
+        }
+        .preview-item {
+            display: flex; align-items: center; gap: 12px; background: #f8fafc;
+            padding: 12px 15px; border-radius: 8px; border: 1px solid var(--border);
+        }
+        .preview-item i { font-size: 1.5rem; color: #ef4444; } /* PDF Red icon */
+        .preview-item span { font-size: 0.9rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-grow: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 24px; border: none; border-radius: 12px; font-size: 0.95rem;
+            font-weight: 600; cursor: pointer; transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-primary { background: var(--brand-gradient); color: white; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.2); }
+        .btn-primary:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(254, 0, 151, 0.3); }
+        .btn-primary:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; opacity: 0.8; }
+        .btn-secondary { background: #f1f5f9; color: var(--text-dark); border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: #e2e8f0; }
+
+        .hidden { display: none !important; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(4, 6, 51, 0.6);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box {
+            background: var(--card-bg); border-radius: 24px; padding: 40px;
+            width: 90%; max-width: 450px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); transform: translateY(20px); transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-box h3 { margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark); }
+        .modal-box p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; }
+
+        .spinner {
+            width: 50px; height: 50px; border: 4px solid #f1f5f9; border-top: 4px solid var(--excel-green);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .success-icon {
+            font-size: 50px; color: var(--excel-green); margin-bottom: 15px;
+        }
+
+        .modal-ad-space {
+            width: 100%; height: 90px; background: var(--ad-bg); border: 1px dashed #cbd5e1;
+            margin-bottom: 20px; display: flex; justify-content: center; align-items: center;
+            color: #94a3b8; font-size: 0.85rem; border-radius: 8px;
+        }
+
+        .full-width { width: 100%; }
+        .mt-3 { margin-top: 15px; }
+
+        footer {
+            text-align: center; padding: 15px; border-top: 1px solid var(--border);
+            color: var(--text-gray); font-size: 0.85rem; background: white; flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-orb"></div>
+
+<header>
+    <div class="header-left">
+        <a href="index.html" class="logo-link">
+            <img src="Logo.png" alt="sedoc logo">
+        </a>
+    </div>
+    <div class="header-right">
+        <a href="index.html" class="back-link" title="Go Back"><i class="fas fa-arrow-left"></i></a>
+    </div>
+</header>
+
+    <div class="ad-banner ad-banner-horizontal">
+        Google Adsense Code Here (Top Banner 728x90)
+    </div>
+
+    <main>
+        <div class="workspace">
+            <h1>PDF to Excel</h1>
+            <p>Convert PDF tables and data into editable Excel spreadsheets (.xlsx) with 100% accurate layout formatting.</p>
+
+            <div class="drop-zone" id="drop-zone">
+                <i class="fas fa-file-excel"></i>
+                <h3>Click to upload or drag & drop</h3>
+                <p>Supports .pdf files</p>
+                <input type="file" id="file-input" accept="application/pdf, .pdf" class="hidden">
+            </div>
+
+            <div id="preview-section" class="hidden">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 style="color: var(--text-dark); margin: 0;">Selected PDF:</h4>
+                </div>
+                
+                <div class="preview-container" id="preview-grid"></div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" id="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                    <button class="btn btn-primary" id="generate-btn">
+                        <i class="fas fa-file-excel"></i> Convert to Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="ad-banner ad-banner-horizontal">
+        Google Adsense Code Here (Bottom Banner 728x90)
+    </div>
+
+    <footer>
+        &copy; 2026 sedoc. All Rights Reserved.
+    </footer>
+
+    <!-- Processing & Download Modal -->
+    <div class="modal-overlay" id="process-modal">
+        <div class="modal-box">
+            
+            <div id="modal-processing-state">
+                <div class="spinner"></div>
+                <h3>Extracting Data...</h3>
+                <p>Please wait, accurately mapping your PDF tables into an Excel file.</p>
+            </div>
+
+            <div id="modal-download-state" class="hidden">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>Successfully Converted!</h3>
+                <p>Your "as it is" formatted Excel spreadsheet is ready.</p>
+                
+                <div class="modal-ad-space">
+                    Adsense Ad Inside Modal
+                </div>
+                
+                <button class="btn btn-primary full-width" id="final-download-btn" disabled>
+                    <i class="fas fa-spinner fa-spin"></i> Please wait 10s...
+                </button>
+                <button class="btn btn-secondary full-width mt-3" id="close-modal-btn">
+                    Cancel
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewSection = document.getElementById('preview-section');
+        const previewGrid = document.getElementById('preview-grid');
+        const clearBtn = document.getElementById('clear-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        
+        const processModal = document.getElementById('process-modal');
+        const processingState = document.getElementById('modal-processing-state');
+        const downloadState = document.getElementById('modal-download-state');
+        const finalDownloadBtn = document.getElementById('final-download-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        let selectedFile = null;
+        let finalExcelUrl = null; 
+        let downloadTimer = null; 
+
+        // API Key (Your specific ConvertAPI Secret for best layout retention)
+        const API_SECRET = "t0VExmju6Luwll3DtCvUFD2ksP2Jiiu4"; 
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); });
+            document.body.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'));
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'));
+        });
+
+        dropZone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            const file = files[0];
+            
+            if (file.type !== 'application/pdf' && !file.name.match(/\.pdf$/i)) {
+                return alert("Please select a valid PDF file.");
+            }
+            
+            selectedFile = file;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            previewGrid.innerHTML = '';
+            if (selectedFile) {
+                previewSection.classList.remove('hidden');
+                dropZone.style.display = 'none';
+                
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+                div.innerHTML = `<i class="fas fa-file-pdf"></i><span>${selectedFile.name}</span>`;
+                previewGrid.appendChild(div);
+            } else {
+                previewSection.classList.add('hidden');
+                dropZone.style.display = 'block';
+            }
+        }
+
+        clearBtn.addEventListener('click', () => {
+            selectedFile = null; fileInput.value = ''; updatePreview();
+        });
+
+        // Conversion Process using ConvertAPI
+        generateBtn.addEventListener('click', () => {
+            if (!selectedFile) return;
+
+            processingState.classList.remove('hidden');
+            downloadState.classList.add('hidden');
+            processModal.classList.add('active');
+
+            let formData = new FormData();
+            formData.append('File', selectedFile);
+
+            // POST to ConvertAPI for PDF to XLSX translation
+            fetch(`https://v2.convertapi.com/convert/pdf/to/xlsx?Secret=${API_SECRET}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.Files && data.Files.length > 0) {
+                    
+                    const fileData = data.Files[0].FileData;
+                    const byteCharacters = atob(fileData);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                    finalExcelUrl = window.URL.createObjectURL(blob);
+
+                    processingState.classList.add('hidden');
+                    downloadState.classList.remove('hidden');
+                    
+                    let timeLeft = 10;
+                    finalDownloadBtn.disabled = true;
+                    finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
+                    
+                    if(downloadTimer) clearInterval(downloadTimer);
+
+                    downloadTimer = setInterval(() => {
+                        timeLeft--;
+                        finalDownloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Please wait ${timeLeft}s...`;
+                        
+                        if (timeLeft <= 0) {
+                            clearInterval(downloadTimer);
+                            finalDownloadBtn.disabled = false;
+                            finalDownloadBtn.innerHTML = `<i class="fas fa-download"></i> Download Excel File`;
+                        }
+                    }, 1000);
+
+                } else {
+                    throw new Error(data.Message || "Conversion failed.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error connecting to server. Please ensure your PDF contains tabular data.");
+                processModal.classList.remove('active');
+            });
+        });
+
+        // Final Download Event
+        finalDownloadBtn.addEventListener('click', () => {
+            if (finalExcelUrl && !finalDownloadBtn.disabled) {
+                const a = document.createElement('a');
+                a.href = finalExcelUrl;
+                a.download = selectedFile.name.replace(/\.pdf$/i, '_converted.xlsx');
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                
+                setTimeout(() => {
+                    processModal.classList.remove('active');
+                    selectedFile = null; 
+                    fileInput.value = ''; 
+                    updatePreview();
+                }, 1000);
+            }
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            if(downloadTimer) clearInterval(downloadTimer); 
+            processModal.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
