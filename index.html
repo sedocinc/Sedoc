@@ -153,20 +153,46 @@
         .feature-item h4 { margin-bottom: 8px; font-weight: 700; color: var(--text-dark); }
         .feature-item p { font-size: 0.9rem; margin-bottom: 0; }
 
+        /* New Professional Footer Styles */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px 20px;
             border-top: 1px solid var(--border);
             color: var(--text-gray);
-            font-size: 0.9rem;
             background: rgba(255, 255, 255, 0.9);
             margin-top: auto; 
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-dark);
+        }
+
+        .footer-copy {
+            color: #94a3b8;
+            font-size: 0.85rem;
         }
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card { padding: 20px 10px; }
             .hero-text h1 { font-size: 2rem; }
+            .footer-links { gap: 15px; }
         }
     </style>
 </head>
@@ -245,8 +271,16 @@
         </section>
     </main>
 
+    <!-- Premium Footer with Linked Pages -->
     <footer>
-        <p>&copy; 2026 <strong>sedoc</strong>. All Rights Reserved. Smart Document Solutions for a Digital World.</p>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 <strong>sedoc</strong>. All Rights Reserved. Smart Document Solutions for a Digital World.
+        </div>
     </footer>
 
 </body>
