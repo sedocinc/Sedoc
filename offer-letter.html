@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Offer Letter Maker | sedoc</title>
+    <meta name="description" content="Create legally binding and professional job offer letters instantly. Free online offer letter generator with PDF export.">
+    
+    <!-- Premium Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
+
+    <style>
+        /* Design System Variables */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-color: #0f172a; 
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-color: #f8fafc;
+            --border: #e2e8f0;
+            --input-border: #cbd5e1;
+            --input-focus: #a302ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Header */
+        header { background-color: #ffffff; padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .back-btn { font-size: 1.2rem; color: var(--text-dark); text-decoration: none; margin-right: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f5f9; transition: 0.3s; }
+        .back-btn:hover { background: #e2e8f0; }
+        .logo-link img { height: 35px; }
+
+        /* Workspace Grid */
+        .workspace { max-width: 1450px; margin: 30px auto; padding: 0 3%; display: grid; grid-template-columns: 4fr 5fr; gap: 30px; flex-grow: 1; align-items: start; }
+
+        /* Left: Editor Panel */
+        .editor-panel { background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        
+        .form-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
+        .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .section-title { font-size: 0.9rem; font-weight: 700; color: #a302ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group.full { grid-column: span 2; }
+        
+        label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        input, select { padding: 10px 14px; border: 1px solid var(--input-border); border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s; background: #f8fafc; width: 100%; }
+        input:focus, select:focus { border-color: var(--input-focus); background: #ffffff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
+        input[type="file"] { padding: 8px; background: #ffffff; cursor: pointer; }
+
+        /* Right: Live Preview Panel */
+        .preview-panel { position: sticky; top: 90px; margin-bottom: 20px; }
+        .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-primary { background: var(--brand-color); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-primary:hover { background: #1e293b; }
+        .editable-hint { font-size: 0.85rem; color: #fe0097; font-weight: 600; display: flex; align-items: center; gap: 5px; background: rgba(254,0,151,0.1); padding: 6px 12px; border-radius: 50px; }
+
+        /* =========================================
+           BASE OFFER LETTER DESIGN (A4 PROPORTION)
+           ========================================= */
+        .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
+        .letter-paper { 
+            background: #ffffff; 
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            padding: 25mm; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            margin: 0 auto;
+            color: #1e293b;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Inline Editing Style */
+        [contenteditable="true"] { outline: none; transition: background 0.2s; border-radius: 4px; }
+        [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
+        [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
+        
+        /* Elements Base Styles */
+        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #0f172a; padding-bottom: 20px; }
+        .company-logo { max-height: 60px; max-width: 200px; object-fit: contain; }
+        .company-details { text-align: right; }
+        .company-details h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
+        .company-details p { font-size: 12px; color: #475569; line-height: 1.4; }
+
+        .date-row { margin-bottom: 30px; font-weight: 600; }
+        .candidate-address { margin-bottom: 30px; }
+        .candidate-address strong { display: block; font-size: 16px; margin-bottom: 4px; color: #0f172a; }
+        
+        .subject-line { font-weight: 700; margin-bottom: 20px; font-size: 15px; text-decoration: underline; }
+        .salutation { margin-bottom: 20px; }
+        
+        .letter-body p { margin-bottom: 15px; text-align: justify; }
+        .highlight-var { font-weight: 700; color: #0f172a; }
+
+        .compensation-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .compensation-box p { margin: 0; font-weight: 600; color: #0f172a; }
+
+        .signature-section { margin-top: 60px; display: flex; justify-content: space-between; }
+        .sign-block { width: 45%; }
+        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 10px; height: 40px; }
+        .sign-block strong { display: block; font-size: 15px; color: #0f172a; }
+        .sign-block span { font-size: 12px; color: #64748b; }
+
+        /* =========================================
+           5 PROFESSIONAL THEMES
+           ========================================= */
+        .theme-standard { }
+
+        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 20px; border-bottom: 1px solid #cbd5e1; }
+        .theme-modern .company-details h1 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-modern .compensation-box { border-left: 4px solid #fe0097; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+
+        .theme-executive .letter-header { background: #0f172a; color: white; padding: 30mm; margin: -25mm -25mm 30px -25mm; border-bottom: none; }
+        .theme-executive .company-details h1 { color: white; }
+        .theme-executive .company-details p { color: #94a3b8; }
+        .theme-executive .compensation-box { background: #0f172a; color: white; border: none; }
+        .theme-executive .compensation-box p, .theme-executive .compensation-box .highlight-var { color: white; }
+
+        .theme-agency .letter-header { background: #f8fafc; padding: 25px; border-radius: 12px; border-bottom: none; border-left: 6px solid #3b82f6; margin-bottom: 30px; }
+        .theme-agency .compensation-box { background: #f0f9ff; border: 1px dashed #bae6fd; border-radius: 12px; }
+        .theme-agency .sign-line { border-bottom: 1px dashed #94a3b8; }
+
+        .theme-formal .letter-header { border-bottom: 4px double #000; padding-bottom: 15px; }
+        .theme-formal .company-details h1 { font-family: "Georgia", "Times New Roman", serif; letter-spacing: 1px; }
+        .theme-formal .subject-line { text-transform: uppercase; font-family: "Georgia", serif; }
+        .theme-formal .compensation-box { border: 2px solid #000; background: transparent; border-radius: 0; }
+        .theme-formal .highlight-var { text-decoration: underline; }
+
+        /* =========================================
+           ADSENSE & FOOTER
+           ========================================= */
+        .ad-container { margin: 20px auto 50px; max-width: 1450px; padding: 15px; background: rgba(0,0,0,0.02); border-radius: 16px; text-align: center; border: 1px dashed #cbd5e1; width: 94%; }
+        .ad-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        footer { background: #ffffff; padding: 40px 5% 20px; border-top: 1px solid var(--border); margin-top: auto; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
+
+        @media (max-width: 1024px) {
+            .workspace { grid-template-columns: 1fr; }
+            .preview-panel { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn" title="Back to Tools"><i class="fas fa-arrow-left"></i></a>
+        <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+    </header>
+
+    <main class="workspace">
+        
+        <!-- EDITOR PANEL -->
+        <div class="editor-panel" id="form-container">
+            <h2><i class="fas fa-envelope-open-text"></i> Offer Letter Setup</h2>
+            
+            <!-- Settings & Branding -->
+            <div class="form-section">
+                <div class="section-title">Settings & Branding</div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Design Theme</label>
+                        <select id="in-theme" onchange="changeTheme()">
+                            <option value="theme-standard" selected>1. Standard Corporate</option>
+                            <option value="theme-modern">2. sedoc Modern Tech</option>
+                            <option value="theme-executive">3. Executive Dark Header</option>
+                            <option value="theme-agency">4. Creative Agency</option>
+                            <option value="theme-formal">5. Formal Legal / Classic</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Company Logo</label>
+                        <input type="file" id="in-logo" accept="image/*">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Details -->
+            <div class="form-section">
+                <div class="section-title">Company Info</div>
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label>Company Name</label>
+                        <input type="text" id="in-company" value="sedoc Technologies" class="sync-text" data-target="out-company, out-company-body">
+                    </div>
+                    <div class="input-group full">
+                        <label>Company Address</label>
+                        <input type="text" id="in-comp-address" value="123 Tech Park, Innovation City" class="sync-text" data-target="out-comp-address">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Details -->
+            <div class="form-section">
+                <div class="section-title">Candidate Info</div>
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label>Candidate Name</label>
+                        <input type="text" id="in-cand-name" placeholder="John Doe" class="sync-text" data-target="out-cand-name, out-cand-salutation">
+                    </div>
+                    <div class="input-group full">
+                        <label>Candidate Address</label>
+                        <input type="text" id="in-cand-address" placeholder="456 Avenue, NY 10001" class="sync-text" data-target="out-cand-address">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Details -->
+            <div class="form-section">
+                <div class="section-title">Job Details</div>
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label>Designation / Job Title</label>
+                        <input type="text" id="in-job-title" placeholder="Senior Software Engineer" class="sync-text" data-target="out-job-title, out-job-body">
+                    </div>
+                    <div class="input-group">
+                        <label>Date of Issue</label>
+                        <input type="date" id="in-issue-date" class="sync-text" data-target="out-issue-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Joining Date</label>
+                        <input type="date" id="in-join-date" class="sync-text" data-target="out-join-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Currency</label>
+                        <select id="in-currency" class="sync-text" data-target="out-currency">
+                            <option value="PKR" selected>PKR (Rs)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Salary</label>
+                        <input type="number" id="in-salary" placeholder="1200000" class="sync-text" data-target="out-salary">
+                    </div>
+                    <div class="input-group full">
+                        <label>Probation Period</label>
+                        <input type="text" id="in-probation" value="3 Months" class="sync-text" data-target="out-probation">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signatory Details -->
+            <div class="form-section">
+                <div class="section-title">Authorized Signatory</div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Signatory Name</label>
+                        <input type="text" id="in-sig-name" value="Jane Smith" class="sync-text" data-target="out-sig-name">
+                    </div>
+                    <div class="input-group">
+                        <label>Signatory Title</label>
+                        <input type="text" id="in-sig-title" value="HR Manager" class="sync-text" data-target="out-sig-title">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <div class="editable-hint"><i class="fas fa-magic"></i> Click any text below to edit directly</div>
+                <button class="btn-primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+            </div>
+
+            <div class="letter-container">
+                <!-- The Actual A4 Paper Letter -->
+                <div class="letter-paper theme-standard" id="letter-paper">
+                    
+                    <!-- Header -->
+                    <div class="letter-header">
+                        <div class="letter-header-left">
+                            <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
+                        </div>
+                        <div class="company-details" contenteditable="true">
+                            <h1 id="out-company">sedoc Technologies</h1>
+                            <p id="out-comp-address">123 Tech Park, Innovation City</p>
+                        </div>
+                    </div>
+
+                    <!-- Letter Content -->
+                    <div class="date-row" contenteditable="true">
+                        Date: <span id="out-issue-date">[Select Date]</span>
+                    </div>
+
+                    <div class="candidate-address" contenteditable="true">
+                        <strong id="out-cand-name">[Candidate Name]</strong>
+                        <span id="out-cand-address">[Candidate Address]</span>
+                    </div>
+
+                    <div class="subject-line" contenteditable="true">
+                        Subject: Offer of Employment - <span id="out-job-title">[Job Title]</span>
+                    </div>
+
+                    <div class="salutation" contenteditable="true">
+                        Dear <span id="out-cand-salutation">[Candidate Name]</span>,
+                    </div>
+
+                    <div class="letter-body">
+                        <p contenteditable="true">
+                            We are thrilled to offer you the position of <span class="highlight-var" id="out-job-body">[Job Title]</span> at <span class="highlight-var" id="out-company-body">sedoc Technologies</span>. During our interview process, we were highly impressed by your skills, experience, and cultural fit for our team. We believe you will be a valuable addition to our company.
+                        </p>
+                        <p contenteditable="true">
+                            Your expected starting date will be <span class="highlight-var" id="out-join-date">[Joining Date]</span>. You will be on a probation period of <span class="highlight-var" id="out-probation">3 Months</span>, during which your performance will be evaluated. 
+                        </p>
+
+                        <div class="compensation-box" contenteditable="true">
+                            <p>Compensation Package:</p>
+                            Your starting annual compensation will be <span class="highlight-var"><span id="out-currency">PKR</span> <span id="out-salary">0</span></span>, subject to standard tax deductions as per government regulations.
+                        </div>
+
+                        <p contenteditable="true">
+                            By accepting this offer, you agree to the standard terms and conditions of employment, confidentiality, and non-disclosure agreements of the company. A detailed employment contract will be provided to you on your joining date.
+                        </p>
+                        <p contenteditable="true">
+                            Please sign and return a copy of this letter to indicate your acceptance of this offer. We look forward to welcoming you aboard and achieving great success together!
+                        </p>
+                    </div>
+
+                    <!-- Signatures -->
+                    <div class="signature-section">
+                        <div class="sign-block">
+                            <div class="sign-line"></div>
+                            <strong id="out-sig-name" contenteditable="true">Jane Smith</strong>
+                            <span id="out-sig-title" contenteditable="true">HR Manager</span>
+                        </div>
+                        <div class="sign-block">
+                            <div class="sign-line"></div>
+                            <strong contenteditable="true">Accepted By:</strong>
+                            <span contenteditable="true">Candidate Signature</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Google AdSense Placeholder Placement -->
+    <div class="ad-container">
+        <span class="ad-label">Advertisement</span>
+        <div style="height: 90px; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#94a3b8;">
+            AdSense Banner Placement (ca-pub-4598765809021376)
+        </div>
+    </div>
+
+    <!-- Default Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved. Designed with precision for professionals.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Logic Script -->
+    <script>
+        // --- 1. Intelligent Text Syncing ---
+        document.querySelectorAll('.sync-text').forEach(input => {
+            input.addEventListener('input', function() {
+                const targetIds = this.getAttribute('data-target').split(',');
+                targetIds.forEach(id => {
+                    const el = document.getElementById(id.trim());
+                    if(el) {
+                        if(this.id === 'in-salary') {
+                            el.innerText = Number(this.value).toLocaleString() || '0';
+                        } else {
+                            el.innerText = this.value || '[Not Provided]';
+                        }
+                    }
+                });
+            });
+        });
+
+        // --- 2. Logo Upload ---
+        document.getElementById('in-logo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('out-logo');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- 3. Theme Switcher ---
+        function changeTheme() {
+            const selectedTheme = document.getElementById('in-theme').value;
+            const letterPaper = document.getElementById('letter-paper');
+            letterPaper.className = 'letter-paper'; // Reset classes
+            letterPaper.classList.add(selectedTheme); // Apply new theme
+        }
+
+        // --- 4. PDF Exporter ---
+        function downloadPDF() {
+            const element = document.getElementById('letter-paper');
+            const candName = document.getElementById('in-cand-name').value || 'Candidate';
+            
+            // Un-focus any editable content to hide the purple hover/focus outlines in PDF
+            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
+
+            const opt = {
+                margin:       0,
+                filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>
