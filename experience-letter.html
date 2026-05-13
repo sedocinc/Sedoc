@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Experience Letter Maker | sedoc</title>
+    <meta name="description" content="Generate official company experience and relieving letters instantly. Free online experience certificate generator with PDF export.">
+    
+    <!-- Premium Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
+
+    <style>
+        /* Design System Variables */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-color: #0f172a; 
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-color: #f8fafc;
+            --border: #e2e8f0;
+            --input-border: #cbd5e1;
+            --input-focus: #a302ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Header */
+        header { background-color: #ffffff; padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .back-btn { font-size: 1.2rem; color: var(--text-dark); text-decoration: none; margin-right: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f5f9; transition: 0.3s; }
+        .back-btn:hover { background: #e2e8f0; }
+        .logo-link img { height: 35px; }
+
+        /* Workspace Grid */
+        .workspace { max-width: 1450px; margin: 30px auto; padding: 0 3%; display: grid; grid-template-columns: 4fr 5fr; gap: 30px; flex-grow: 1; align-items: start; }
+
+        /* Left: Editor Panel */
+        .editor-panel { background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        
+        .form-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
+        .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .section-title { font-size: 0.9rem; font-weight: 700; color: #a302ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group.full { grid-column: span 2; }
+        
+        label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        input, select { padding: 10px 14px; border: 1px solid var(--input-border); border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s; background: #f8fafc; width: 100%; }
+        input:focus, select:focus { border-color: var(--input-focus); background: #ffffff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
+        input[type="file"] { padding: 8px; background: #ffffff; cursor: pointer; }
+
+        /* Right: Live Preview Panel */
+        .preview-panel { position: sticky; top: 90px; margin-bottom: 20px; }
+        .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-primary { background: var(--brand-color); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-primary:hover { background: #1e293b; }
+        .editable-hint { font-size: 0.85rem; color: #fe0097; font-weight: 600; display: flex; align-items: center; gap: 5px; background: rgba(254,0,151,0.1); padding: 6px 12px; border-radius: 50px; }
+
+        /* =========================================
+           BASE LETTER DESIGN (A4 PROPORTION)
+           ========================================= */
+        .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
+        .letter-paper { 
+            background: #ffffff; 
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            padding: 25mm; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            margin: 0 auto;
+            color: #1e293b;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Inline Editing Style */
+        [contenteditable="true"] { outline: none; transition: background 0.2s; border-radius: 4px; }
+        [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
+        [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
+        
+        /* Elements Base Styles (Divider line removed) */
+        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 20px; }
+        .company-logo { max-height: 60px; max-width: 200px; object-fit: contain; }
+        .company-details { text-align: right; }
+        .company-details h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
+        .company-details p { font-size: 12px; color: #475569; line-height: 1.4; }
+
+        .date-row { display: flex; justify-content: space-between; margin-bottom: 40px; font-weight: 600; }
+        
+        .subject-line { font-weight: 800; font-size: 18px; text-align: center; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 1px; color: #0f172a; text-decoration: underline; }
+        
+        .letter-body { text-align: justify; margin-bottom: 40px; }
+        .letter-body p { margin-bottom: 20px; font-size: 15px; line-height: 1.8; }
+        .highlight-var { font-weight: 700; color: #0f172a; }
+
+        .signature-section { margin-top: 80px; }
+        .sign-block { width: 300px; }
+        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 10px; height: 40px; }
+        .sign-block strong { display: block; font-size: 15px; color: #0f172a; margin-bottom: 2px; }
+        .sign-block span { font-size: 13px; color: #64748b; display: block; }
+
+        /* =========================================
+           6 PROFESSIONAL THEMES
+           ========================================= */
+        .theme-standard { }
+
+        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 20px; }
+        .theme-modern .company-details h1 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-modern .subject-line { color: #a302ff; text-decoration: none; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px; display: inline-block; width: 100%; }
+
+        .theme-executive .letter-header { background: #0f172a; color: white; padding: 30mm; margin: -25mm -25mm 30px -25mm; }
+        .theme-executive .company-details h1, .theme-executive .company-details p { color: white; }
+        
+        .theme-agency .letter-header { background: #f8fafc; padding: 25px; border-radius: 12px; border-left: 6px solid #f09709; margin-bottom: 40px; }
+        .theme-agency .sign-line { border-bottom: 1px dashed #94a3b8; }
+
+        .theme-formal .letter-header { padding-bottom: 15px; }
+        .theme-formal .company-details h1 { font-family: "Georgia", "Times New Roman", serif; letter-spacing: 1px; }
+        .theme-formal .subject-line, .theme-formal .letter-body { font-family: "Georgia", serif; }
+        .theme-formal .highlight-var { text-decoration: underline; }
+
+        /* THEME 6: Pure Letterhead (Center Logo) */
+        .theme-logo-center .letter-header { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid #0f172a; /* Solid bottom border for pure letterhead */
+            padding-bottom: 25px; 
+            margin-bottom: 40px;
+        }
+        .theme-logo-center .letter-header-left {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .theme-logo-center .company-logo { max-height: 90px; max-width: 300px; } /* Slightly larger for center */
+        .theme-logo-center .company-details { text-align: center; width: 100%; }
+        .theme-logo-center .company-details h1 { font-size: 26px; text-transform: uppercase; color: #0f172a; letter-spacing: 1px; margin-bottom: 8px; }
+        .theme-logo-center .letter-body p { color: #1e293b; font-size: 14px; }
+
+        /* =========================================
+           ADSENSE & FOOTER
+           ========================================= */
+        .ad-container { margin: 20px auto 50px; max-width: 1450px; padding: 15px; background: rgba(0,0,0,0.02); border-radius: 16px; text-align: center; border: 1px dashed #cbd5e1; width: 94%; }
+        .ad-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        footer { background: #ffffff; padding: 40px 5% 20px; border-top: 1px solid var(--border); margin-top: auto; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
+
+        @media (max-width: 1024px) {
+            .workspace { grid-template-columns: 1fr; }
+            .preview-panel { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn" title="Back to Tools"><i class="fas fa-arrow-left"></i></a>
+        <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+    </header>
+
+    <main class="workspace">
+        
+        <!-- EDITOR PANEL -->
+        <div class="editor-panel" id="form-container">
+            <h2><i class="fas fa-certificate"></i> Experience Letter Setup</h2>
+            
+            <!-- Settings & Branding -->
+            <div class="form-section">
+                <div class="section-title">Settings & Branding</div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Design Theme</label>
+                        <select id="in-theme" onchange="changeTheme()">
+                            <option value="theme-standard" selected>1. Standard Corporate</option>
+                            <option value="theme-modern">2. sedoc Modern Tech</option>
+                            <option value="theme-executive">3. Executive Dark Header</option>
+                            <option value="theme-agency">4. Creative Agency</option>
+                            <option value="theme-formal">5. Formal Legal / Classic</option>
+                            <option value="theme-logo-center">6. Pure Letterhead (Center Logo)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Upload Company Logo</label>
+                        <input type="file" id="in-logo" accept="image/*">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Details -->
+            <div class="form-section">
+                <div class="section-title">Company Info</div>
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label>Company Name</label>
+                        <input type="text" id="in-company" value="sedoc Technologies" class="sync-text" data-target="out-company, out-company-body">
+                    </div>
+                    <div class="input-group full">
+                        <label>Company Address</label>
+                        <input type="text" id="in-comp-address" value="123 Tech Park, Innovation City" class="sync-text" data-target="out-comp-address">
+                    </div>
+                    <div class="input-group full">
+                        <label>Date of Issue</label>
+                        <input type="date" id="in-issue-date" class="sync-text" data-target="out-issue-date">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Details -->
+            <div class="form-section">
+                <div class="section-title">Employee Service Details</div>
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label>Employee Name</label>
+                        <input type="text" id="in-emp-name" placeholder="John Doe" class="sync-text" data-target="out-emp-name">
+                    </div>
+                    <div class="input-group">
+                        <label>Employee ID</label>
+                        <input type="text" id="in-emp-id" placeholder="EMP-1045" class="sync-text" data-target="out-emp-id">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Designation Held</label>
+                        <input type="text" id="in-job-title" placeholder="Senior Software Engineer" class="sync-text" data-target="out-job-title">
+                    </div>
+                    <div class="input-group">
+                        <label>Start Date (Joining Date)</label>
+                        <input type="date" id="in-start-date" class="sync-text" data-target="out-start-date">
+                    </div>
+                    <div class="input-group">
+                        <label>End Date (Relieving Date)</label>
+                        <input type="date" id="in-end-date" class="sync-text" data-target="out-end-date">
+                    </div>
+                    <div class="input-group full">
+                        <label>Performance Rating (Optional)</label>
+                        <select id="in-conduct" class="sync-text" data-target="out-conduct">
+                            <option value="excellent" selected>Excellent</option>
+                            <option value="very good">Very Good</option>
+                            <option value="good">Good</option>
+                            <option value="satisfactory">Satisfactory</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signatory Details -->
+            <div class="form-section">
+                <div class="section-title">Authorized Signatory</div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Signatory Name</label>
+                        <input type="text" id="in-sig-name" value="Jane Smith" class="sync-text" data-target="out-sig-name">
+                    </div>
+                    <div class="input-group">
+                        <label>Signatory Title</label>
+                        <input type="text" id="in-sig-title" value="HR Director" class="sync-text" data-target="out-sig-title">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <div class="editable-hint"><i class="fas fa-magic"></i> Click any text below to edit directly</div>
+                <button class="btn-primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+            </div>
+
+            <div class="letter-container">
+                <!-- The Actual A4 Paper Letter -->
+                <div class="letter-paper theme-standard" id="letter-paper">
+                    
+                    <!-- Header -->
+                    <div class="letter-header">
+                        <div class="letter-header-left">
+                            <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
+                        </div>
+                        <div class="company-details" contenteditable="true">
+                            <h1 id="out-company">sedoc Technologies</h1>
+                            <p id="out-comp-address">123 Tech Park, Innovation City</p>
+                        </div>
+                    </div>
+
+                    <!-- Date & Ref -->
+                    <div class="date-row" contenteditable="true">
+                        <span>Ref No: EXP-<span id="out-emp-id">1045</span>/2026</span>
+                        <span>Date: <span id="out-issue-date"></span></span>
+                    </div>
+
+                    <div class="subject-line" contenteditable="true">
+                        TO WHOMSOEVER IT MAY CONCERN
+                    </div>
+
+                    <!-- Letter Body -->
+                    <div class="letter-body">
+                        <p contenteditable="true">
+                            This is to certify that Mr./Ms. <span class="highlight-var" id="out-emp-name"></span> was employed with <span class="highlight-var" id="out-company-body">sedoc Technologies</span>. They were working with us from <span class="highlight-var" id="out-start-date"></span> to <span class="highlight-var" id="out-end-date"></span>.
+                        </p>
+                        <p contenteditable="true">
+                            At the time of leaving the organization, their designation was <span class="highlight-var" id="out-job-title"></span>. 
+                        </p>
+                        <p contenteditable="true">
+                            During their tenure with us, we found them to be hardworking, highly committed, and a reliable team member. Their professional conduct and performance were <span class="highlight-var" id="out-conduct">excellent</span>. They have successfully completed all assigned tasks and handed over their responsibilities properly before leaving.
+                        </p>
+                        <p contenteditable="true">
+                            They are leaving the organization on their own accord. We wish them all the success in their future endeavors.
+                        </p>
+                    </div>
+
+                    <!-- Signatures -->
+                    <div class="signature-section">
+                        <div class="sign-block">
+                            <span contenteditable="true" style="color: #0f172a; margin-bottom: 40px; font-weight: 600;">For sedoc Technologies,</span>
+                            <div class="sign-line"></div>
+                            <strong id="out-sig-name" contenteditable="true">Jane Smith</strong>
+                            <span id="out-sig-title" contenteditable="true">HR Director</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Google AdSense Placeholder Placement -->
+    <div class="ad-container">
+        <span class="ad-label">Advertisement</span>
+        <div style="height: 90px; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#94a3b8;">
+            AdSense Banner Placement (ca-pub-4598765809021376)
+        </div>
+    </div>
+
+    <!-- Default Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved. Designed with precision for professionals.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Logic Script -->
+    <script>
+        // --- 1. Intelligent Text Syncing ---
+        // Using \u200B (Zero-width space) to keep fields completely blank without breaking layout
+        document.querySelectorAll('.sync-text').forEach(input => {
+            input.addEventListener('input', function() {
+                const targetIds = this.getAttribute('data-target').split(',');
+                targetIds.forEach(id => {
+                    const el = document.getElementById(id.trim());
+                    if(el) {
+                        el.innerText = this.value || '\u200B';
+                    }
+                });
+            });
+            
+            // Trigger input initially to clear placeholders if input is empty
+            const event = new Event('input');
+            input.dispatchEvent(event);
+        });
+
+        // --- 2. Logo Upload ---
+        document.getElementById('in-logo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('out-logo');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- 3. Theme Switcher ---
+        function changeTheme() {
+            const selectedTheme = document.getElementById('in-theme').value;
+            const letterPaper = document.getElementById('letter-paper');
+            letterPaper.className = 'letter-paper'; // Reset classes
+            letterPaper.classList.add(selectedTheme); // Apply new theme
+        }
+
+        // --- 4. PDF Exporter ---
+        function downloadPDF() {
+            const element = document.getElementById('letter-paper');
+            const empName = document.getElementById('in-emp-name').value || 'Employee';
+            
+            // Un-focus any editable content to hide the purple hover/focus outlines in PDF
+            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
+
+            const opt = {
+                margin:       0,
+                filename:     `Experience_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+        
+        // Initial setup
+        changeTheme();
+    </script>
+</body>
+</html>
