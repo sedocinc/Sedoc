@@ -66,22 +66,24 @@
         .editable-hint { font-size: 0.85rem; color: #fe0097; font-weight: 600; display: flex; align-items: center; gap: 5px; background: rgba(254,0,151,0.1); padding: 6px 12px; border-radius: 50px; }
 
         /* =========================================
-           BASE LETTER DESIGN (A4 PROPORTION)
+           STRICT A4 PAGE FIT DESIGN
            ========================================= */
         .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
         .letter-paper { 
             background: #ffffff; 
-            width: 210mm; /* A4 Width */
-            min-height: 297mm; /* A4 Height */
-            padding: 25mm; 
+            width: 210mm; /* Strict A4 Width */
+            height: 295mm; /* Safe Height (slightly less than 297mm to prevent 2nd page spill) */
+            max-height: 295mm;
+            padding: 20mm; /* Reduced padding for more internal space */
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             margin: 0 auto;
             color: #1e293b;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.5;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden; /* STRICTLY Prevents content from expanding height */
         }
 
         /* Inline Editing Style */
@@ -89,40 +91,40 @@
         [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
         [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
         
-        /* Elements Base Styles (Divider line removed) */
-        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 20px; }
-        .company-logo { max-height: 60px; max-width: 200px; object-fit: contain; }
+        /* Elements Base Styles - Compacted Margins */
+        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; padding-bottom: 15px; }
+        .company-logo { max-height: 50px; max-width: 180px; object-fit: contain; }
         .company-details { text-align: right; }
-        .company-details h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
-        .company-details p { font-size: 12px; color: #475569; line-height: 1.4; }
+        .company-details h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
+        .company-details p { font-size: 12px; color: #475569; line-height: 1.3; }
 
-        .date-row { display: flex; justify-content: space-between; margin-bottom: 40px; font-weight: 600; }
+        .date-row { display: flex; justify-content: space-between; margin-bottom: 25px; font-weight: 600; }
         
-        .subject-line { font-weight: 800; font-size: 18px; text-align: center; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 1px; color: #0f172a; text-decoration: underline; }
+        .subject-line { font-weight: 800; font-size: 16px; text-align: center; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; color: #0f172a; text-decoration: underline; }
         
-        .letter-body { text-align: justify; margin-bottom: 40px; }
-        .letter-body p { margin-bottom: 20px; font-size: 15px; line-height: 1.8; }
+        .letter-body { text-align: justify; margin-bottom: 20px; }
+        .letter-body p { margin-bottom: 15px; font-size: 14px; line-height: 1.6; }
         .highlight-var { font-weight: 700; color: #0f172a; }
 
-        .signature-section { margin-top: 80px; }
+        .signature-section { margin-top: 40px; }
         .sign-block { width: 300px; }
-        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 10px; height: 40px; }
-        .sign-block strong { display: block; font-size: 15px; color: #0f172a; margin-bottom: 2px; }
-        .sign-block span { font-size: 13px; color: #64748b; display: block; }
+        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 8px; height: 35px; }
+        .sign-block strong { display: block; font-size: 14px; color: #0f172a; margin-bottom: 2px; }
+        .sign-block span { font-size: 12px; color: #64748b; display: block; }
 
         /* =========================================
            6 PROFESSIONAL THEMES
            ========================================= */
         .theme-standard { }
 
-        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 20px; }
+        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 15px; }
         .theme-modern .company-details h1 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .theme-modern .subject-line { color: #a302ff; text-decoration: none; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px; display: inline-block; width: 100%; }
+        .theme-modern .subject-line { color: #a302ff; text-decoration: none; border-bottom: 2px dashed #e2e8f0; padding-bottom: 5px; display: inline-block; width: 100%; }
 
-        .theme-executive .letter-header { background: #0f172a; color: white; padding: 30mm; margin: -25mm -25mm 30px -25mm; }
+        .theme-executive .letter-header { background: #0f172a; color: white; padding: 20mm; margin: -20mm -20mm 25px -20mm; }
         .theme-executive .company-details h1, .theme-executive .company-details p { color: white; }
         
-        .theme-agency .letter-header { background: #f8fafc; padding: 25px; border-radius: 12px; border-left: 6px solid #f09709; margin-bottom: 40px; }
+        .theme-agency .letter-header { background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 6px solid #f09709; margin-bottom: 30px; }
         .theme-agency .sign-line { border-bottom: 1px dashed #94a3b8; }
 
         .theme-formal .letter-header { padding-bottom: 15px; }
@@ -136,19 +138,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom: 3px solid #0f172a; /* Solid bottom border for pure letterhead */
-            padding-bottom: 25px; 
-            margin-bottom: 40px;
+            border-bottom: 3px solid #0f172a; 
+            padding-bottom: 20px; 
+            margin-bottom: 25px;
         }
         .theme-logo-center .letter-header-left {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: center;
             width: 100%;
         }
-        .theme-logo-center .company-logo { max-height: 90px; max-width: 300px; } /* Slightly larger for center */
+        .theme-logo-center .company-logo { max-height: 80px; max-width: 250px; }
         .theme-logo-center .company-details { text-align: center; width: 100%; }
-        .theme-logo-center .company-details h1 { font-size: 26px; text-transform: uppercase; color: #0f172a; letter-spacing: 1px; margin-bottom: 8px; }
+        .theme-logo-center .company-details h1 { font-size: 24px; text-transform: uppercase; color: #0f172a; letter-spacing: 1px; margin-bottom: 4px; }
         .theme-logo-center .letter-body p { color: #1e293b; font-size: 14px; }
 
         /* =========================================
@@ -213,11 +215,11 @@
                 <div class="input-grid">
                     <div class="input-group full">
                         <label>Company Name</label>
-                        <input type="text" id="in-company" value="sedoc Technologies" class="sync-text" data-target="out-company, out-company-body">
+                        <input type="text" id="in-company" value="Your Company Name" class="sync-text" data-target="out-company, out-company-body">
                     </div>
                     <div class="input-group full">
                         <label>Company Address</label>
-                        <input type="text" id="in-comp-address" value="123 Tech Park, Innovation City" class="sync-text" data-target="out-comp-address">
+                        <input type="text" id="in-comp-address" value="Company Full Address" class="sync-text" data-target="out-comp-address">
                     </div>
                     <div class="input-group full">
                         <label>Date of Issue</label>
@@ -295,8 +297,8 @@
                             <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
                         </div>
                         <div class="company-details" contenteditable="true">
-                            <h1 id="out-company">sedoc Technologies</h1>
-                            <p id="out-comp-address">123 Tech Park, Innovation City</p>
+                            <h1 id="out-company">Your Company Name</h1>
+                            <p id="out-comp-address">Company Full Address</p>
                         </div>
                     </div>
 
@@ -313,7 +315,7 @@
                     <!-- Letter Body -->
                     <div class="letter-body">
                         <p contenteditable="true">
-                            This is to certify that Mr./Ms. <span class="highlight-var" id="out-emp-name"></span> was employed with <span class="highlight-var" id="out-company-body">sedoc Technologies</span>. They were working with us from <span class="highlight-var" id="out-start-date"></span> to <span class="highlight-var" id="out-end-date"></span>.
+                            This is to certify that Mr./Ms. <span class="highlight-var" id="out-emp-name"></span> was employed with <span class="highlight-var" id="out-company-body"></span>. They were working with us from <span class="highlight-var" id="out-start-date"></span> to <span class="highlight-var" id="out-end-date"></span>.
                         </p>
                         <p contenteditable="true">
                             At the time of leaving the organization, their designation was <span class="highlight-var" id="out-job-title"></span>. 
@@ -329,7 +331,7 @@
                     <!-- Signatures -->
                     <div class="signature-section">
                         <div class="sign-block">
-                            <span contenteditable="true" style="color: #0f172a; margin-bottom: 40px; font-weight: 600;">For sedoc Technologies,</span>
+                            <span contenteditable="true" style="color: #0f172a; margin-bottom: 25px; display:block; font-weight: 600;">For Company Name,</span>
                             <div class="sign-line"></div>
                             <strong id="out-sig-name" contenteditable="true">Jane Smith</strong>
                             <span id="out-sig-title" contenteditable="true">HR Director</span>
@@ -383,7 +385,7 @@
                 });
             });
             
-            // Trigger input initially to clear placeholders if input is empty
+            // Trigger input initially to set placeholders properly
             const event = new Event('input');
             input.dispatchEvent(event);
         });
@@ -420,6 +422,7 @@
 
             const opt = {
                 margin:       0,
+                pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
                 filename:     `Experience_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 1 },
                 html2canvas:  { scale: 2, useCORS: true },
