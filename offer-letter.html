@@ -66,22 +66,24 @@
         .editable-hint { font-size: 0.85rem; color: #fe0097; font-weight: 600; display: flex; align-items: center; gap: 5px; background: rgba(254,0,151,0.1); padding: 6px 12px; border-radius: 50px; }
 
         /* =========================================
-           BASE OFFER LETTER DESIGN (A4 PROPORTION)
+           STRICT A4 PAGE FIT DESIGN
            ========================================= */
         .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
         .letter-paper { 
             background: #ffffff; 
-            width: 210mm; /* A4 Width */
-            min-height: 297mm; /* A4 Height */
-            padding: 25mm; 
+            width: 210mm; /* Strict A4 Width */
+            height: 295mm; /* Safe A4 Height */
+            max-height: 295mm;
+            padding: 20mm; /* Adjusted padding */
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             margin: 0 auto;
             color: #1e293b;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.5;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden; /* Prevent spillover to next page */
         }
 
         /* Inline Editing Style */
@@ -89,30 +91,30 @@
         [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
         [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
         
-        /* Elements Base Styles */
-        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #0f172a; padding-bottom: 20px; }
-        .company-logo { max-height: 60px; max-width: 200px; object-fit: contain; }
+        /* Elements Base Styles - Compacted Margins */
+        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; border-bottom: 2px solid #0f172a; padding-bottom: 15px; }
+        .company-logo { max-height: 50px; max-width: 180px; object-fit: contain; }
         .company-details { text-align: right; }
-        .company-details h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
-        .company-details p { font-size: 12px; color: #475569; line-height: 1.4; }
+        .company-details h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
+        .company-details p { font-size: 12px; color: #475569; line-height: 1.3; }
 
-        .date-row { margin-bottom: 30px; font-weight: 600; }
-        .candidate-address { margin-bottom: 30px; }
-        .candidate-address strong { display: block; font-size: 16px; margin-bottom: 4px; color: #0f172a; }
+        .date-row { margin-bottom: 20px; font-weight: 600; }
+        .candidate-address { margin-bottom: 20px; }
+        .candidate-address strong { display: block; font-size: 15px; margin-bottom: 4px; color: #0f172a; }
         
-        .subject-line { font-weight: 700; margin-bottom: 20px; font-size: 15px; text-decoration: underline; }
-        .salutation { margin-bottom: 20px; }
+        .subject-line { font-weight: 700; margin-bottom: 15px; font-size: 15px; text-decoration: underline; }
+        .salutation { margin-bottom: 15px; }
         
-        .letter-body p { margin-bottom: 15px; text-align: justify; }
+        .letter-body p { margin-bottom: 12px; text-align: justify; line-height: 1.6; }
         .highlight-var { font-weight: 700; color: #0f172a; }
 
-        .compensation-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .compensation-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 15px; border-radius: 8px; margin: 15px 0; }
         .compensation-box p { margin: 0; font-weight: 600; color: #0f172a; }
 
-        .signature-section { margin-top: 60px; display: flex; justify-content: space-between; }
+        .signature-section { margin-top: 30px; display: flex; justify-content: space-between; }
         .sign-block { width: 45%; }
-        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 10px; height: 40px; }
-        .sign-block strong { display: block; font-size: 15px; color: #0f172a; }
+        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 8px; height: 35px; }
+        .sign-block strong { display: block; font-size: 14px; color: #0f172a; }
         .sign-block span { font-size: 12px; color: #64748b; }
 
         /* =========================================
@@ -120,17 +122,17 @@
            ========================================= */
         .theme-standard { }
 
-        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 20px; border-bottom: 1px solid #cbd5e1; }
+        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 15px; border-bottom: 1px solid #cbd5e1; }
         .theme-modern .company-details h1 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .theme-modern .compensation-box { border-left: 4px solid #fe0097; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
 
-        .theme-executive .letter-header { background: #0f172a; color: white; padding: 30mm; margin: -25mm -25mm 30px -25mm; border-bottom: none; }
+        .theme-executive .letter-header { background: #0f172a; color: white; padding: 20mm; margin: -20mm -20mm 25px -20mm; border-bottom: none; }
         .theme-executive .company-details h1 { color: white; }
         .theme-executive .company-details p { color: #94a3b8; }
         .theme-executive .compensation-box { background: #0f172a; color: white; border: none; }
         .theme-executive .compensation-box p, .theme-executive .compensation-box .highlight-var { color: white; }
 
-        .theme-agency .letter-header { background: #f8fafc; padding: 25px; border-radius: 12px; border-bottom: none; border-left: 6px solid #3b82f6; margin-bottom: 30px; }
+        .theme-agency .letter-header { background: #f8fafc; padding: 20px; border-radius: 12px; border-bottom: none; border-left: 6px solid #3b82f6; margin-bottom: 25px; }
         .theme-agency .compensation-box { background: #f0f9ff; border: 1px dashed #bae6fd; border-radius: 12px; }
         .theme-agency .sign-line { border-bottom: 1px dashed #94a3b8; }
 
@@ -201,11 +203,11 @@
                 <div class="input-grid">
                     <div class="input-group full">
                         <label>Company Name</label>
-                        <input type="text" id="in-company" value="sedoc Technologies" class="sync-text" data-target="out-company, out-company-body">
+                        <input type="text" id="in-company" value="Your Company Name" class="sync-text" data-target="out-company, out-company-body">
                     </div>
                     <div class="input-group full">
                         <label>Company Address</label>
-                        <input type="text" id="in-comp-address" value="123 Tech Park, Innovation City" class="sync-text" data-target="out-comp-address">
+                        <input type="text" id="in-comp-address" value="Company Full Address" class="sync-text" data-target="out-comp-address">
                     </div>
                 </div>
             </div>
@@ -294,40 +296,40 @@
                             <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
                         </div>
                         <div class="company-details" contenteditable="true">
-                            <h1 id="out-company">sedoc Technologies</h1>
-                            <p id="out-comp-address">123 Tech Park, Innovation City</p>
+                            <h1 id="out-company">Your Company Name</h1>
+                            <p id="out-comp-address">Company Full Address</p>
                         </div>
                     </div>
 
                     <!-- Letter Content -->
                     <div class="date-row" contenteditable="true">
-                        Date: <span id="out-issue-date">[Select Date]</span>
+                        Date: <span id="out-issue-date"></span>
                     </div>
 
                     <div class="candidate-address" contenteditable="true">
-                        <strong id="out-cand-name">[Candidate Name]</strong>
-                        <span id="out-cand-address">[Candidate Address]</span>
+                        <strong id="out-cand-name"></strong>
+                        <span id="out-cand-address"></span>
                     </div>
 
                     <div class="subject-line" contenteditable="true">
-                        Subject: Offer of Employment - <span id="out-job-title">[Job Title]</span>
+                        Subject: Offer of Employment - <span id="out-job-title"></span>
                     </div>
 
                     <div class="salutation" contenteditable="true">
-                        Dear <span id="out-cand-salutation">[Candidate Name]</span>,
+                        Dear <span id="out-cand-salutation"></span>,
                     </div>
 
                     <div class="letter-body">
                         <p contenteditable="true">
-                            We are thrilled to offer you the position of <span class="highlight-var" id="out-job-body">[Job Title]</span> at <span class="highlight-var" id="out-company-body">sedoc Technologies</span>. During our interview process, we were highly impressed by your skills, experience, and cultural fit for our team. We believe you will be a valuable addition to our company.
+                            We are thrilled to offer you the position of <span class="highlight-var" id="out-job-body"></span> at <span class="highlight-var" id="out-company-body"></span>. During our interview process, we were highly impressed by your skills, experience, and cultural fit for our team. We believe you will be a valuable addition to our company.
                         </p>
                         <p contenteditable="true">
-                            Your expected starting date will be <span class="highlight-var" id="out-join-date">[Joining Date]</span>. You will be on a probation period of <span class="highlight-var" id="out-probation">3 Months</span>, during which your performance will be evaluated. 
+                            Your expected starting date will be <span class="highlight-var" id="out-join-date"></span>. You will be on a probation period of <span class="highlight-var" id="out-probation"></span>, during which your performance will be evaluated. 
                         </p>
 
                         <div class="compensation-box" contenteditable="true">
                             <p>Compensation Package:</p>
-                            Your starting annual compensation will be <span class="highlight-var"><span id="out-currency">PKR</span> <span id="out-salary">0</span></span>, subject to standard tax deductions as per government regulations.
+                            Your starting annual compensation will be <span class="highlight-var"><span id="out-currency">PKR</span> <span id="out-salary"></span></span>, subject to standard tax deductions as per government regulations.
                         </div>
 
                         <p contenteditable="true">
@@ -394,13 +396,19 @@
                     const el = document.getElementById(id.trim());
                     if(el) {
                         if(this.id === 'in-salary') {
-                            el.innerText = Number(this.value).toLocaleString() || '0';
+                            // If salary is empty, insert zero-width space instead of '0' so it can be blank
+                            el.innerText = this.value ? Number(this.value).toLocaleString() : '\u200B';
                         } else {
-                            el.innerText = this.value || '[Not Provided]';
+                            // Empty string defaults to zero-width space to keep formatting intact
+                            el.innerText = this.value || '\u200B';
                         }
                     }
                 });
             });
+            
+            // Trigger input initially to clear placeholders and set defaults
+            const event = new Event('input');
+            input.dispatchEvent(event);
         });
 
         // --- 2. Logo Upload ---
@@ -435,6 +443,7 @@
 
             const opt = {
                 margin:       0,
+                pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
                 filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 1 },
                 html2canvas:  { scale: 2, useCORS: true },
