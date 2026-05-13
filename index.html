@@ -27,6 +27,31 @@
     <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
+    <!-- Advanced Schema.org Markup (Software & FAQ for High Ranking) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "sedoc",
+          "url": "https://www.thesedoc.com/",
+          "description": "Comprehensive online suite for generating HR, Finance, Legal, and Educational documents with AI capabilities.",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "All",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "Is sedoc free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, sedoc offers free online document generation and AI tools." } },
+            { "@type": "Question", "name": "Are my documents secure?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All files are encrypted and automatically deleted from our servers after processing." } }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
         /* Modern Design System Tokens */
         :root {
@@ -94,12 +119,12 @@
            ========================================= */
         .hero-section { 
             text-align: center; 
-            margin-bottom: 50px; /* Reduced Margin */
+            margin-bottom: 50px; 
             position: relative; 
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px; /* Reduced Padding */
+            padding: 10px; 
         }
 
         /* Animated Background Blobs for Liquid Effect */
@@ -119,7 +144,7 @@
             100% { transform: translate(20px, 30px) scale(1.05); }
         }
 
-        /* The Liquid Glass Container - Made Tighter */
+        /* The Liquid Glass Container - Compact */
         .hero-glass-container {
             position: relative;
             z-index: 1;
@@ -128,9 +153,9 @@
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.8); 
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.5);
-            border-radius: 30px; /* Scaled down border radius */
-            padding: 40px 30px; /* Significantly reduced padding */
-            max-width: 850px; /* Scaled down width */
+            border-radius: 30px; 
+            padding: 40px 30px; 
+            max-width: 850px; 
             width: 100%;
         }
 
@@ -138,13 +163,13 @@
         .hero-glass-container p { font-size: 1.05rem; color: #334155; max-width: 600px; margin: 0 auto 25px; line-height: 1.5; font-weight: 500; }
         .text-gradient { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Glass Search Bar - Slimmer */
+        /* Glass Search Bar */
         .search-container {
             max-width: 550px; margin: 0 auto; position: relative;
             box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1); border-radius: 50px;
         }
         .search-container input {
-            width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; /* Slimmer padding */
+            width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; 
             border: 1px solid rgba(255, 255, 255, 0.7); font-size: 1rem; outline: none;
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
@@ -156,12 +181,12 @@
         .search-container input:focus { background: rgba(255, 255, 255, 0.95); border-color: #a302ff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.15); }
         .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; color: #a302ff; z-index: 2; }
 
-        /* Stats Strip within Glass - More Compact */
+        /* Stats Strip within Glass */
         .stats-strip { display: flex; justify-content: center; gap: 20px; margin-top: 35px; flex-wrap: wrap; }
         .stat-item { 
             text-align: center; 
             background: rgba(255, 255, 255, 0.35); 
-            padding: 10px 25px; /* Tighter padding */
+            padding: 10px 25px; 
             border-radius: 16px; 
             border: 1px solid rgba(255,255,255,0.6); 
             backdrop-filter: blur(10px);
@@ -170,7 +195,6 @@
         .stat-item:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.6); }
         .stat-item h4 { font-size: 1.4rem; font-weight: 900; color: var(--text-dark); }
         .stat-item p { font-size: 0.75rem; color: #475569; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 2px; }
-
 
         /* =========================================
            BENTO BOX GRID LAYOUT
@@ -486,12 +510,45 @@
         </div>
     </footer>
 
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // Tab functionality
+        // 1. Tab functionality
         document.querySelectorAll('.nav-tabs a').forEach(tab => {
             tab.addEventListener('click', function(e) {
                 document.querySelectorAll('.nav-tabs a').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
+            });
+        });
+
+        // 2. LIVE SEARCH BAR FUNCTIONALITY
+        const searchInput = document.querySelector('.search-container input');
+        const sections = document.querySelectorAll('.category-section');
+
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            sections.forEach(section => {
+                const cards = section.querySelectorAll('.bento-card');
+                let hasVisibleCard = false; 
+
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        hasVisibleCard = true;
+                    } else {
+                        card.style.display = 'none'; 
+                    }
+                });
+
+                // Hide section if no cards match
+                if (hasVisibleCard || searchTerm === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
             });
         });
     </script>
