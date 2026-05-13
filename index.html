@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Ultra Premium SEO Meta Tags -->
     <title>sedoc | Free AI Document Maker, HR, Legal & Finance Tools</title>
     <meta name="description" content="The smartest online platform to create Salary Slips, Legal Agreements, Invoices, and Student Documents. Powered by AI to summarize, translate, and convert PDFs instantly.">
     <meta name="keywords" content="Salary Slip Generator, Rental Agreement Maker, AI PDF Summarizer, Resume Builder, Bank Statement to Excel, sedoc tools">
@@ -12,22 +11,18 @@
     <meta name="author" content="sedoc">
     <link rel="canonical" href="https://www.thesedoc.com/" />
 
-    <!-- Open Graph (Social Media SEO) -->
     <meta property="og:title" content="sedoc - The Ultimate Document Workspace">
     <meta property="og:description" content="Generate, manage, and convert documents instantly with AI. 100% Free and Secure.">
     <meta property="og:url" content="https://www.thesedoc.com/">
     <meta property="og:type" content="website">
 
-    <!-- Premium Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
-    <!-- Advanced Schema.org Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -112,7 +107,14 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        main { max-width: 1250px; margin: 0 auto; padding: 30px 5% 60px; flex-grow: 1; width: 100%; }
+        /* Section ko wide aur gaps ko kam karne ke liye Updated CSS */
+        main { 
+            max-width: 1250px; 
+            margin: 0 auto; 
+            padding: 30px 5% 20px; /* Bottom padding kam kar di */
+            flex-grow: 1; 
+            width: 100%; 
+        }
 
         /* =========================================
            COMPACT LIQUID GLASS HERO SECTION
@@ -245,7 +247,6 @@
             overflow: hidden;
             padding: 30px 0;
             position: relative;
-            /* Strong left & right fade effect */
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
@@ -254,8 +255,7 @@
             display: flex;
             gap: 25px;
             width: max-content;
-            /* Smooth left slide */
-            animation: scrollLeft 35s linear infinite; /* Slightly slower for easier reading */
+            animation: scrollLeft 35s linear infinite; 
         }
 
         .glass-testimonial-track:hover {
@@ -267,21 +267,20 @@
             100% { transform: translateX(calc(-50% - 12.5px)); }
         }
 
-        /* NEW: Split Layout Card Design */
         .glass-card {
-            width: 480px; /* Wider to accommodate split layout */
-            height: 220px; /* Fixed height for clean alignment */
+            width: 480px; 
+            height: 220px; 
             flex-shrink: 0;
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 24px;
-            overflow: hidden; /* Clips the inner image to match card's border radius */
+            overflow: hidden; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.03), inset 0 0 15px rgba(255,255,255,0.5);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-            display: flex; /* Flex row by default */
-            align-items: stretch; /* Make children fill height */
+            display: flex; 
+            align-items: stretch; 
         }
 
         .glass-card:hover {
@@ -291,9 +290,8 @@
             background: rgba(255, 255, 255, 0.7);
         }
 
-        /* Left Side: Full Image */
         .t-img-wrapper {
-            width: 40%; /* Takes up 40% of the card width */
+            width: 40%; 
             flex-shrink: 0;
             position: relative;
         }
@@ -314,7 +312,6 @@
             display: block;
         }
 
-        /* Right Side: Text & Info */
         .t-content {
             width: 60%;
             padding: 25px;
@@ -330,7 +327,7 @@
             font-weight: 500;
             font-style: italic;
             display: -webkit-box;
-            -webkit-line-clamp: 4; /* Limit text lines if too long */
+            -webkit-line-clamp: 4; 
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -369,8 +366,159 @@
         details[open] summary::after { transform: rotate(180deg); }
         details p { margin-top: 10px; font-size: 0.95rem; color: var(--text-gray); margin-bottom: 0; }
 
-        /* Footer */
-        footer { background: #ffffff; padding: 40px 5% 20px; border-top: 1px solid var(--border); margin-top: auto; }
+        /* =========================================
+           PREMIUM FEEDBACK WRAPPER
+           ========================================= */
+        .premium-feedback-wrapper {
+            max-width: 1000px; /* Isay wide kar diya taake alag section feel ho */
+            margin: 40px auto 10px; /* Bottom margin kam kar di taake footer qareeb aaye */
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 20px 40px -5px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .pf-header {
+            text-align: center; /* Wide section mein centered header zyada premium lagta hai */
+            margin-bottom: 40px;
+        }
+        
+        .pf-header h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-top: 10px;
+        }
+
+        .pf-badge {
+            background: #f1f5f9;
+            color: #a302ff;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        .pf-rating-container {
+            display: flex;
+            justify-content: center; /* Stars ko bhi center kar diya */
+            gap: 15px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+        
+        .pf-rating-container i {
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .pf-rating-container i:hover { transform: scale(1.2); }
+
+        .pf-row { display: flex; gap: 20px; flex-wrap: wrap; }
+        .pf-input-group { position: relative; flex: 1; min-width: 250px; margin-bottom: 25px; }
+        
+        .pf-input-group input, .pf-input-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+            font-size: 1rem;
+            background: #f8fafc;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .pf-input-group textarea { min-height: 120px; resize: vertical; }
+        
+        .pf-input-group input:focus, .pf-input-group textarea:focus {
+            border-color: #a302ff;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(163, 2, 255, 0.1);
+        }
+
+        .pf-input-group label {
+            position: absolute;
+            left: 20px;
+            top: 17px;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: transparent;
+            padding: 0 5px;
+        }
+
+        .pf-input-group input:focus ~ label, .pf-input-group input:not(:placeholder-shown) ~ label,
+        .pf-input-group textarea:focus ~ label, .pf-input-group textarea:not(:placeholder-shown) ~ label {
+            top: -10px;
+            left: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #a302ff;
+            background: #ffffff;
+            border-radius: 4px;
+        }
+
+        .pf-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px; /* Button ko wide section mein center aur compact rakha */
+            margin: 20px auto 0;
+            background: var(--brand-gradient);
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(163, 2, 255, 0.2);
+        }
+        .pf-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(163, 2, 255, 0.3);
+        }
+
+        .pf-success-state {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .circle-check {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+        .pf-success-state h4 { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .pf-success-state p { color: var(--text-gray); }
+
+        /* Footer ka gap mazeed kam karne ke liye Updated CSS */
+        footer { 
+            background: #ffffff; 
+            margin-top: 10px; 
+            padding: 30px 5% 20px; 
+            border-top: 1px solid var(--border);
+        }
         .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
         .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
@@ -388,11 +536,10 @@
             .bento-grid { grid-template-columns: 1fr; }
             .glass-slider-container { mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
             
-            /* Mobile adjustment for Split Card */
             .glass-card { 
                 width: 320px; 
                 height: auto;
-                flex-direction: column; /* Stack image on top of text on mobile */
+                flex-direction: column; 
             }
             .t-img-wrapper {
                 width: 100%;
@@ -403,10 +550,14 @@
                 width: 100%; height: 30px;
                 background: linear-gradient(to top, rgba(255,255,255,0.6), transparent);
             }
-            .t-content {
-                width: 100%;
-                padding: 20px;
+            .t-content { width: 100%; padding: 20px; }
+            
+            /* Responsive Premium Feedback Wrapper */
+            .premium-feedback-wrapper { 
+                margin: 30px 15px 10px; 
+                padding: 30px 20px; 
             }
+            .pf-row { flex-direction: column; gap: 0; }
         }
     </style>
 </head>
@@ -431,7 +582,6 @@
     </nav>
 
     <main>
-        <!-- Liquid Glass Hero Section - Compact -->
         <section class="hero-section" id="popular">
             <div class="glass-blob blob-1"></div>
             <div class="glass-blob blob-2"></div>
@@ -463,7 +613,6 @@
             </div>
         </section>
 
-        <!-- HR & Corporate -->
         <section id="hr" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-user-tie"></i> HR & Corporate</h2>
@@ -496,13 +645,11 @@
             </div>
         </section>
 
-        <!-- Google AdSense Placeholder -->
         <div class="ad-container">
             <span class="ad-label">Advertisement</span>
             <div style="height: 90px; background: #e2e8f0; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#64748b;">AdSense Banner Placement</div>
         </div>
 
-        <!-- Student & Education -->
         <section id="education" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-user-graduate"></i> Student & Education</h2>
@@ -527,7 +674,6 @@
             </div>
         </section>
 
-        <!-- Finance -->
         <section id="finance" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-chart-pie"></i> Banking & Finance</h2>
@@ -552,7 +698,6 @@
             </div>
         </section>
 
-        <!-- Legal -->
         <section id="legal" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-balance-scale"></i> Legal & Compliance</h2>
@@ -577,7 +722,6 @@
             </div>
         </section>
 
-        <!-- AI Tools -->
         <section id="ai" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-robot"></i> Advanced AI Features</h2>
@@ -602,7 +746,6 @@
             </div>
         </section>
 
-        <!-- Premium SEO & FAQ Section -->
         <section class="seo-section">
             <h2>The Smartest Document Platform on the Web</h2>
             <p><strong>sedoc</strong> replaces the need for expensive lawyers, HR software, and complex PDF editors. Our cloud-based architecture ensures that whether you are drafting a <strong>Rental Agreement</strong>, converting a <strong>Bank Statement to Excel</strong>, or using AI to <strong>Summarize PDFs</strong>, everything happens in seconds directly in your browser.</p>
@@ -623,7 +766,6 @@
             </div>
         </section>
 
-        <!-- Centered Glass UI Infinite Testimonials Slider (Split Layout) -->
         <section id="testimonials" class="testimonials-section">
             <div class="category-header" style="justify-content: center; margin-bottom: 20px;">
                 <h2 class="category-title"><i class="fas fa-heart"></i> Loved by Professionals</h2>
@@ -632,7 +774,6 @@
             <div class="glass-slider-container">
                 <div class="glass-testimonial-track">
                     
-                    <!-- Original Set of Cards -->
                     <div class="glass-card">
                         <div class="t-img-wrapper">
                             <img src="image1.png" alt="Syed Athar Bukhari" class="t-img">
@@ -672,7 +813,6 @@
                         </div>
                     </div>
 
-                    <!-- Duplicate Set of Cards (For continuous infinite animation) -->
                     <div class="glass-card">
                         <div class="t-img-wrapper">
                             <img src="image1.png" alt="Syed Athar Bukhari" class="t-img">
@@ -716,6 +856,53 @@
             </div>
         </section>
 
+        <div class="premium-feedback-wrapper">
+            <div id="pfFormContainer">
+                <div class="pf-header">
+                    <span class="pf-badge">Your Voice</span>
+                    <h3>How was your experience?</h3>
+                </div>
+
+                <form id="userFeedbackForm" class="pf-form">
+                    <div class="pf-rating-container" id="starRating">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+
+                    <div class="pf-row">
+                        <div class="pf-input-group">
+                            <input type="text" id="pf-name" placeholder=" " required>
+                            <label for="pf-name">Full Name</label>
+                        </div>
+                        <div class="pf-input-group">
+                            <input type="text" id="pf-role" placeholder=" " required>
+                            <label for="pf-role">Role / Company</label>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-input-group">
+                        <textarea id="pf-message" placeholder=" " required></textarea>
+                        <label for="pf-message">Write your feedback...</label>
+                    </div>
+                    
+                    <button type="submit" class="pf-submit">
+                        Submit Feedback <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div id="pfSuccessState" class="pf-success-state">
+                <div class="circle-check">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h4>Thank You!</h4>
+                <p>Your feedback helps us refine sedoc.</p>
+            </div>
+        </div>
+
     </main>
 
     <footer>
@@ -736,7 +923,6 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE SCRIPTS -->
     <script>
         // 1. Tab functionality
         document.querySelectorAll('.nav-tabs a').forEach(tab => {
@@ -775,6 +961,51 @@
                     section.style.display = 'none';
                 }
             });
+        });
+
+        // 3. Feedback Form Interactive Stars & Submission
+        const stars = document.querySelectorAll('.pf-rating-container i');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            // Hover effect
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                highlightStars(rating);
+            });
+
+            // Remove hover effect when mouse leaves
+            star.addEventListener('mouseout', function() {
+                highlightStars(selectedRating);
+            });
+
+            // Click to set rating
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-rating');
+                highlightStars(selectedRating);
+            });
+        });
+
+        function highlightStars(rating) {
+            stars.forEach(star => {
+                if (star.getAttribute('data-rating') <= rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                    star.style.color = '#f09709';
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                    star.style.color = '#cbd5e1';
+                }
+            });
+        }
+
+        // Form Submission Toggle
+        document.getElementById('userFeedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            // Hide form and show success state
+            document.getElementById('pfFormContainer').style.display = 'none';
+            document.getElementById('pfSuccessState').style.display = 'block';
         });
     </script>
 </body>
