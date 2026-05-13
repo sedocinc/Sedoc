@@ -13,6 +13,9 @@
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
+
     <style>
         /* Design System Variables */
         :root {
@@ -62,7 +65,7 @@
         .btn-remove { background: #fef2f2; color: #ef4444; border: none; padding: 10px; border-radius: 8px; cursor: pointer; }
 
         /* Right: Live Preview Panel */
-        .preview-panel { position: sticky; top: 90px; }
+        .preview-panel { position: sticky; top: 90px; margin-bottom: 20px; }
         .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .btn-primary { background: var(--brand-color); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-primary:hover { background: #1e293b; }
@@ -154,6 +157,21 @@
         .theme-dark .slip-table th { background: #0f172a; color: white; border: none; }
         .theme-dark .net-pay-box { background: #ffffff; color: #0f172a; border: 2px solid #0f172a; box-shadow: 4px 4px 0px #0f172a; }
         .theme-dark .net-pay-box p { color: #475569; font-weight: 600; }
+
+        /* =========================================
+           ADSENSE & FOOTER
+           ========================================= */
+        .ad-container { margin: 20px auto 50px; max-width: 1450px; padding: 15px; background: rgba(0,0,0,0.02); border-radius: 16px; text-align: center; border: 1px dashed #cbd5e1; width: 94%; }
+        .ad-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        footer { background: #ffffff; padding: 40px 5% 20px; border-top: 1px solid var(--border); margin-top: auto; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
         @media (max-width: 1024px) {
             .workspace { grid-template-columns: 1fr; }
@@ -375,6 +393,33 @@
             </div>
         </div>
     </main>
+
+    <!-- Google AdSense Placeholder Placement -->
+    <div class="ad-container">
+        <span class="ad-label">Advertisement</span>
+        <div style="height: 90px; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#94a3b8;">
+            AdSense Banner Placement (ca-pub-4598765809021376)
+        </div>
+    </div>
+
+    <!-- Default Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved. Designed with precision for professionals.
+            </div>
+        </div>
+    </footer>
 
     <!-- Core Logic Script -->
     <script>
