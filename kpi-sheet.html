@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional KPI Sheet Maker | sedoc</title>
+    <meta name="description" content="Generate professional employee KPI sheets and performance reviews. Free online KPI generator with auto-calculations and PDF export.">
+    
+    <!-- Premium Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* Design System Variables */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-color: #0f172a; 
+            --bg-color: #f8fafc;
+            --border: #e2e8f0;
+            --input-border: #cbd5e1;
+            --input-focus: #a302ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Header */
+        header { background-color: #ffffff; padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .back-btn { font-size: 1.2rem; color: var(--text-dark); text-decoration: none; margin-right: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f5f9; transition: 0.3s; }
+        .back-btn:hover { background: #e2e8f0; }
+        .logo-link img { height: 35px; }
+
+        /* Workspace Grid */
+        .workspace { max-width: 1450px; margin: 30px auto; padding: 0 3%; display: grid; grid-template-columns: 4fr 5fr; gap: 30px; flex-grow: 1; align-items: start; }
+
+        /* Left: Editor Panel */
+        .editor-panel { background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        
+        .form-section { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border); }
+        .section-title { font-size: 0.85rem; font-weight: 700; color: #a302ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group.full { grid-column: span 2; }
+        
+        label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); }
+        input, select, textarea { padding: 10px; border: 1px solid var(--input-border); border-radius: 8px; font-size: 0.85rem; outline: none; transition: 0.3s; background: #f8fafc; width: 100%; }
+        input:focus { border-color: var(--input-focus); background: #ffffff; }
+
+        .btn-add-row { background: #f1f5f9; color: var(--text-dark); border: 1px solid var(--border); padding: 8px 15px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-add-row:hover { background: #e2e8f0; }
+
+        /* Right: Live Preview Panel */
+        .preview-panel { position: sticky; top: 90px; }
+        .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-primary { background: var(--brand-color); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        
+        /* =========================================
+           STRICT A4 KPI SHEET DESIGN
+           ========================================= */
+        .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
+        .letter-paper { 
+            background: #ffffff; 
+            width: 210mm; 
+            height: 295mm; 
+            max-height: 295mm;
+            padding: 15mm; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            margin: 0 auto;
+            color: #1e293b;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .kpi-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 20px; }
+        .kpi-header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .kpi-header p { font-size: 11px; color: var(--text-gray); margin-top: 4px; }
+
+        .info-table { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
+        .info-table td { padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+        .info-table td:nth-child(odd) { font-weight: 700; width: 20%; color: #64748b; }
+        .info-table td:nth-child(even) { width: 30%; color: #0f172a; }
+
+        /* KPI Data Table */
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
+        .data-table th { background: #0f172a; color: white; padding: 10px; font-size: 11px; text-align: left; text-transform: uppercase; }
+        .data-table td { padding: 10px; border: 1px solid #e2e8f0; font-size: 11px; vertical-align: top; word-wrap: break-word; }
+        .data-table .center { text-align: center; }
+        
+        .total-row { background: #f8fafc; font-weight: 800; font-size: 13px; }
+        .total-row td { border-top: 2px solid #0f172a; }
+
+        .comments-section { margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .comments-section h3 { font-size: 12px; margin-bottom: 8px; text-transform: uppercase; color: #64748b; }
+
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 40px; }
+        .sign-box { border-top: 1px solid #0f172a; padding-top: 8px; text-align: center; }
+        .sign-box strong { display: block; font-size: 12px; }
+        .sign-box span { font-size: 10px; color: #64748b; }
+
+        /* Editable fields highlighting */
+        [contenteditable="true"] { outline: none; border-radius: 3px; transition: background 0.2s; }
+        [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
+        [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
+
+        /* Utility */
+        .highlight { color: #a302ff; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+    </header>
+
+    <main class="workspace">
+        
+        <!-- EDITOR PANEL -->
+        <div class="editor-panel">
+            <h2><i class="fas fa-tasks"></i> KPI Sheet Setup</h2>
+            
+            <!-- Employee Info -->
+            <div class="form-section">
+                <div class="section-title">Employee Information</div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Employee Name</label>
+                        <input type="text" id="in-name" placeholder="John Doe" class="sync-text" data-target="out-name">
+                    </div>
+                    <div class="input-group">
+                        <label>Employee ID</label>
+                        <input type="text" id="in-id" placeholder="EMP-405" class="sync-text" data-target="out-id">
+                    </div>
+                    <div class="input-group">
+                        <label>Department</label>
+                        <input type="text" id="in-dept" placeholder="Sales / IT" class="sync-text" data-target="out-dept">
+                    </div>
+                    <div class="input-group">
+                        <label>Review Period</label>
+                        <input type="text" id="in-period" placeholder="Q1 2026" class="sync-text" data-target="out-period">
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Rows Editor -->
+            <div class="form-section">
+                <div class="section-title">Key Performance Indicators</div>
+                <div id="kpi-rows-container">
+                    <!-- Row Input Template -->
+                    <div class="kpi-input-row" style="display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" placeholder="KPI Indicator" class="row-indicator" oninput="calculateKPI()">
+                        <input type="number" placeholder="Weight %" class="row-weight" oninput="calculateKPI()">
+                        <input type="number" placeholder="Score 1-10" class="row-score" oninput="calculateKPI()">
+                    </div>
+                </div>
+                <button class="btn-add-row" onclick="addInputRow()"><i class="fas fa-plus"></i> Add KPI Row</button>
+            </div>
+
+            <!-- Comments -->
+            <div class="form-section">
+                <div class="section-title">Reviewer Remarks</div>
+                <textarea id="in-remarks" rows="3" placeholder="Manager's feedback..." oninput="updateRemarks()"></textarea>
+            </div>
+        </div>
+
+        <!-- PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <div class="editable-hint"><i class="fas fa-magic"></i> Click any text below to edit directly</div>
+                <button class="btn-primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download KPI PDF</button>
+            </div>
+
+            <div class="letter-container">
+                <div class="letter-paper" id="letter-paper">
+                    
+                    <div class="kpi-header">
+                        <h1 contenteditable="true">Employee Performance KPI Sheet</h1>
+                        <p contenteditable="true">Confidential Review Document - 2026</p>
+                    </div>
+
+                    <table class="info-table">
+                        <tr>
+                            <td contenteditable="true">Employee Name:</td>
+                            <td id="out-name" contenteditable="true"></td>
+                            <td contenteditable="true">Employee ID:</td>
+                            <td id="out-id" contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true">Department:</td>
+                            <td id="out-dept" contenteditable="true"></td>
+                            <td contenteditable="true">Review Period:</td>
+                            <td id="out-period" contenteditable="true"></td>
+                        </tr>
+                    </table>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%;" contenteditable="true">Performance Indicator (KPI)</th>
+                                <th class="center" style="width: 15%;" contenteditable="true">Weight (%)</th>
+                                <th class="center" style="width: 15%;" contenteditable="true">Score (1-10)</th>
+                                <th class="center" style="width: 20%;" contenteditable="true">Weighted Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="out-kpi-body">
+                            <!-- Dynamic rows will appear here with contenteditable -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td contenteditable="true">TOTAL PERFORMANCE SCORE</td>
+                                <td id="total-weight" class="center" contenteditable="true">0%</td>
+                                <td class="center" contenteditable="true">-</td>
+                                <td id="final-avg" class="center" style="color:#a302ff;" contenteditable="true">0%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="comments-section">
+                        <h3 contenteditable="true">Reviewer's Comments & Feedback</h3>
+                        <p id="out-remarks" contenteditable="true" style="min-height: 60px;">Excellent performance during this period. Key targets were met with high efficiency.</p>
+                    </div>
+
+                    <div class="signature-grid">
+                        <div class="sign-box">
+                            <strong contenteditable="true">Line Manager Name</strong>
+                            <span contenteditable="true">Appraiser Signature</span>
+                        </div>
+                        <div class="sign-box">
+                            <strong id="out-name-sign" contenteditable="true">Employee Name</strong>
+                            <span contenteditable="true">Employee Acknowledgment</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. Sync Basic Info ---
+        document.querySelectorAll('.sync-text').forEach(input => {
+            input.addEventListener('input', function() {
+                const targetId = this.getAttribute('data-target');
+                const el = document.getElementById(targetId);
+                const elSign = document.getElementById(targetId + '-sign');
+                if(el) el.innerText = this.value || '\u200B';
+                if(elSign) elSign.innerText = this.value || '\u200B';
+            });
+            // Initial trigger
+            const event = new Event('input');
+            input.dispatchEvent(event);
+        });
+
+        // --- 2. Dynamic Rows Management ---
+        function addInputRow() {
+            const container = document.getElementById('kpi-rows-container');
+            const div = document.createElement('div');
+            div.className = 'kpi-input-row';
+            div.style = "display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 10px; margin-bottom: 10px;";
+            div.innerHTML = `
+                <input type="text" placeholder="KPI Indicator" class="row-indicator" oninput="calculateKPI()">
+                <input type="number" placeholder="Weight %" class="row-weight" oninput="calculateKPI()">
+                <input type="number" placeholder="Score 1-10" class="row-score" oninput="calculateKPI()">
+            `;
+            container.appendChild(div);
+            calculateKPI();
+        }
+
+        // --- 3. Main Calculation Logic ---
+        function calculateKPI() {
+            const indicators = document.querySelectorAll('.row-indicator');
+            const weights = document.querySelectorAll('.row-weight');
+            const scores = document.querySelectorAll('.row-score');
+            const outBody = document.getElementById('out-kpi-body');
+            
+            let totalWeight = 0;
+            let weightedSum = 0;
+            let html = '';
+
+            indicators.forEach((ind, index) => {
+                const w = parseFloat(weights[index].value) || 0;
+                const s = parseFloat(scores[index].value) || 0;
+                const weightedScore = (w * s) / 10; // Assuming score is out of 10
+
+                totalWeight += w;
+                weightedSum += weightedScore;
+
+                // Make dynamic cells directly editable too!
+                html += `
+                    <tr>
+                        <td contenteditable="true">${ind.value || '\u200B'}</td>
+                        <td class="center" contenteditable="true">${w}%</td>
+                        <td class="center" contenteditable="true">${s}/10</td>
+                        <td class="center" contenteditable="true">${weightedScore.toFixed(1)}%</td>
+                    </tr>
+                `;
+            });
+
+            outBody.innerHTML = html;
+            document.getElementById('total-weight').innerText = totalWeight + '%';
+            document.getElementById('final-avg').innerText = weightedSum.toFixed(1) + '%';
+            
+            // Highlight color based on performance
+            const finalEl = document.getElementById('final-avg');
+            if(weightedSum >= 80) finalEl.style.color = '#10b981'; // Green
+            else if(weightedSum >= 50) finalEl.style.color = '#f59e0b'; // Amber
+            else finalEl.style.color = '#ef4444'; // Red
+        }
+
+        function updateRemarks() {
+            document.getElementById('out-remarks').innerText = document.getElementById('in-remarks').value || '\u200B';
+        }
+
+        // --- 4. PDF Exporter ---
+        function downloadPDF() {
+            const element = document.getElementById('letter-paper');
+            const empName = document.getElementById('in-name').value || 'Employee';
+            
+            // Remove focus outline before generating PDF
+            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
+
+            const opt = {
+                margin: 0,
+                pagebreak: { mode: 'avoid-all' }, // STRICT A4 Single Page Fit
+                filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Initial Row execution
+        calculateKPI();
+    </script>
+</body>
+</html>
