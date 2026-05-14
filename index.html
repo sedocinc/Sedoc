@@ -7,10 +7,21 @@
     <title>sedoc | Free AI Document Maker, HR, Legal & Finance Tools</title>
     <meta name="description" content="The smartest online platform to create Salary Slips, Legal Agreements, Invoices, and Student Documents. Powered by AI to summarize, translate, and convert PDFs instantly.">
     <meta name="keywords" content="Salary Slip Generator, Rental Agreement Maker, AI PDF Summarizer, Resume Builder, Bank Statement to Excel, sedoc tools">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="sedoc">
+    <link rel="canonical" href="https://www.thesedoc.com/" />
 
+    <meta property="og:title" content="sedoc - The Ultimate Document Workspace">
+    <meta property="og:description" content="Generate, manage, and convert documents instantly with AI. 100% Free and Secure.">
+    <meta property="og:url" content="https://www.thesedoc.com/">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
     <style>
         /* Modern Design System Tokens */
@@ -52,7 +63,6 @@
             color: white; padding: 8px 20px; border-radius: 50px;
             text-decoration: none; font-weight: 600; font-size: 0.85rem;
             transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3);
-            cursor: pointer; border: none;
         }
         .header-actions .btn-primary:hover { opacity: 0.9; }
 
@@ -73,16 +83,40 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        main { max-width: 1250px; margin: 0 auto; padding: 30px 5% 20px; flex-grow: 1; width: 100%; }
+        /* Section layout */
+        main { 
+            max-width: 1250px; 
+            margin: 0 auto; 
+            padding: 30px 5% 20px;
+            flex-grow: 1; 
+            width: 100%; 
+        }
 
-        /* HERO SECTION */
-        .hero-section { text-align: center; margin-bottom: 30px; position: relative; display: flex; justify-content: center; align-items: center; padding: 10px; }
-        .glass-blob { position: absolute; filter: blur(70px); z-index: 0; opacity: 0.4; animation: floatBlob 12s infinite ease-in-out alternate; }
+        /* =========================================
+           COMPACT LIQUID GLASS HERO SECTION
+           ========================================= */
+        .hero-section { 
+            text-align: center; 
+            margin-bottom: 30px;
+            position: relative; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px; 
+        }
+
+        .glass-blob {
+            position: absolute; filter: blur(70px); z-index: 0; opacity: 0.4;
+            animation: floatBlob 12s infinite ease-in-out alternate;
+        }
         .blob-1 { top: 0%; left: 15%; width: 250px; height: 250px; background: #fe0097; border-radius: 50%; }
         .blob-2 { bottom: 0%; right: 15%; width: 300px; height: 300px; background: #a302ff; border-radius: 50%; animation-delay: -4s; }
         .blob-3 { top: 20%; right: 40%; width: 200px; height: 200px; background: #f09709; border-radius: 50%; animation-delay: -8s; }
 
-        @keyframes floatBlob { 0% { transform: translate(0px, 0px) scale(1); } 100% { transform: translate(20px, 30px) scale(1.05); } }
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(20px, 30px) scale(1.05); }
+        }
 
         .hero-glass-container {
             position: relative; z-index: 1; background: rgba(255, 255, 255, 0.4); 
@@ -96,7 +130,10 @@
         .hero-glass-container p { font-size: 1.05rem; color: #334155; max-width: 600px; margin: 0 auto 25px; line-height: 1.5; font-weight: 500; }
         .text-gradient { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .search-container { max-width: 550px; margin: 0 auto; position: relative; box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1); border-radius: 50px; }
+        .search-container {
+            max-width: 550px; margin: 0 auto; position: relative;
+            box-shadow: 0 10px 25px -10px rgba(0,0,0,0.1); border-radius: 50px;
+        }
         .search-container input {
             width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; 
             border: 1px solid rgba(255, 255, 255, 0.7); font-size: 1rem; outline: none;
@@ -107,7 +144,9 @@
         .search-container input:focus { background: rgba(255, 255, 255, 0.95); border-color: #a302ff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.15); }
         .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; color: #a302ff; z-index: 2; }
 
-        /* BENTO BOX GRID LAYOUT */
+        /* =========================================
+           BENTO BOX GRID LAYOUT
+           ========================================= */
         .category-section { margin-bottom: 70px; scroll-margin-top: 130px; }
         .category-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
         .category-title { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
@@ -123,13 +162,22 @@
             position: relative; overflow: hidden;
         }
 
-        .bento-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-gradient); opacity: 0; transition: opacity 0.4s ease; z-index: 0; }
+        .bento-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--brand-gradient); opacity: 0; transition: opacity 0.4s ease; z-index: 0;
+        }
+
         .bento-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--hover-shadow); border-color: rgba(163, 2, 255, 0.3); background: #ffffff; }
         .bento-card:hover::before { opacity: 0.03; }
         .bento-card > * { position: relative; z-index: 1; }
 
-        .icon-wrapper { width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0; background: linear-gradient(135deg, rgba(240, 151, 9, 0.1), rgba(254, 0, 151, 0.1)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .icon-wrapper {
+            width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(240, 151, 9, 0.1), rgba(254, 0, 151, 0.1));
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+        }
         .bento-card i { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
         .card-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--text-dark); }
         .card-content p { font-size: 0.85rem; color: var(--text-gray); line-height: 1.3; }
 
@@ -139,79 +187,179 @@
         .ad-container { margin: 50px 0; padding: 15px; background: rgba(0,0,0,0.02); border-radius: 16px; text-align: center; border: 1px dashed #cbd5e1; }
         .ad-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; display: block; }
 
-        /* SEO & FAQ SECTION */
-        .seo-section { background: #ffffff; padding: 50px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid var(--border); margin-bottom: 60px; }
-        .seo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        /* =========================================
+           UPDATED: SEO & FAQ SECTION (TWO COLUMN)
+           ========================================= */
+        .seo-section { 
+            background: #ffffff; 
+            padding: 50px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02); 
+            border: 1px solid var(--border); 
+            margin-bottom: 60px;
+        }
+
+        .seo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
         .seo-content h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.2; }
         .seo-content p { color: var(--text-gray); margin-bottom: 15px; font-size: 1.05rem; line-height: 1.7; }
         .seo-content strong { color: var(--text-dark); }
         
         .faq-container { display: flex; flex-direction: column; gap: 15px; }
-        details { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; transition: all 0.3s ease; }
-        details[open] { background: #ffffff; border-color: rgba(163, 2, 255, 0.3); box-shadow: 0 10px 25px -5px rgba(163, 2, 255, 0.1); }
-        summary { font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-dark); }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #a302ff; transition: transform 0.3s ease; background: var(--bg-color); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
-        details[open] summary::after { transform: rotate(180deg); background: rgba(163, 2, 255, 0.1); }
-        details p { margin-top: 15px; font-size: 0.95rem; color: var(--text-gray); margin-bottom: 0; line-height: 1.6; padding-top: 15px; border-top: 1px dashed var(--border); }
+        
+        details { 
+            background: #f8fafc;
+            border: 1px solid var(--border); 
+            border-radius: 16px;
+            padding: 16px 20px; 
+            transition: all 0.3s ease;
+        }
+        
+        details[open] {
+            background: #ffffff;
+            border-color: rgba(163, 2, 255, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(163, 2, 255, 0.1);
+        }
 
-        /* TESTIMONIALS */
+        summary { 
+            font-size: 1rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            list-style: none; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: var(--text-dark);
+        }
+        
+        summary::-webkit-details-marker { display: none; }
+        
+        summary::after { 
+            content: '\f078'; 
+            font-family: 'Font Awesome 6 Free'; 
+            font-weight: 900; 
+            color: #a302ff; 
+            transition: transform 0.3s ease;
+            background: var(--bg-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        details[open] summary::after { 
+            transform: rotate(180deg); 
+            background: rgba(163, 2, 255, 0.1);
+        }
+        
+        details p { 
+            margin-top: 15px; 
+            font-size: 0.95rem; 
+            color: var(--text-gray); 
+            margin-bottom: 0; 
+            line-height: 1.6;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+        }
+
+        /* =========================================
+           CENTERED GLASS MARQUEE TESTIMONIALS 
+           ========================================= */
         .testimonials-section { margin: 60px 0; padding: 20px 0; position: relative; }
-        .glass-slider-container { width: 100%; max-width: 1250px; margin: 0 auto; overflow: hidden; padding: 30px 0; position: relative; mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+        .testimonials-section::before { content: ''; position: absolute; top: -20px; left: 20%; width: 250px; height: 250px; background: #a302ff; filter: blur(120px); opacity: 0.15; border-radius: 50%; z-index: -1; }
+        .testimonials-section::after { content: ''; position: absolute; bottom: -20px; right: 20%; width: 250px; height: 250px; background: #fe0097; filter: blur(120px); opacity: 0.15; border-radius: 50%; z-index: -1; }
+
+        .glass-slider-container {
+            width: 100%; max-width: 1250px; margin: 0 auto; overflow: hidden; padding: 30px 0; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
         .glass-testimonial-track { display: flex; gap: 25px; width: max-content; animation: scrollLeft 35s linear infinite; }
         .glass-testimonial-track:hover { animation-play-state: paused; }
-        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12.5px)); } }
-        .glass-card { width: 480px; height: 230px; flex-shrink: 0; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.03), inset 0 0 15px rgba(255,255,255,0.5); display: flex; align-items: stretch; }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12.5px)); }
+        }
+
+        .glass-card {
+            width: 480px; height: 230px; flex-shrink: 0; background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 24px; overflow: hidden; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03), inset 0 0 15px rgba(255,255,255,0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            display: flex; align-items: stretch; 
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(163, 2, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.8);
+            border-color: rgba(163, 2, 255, 0.3); background: rgba(255, 255, 255, 0.7);
+        }
+
         .t-img-wrapper { width: 40%; flex-shrink: 0; position: relative; }
+        .t-img-wrapper::after {
+            content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 30px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.5)); z-index: 1;
+        }
         .t-img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .t-content { width: 60%; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; }
         .t-rating { color: #f09709; font-size: 0.85rem; margin-bottom: 8px; }
         .t-text { font-size: 0.95rem; color: #334155; line-height: 1.5; font-weight: 500; font-style: italic; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .t-profile-info { margin-top: 15px; }
         .t-name { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
-        .t-role { font-size: 0.75rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; }
+        .t-role { font-size: 0.75rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* FEEDBACK FORM */
-        .premium-feedback-wrapper { max-width: 1000px; margin: 40px auto 10px; background: #ffffff; border-radius: 24px; padding: 50px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 20px 40px -5px rgba(0, 0, 0, 0.03); border: 1px solid rgba(15, 23, 42, 0.05); position: relative; z-index: 2; }
+        /* =========================================
+           PREMIUM FEEDBACK WRAPPER
+           ========================================= */
+        .premium-feedback-wrapper {
+            max-width: 1000px; margin: 40px auto 10px; background: #ffffff; border-radius: 24px; padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 20px 40px -5px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.05); position: relative; z-index: 2;
+        }
+
         .pf-header { text-align: center; margin-bottom: 40px; }
         .pf-header h3 { font-size: 1.8rem; font-weight: 800; color: var(--text-dark); margin-top: 10px; }
-        .pf-badge { background: #f1f5f9; color: #a302ff; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+        .pf-badge { background: #f1f5f9; color: #a302ff; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: inline-block; }
+
         .pf-rating-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; font-size: 1.8rem; color: #cbd5e1; cursor: pointer; }
         .pf-rating-container i { transition: color 0.3s ease, transform 0.2s ease; }
         .pf-rating-container i:hover { transform: scale(1.2); }
+
         .pf-row { display: flex; gap: 20px; flex-wrap: wrap; }
         .pf-input-group { position: relative; flex: 1; min-width: 250px; margin-bottom: 25px; }
-        .pf-input-group input, .pf-input-group textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; outline: none; font-size: 1rem; background: #f8fafc; color: var(--text-dark); transition: all 0.3s ease; }
+        
+        .pf-input-group input, .pf-input-group textarea {
+            width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; outline: none; font-size: 1rem; background: #f8fafc; color: var(--text-dark); transition: all 0.3s ease;
+        }
         .pf-input-group textarea { min-height: 120px; resize: vertical; }
         .pf-input-group input:focus, .pf-input-group textarea:focus { border-color: #a302ff; background: #ffffff; box-shadow: 0 0 0 4px rgba(163, 2, 255, 0.1); }
-        .pf-input-group label { position: absolute; left: 20px; top: 17px; color: #94a3b8; transition: all 0.3s ease; pointer-events: none; padding: 0 5px; }
-        .pf-input-group input:focus ~ label, .pf-input-group input:not(:placeholder-shown) ~ label, .pf-input-group textarea:focus ~ label, .pf-input-group textarea:not(:placeholder-shown) ~ label { top: -10px; left: 15px; font-size: 0.8rem; font-weight: 600; color: #a302ff; background: #ffffff; border-radius: 4px; }
-        .pf-submit { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 300px; margin: 20px auto 0; background: var(--brand-gradient); color: white; padding: 14px 24px; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.2); }
+
+        .pf-input-group label { position: absolute; left: 20px; top: 17px; color: #94a3b8; transition: all 0.3s ease; pointer-events: none; background: transparent; padding: 0 5px; }
+        .pf-input-group input:focus ~ label, .pf-input-group input:not(:placeholder-shown) ~ label,
+        .pf-input-group textarea:focus ~ label, .pf-input-group textarea:not(:placeholder-shown) ~ label { top: -10px; left: 15px; font-size: 0.8rem; font-weight: 600; color: #a302ff; background: #ffffff; border-radius: 4px; }
+
+        .pf-submit {
+            display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 300px; margin: 20px auto 0;
+            background: var(--brand-gradient); color: white; padding: 14px 24px; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.2);
+        }
         .pf-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(163, 2, 255, 0.3); }
+
         .pf-success-state { display: none; text-align: center; padding: 40px 0; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .circle-check { width: 70px; height: 70px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; }
 
-        /* DONATE MODAL */
-        .donate-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
-        .donate-modal.active { opacity: 1; visibility: visible; }
-        .modal-glass-content { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 30px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; transform: translateY(20px) scale(0.95); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .donate-modal.active .modal-glass-content { transform: translateY(0) scale(1); }
-        .close-modal { position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 35px; height: 35px; border-radius: 50%; color: var(--text-gray); font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-        .close-modal:hover { background: #fee2e2; color: #ef4444; transform: rotate(90deg); }
-        .modal-header { text-align: center; margin-bottom: 30px; }
-        .modal-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #fe0097, #f09709); color: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 15px; }
-        .modal-header h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
-        .donate-bento-grid { display: flex; flex-direction: column; gap: 12px; }
-        .donate-card { display: flex; align-items: center; gap: 15px; background: #ffffff; padding: 15px 20px; border-radius: 16px; text-decoration: none; border: 1px solid var(--border); transition: all 0.3s ease; position: relative; }
-        .donate-card:hover { transform: translateY(-3px); border-color: rgba(163, 2, 255, 0.3); box-shadow: 0 10px 20px rgba(163, 2, 255, 0.08); }
-        .d-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
-        .d-icon.coffee { background: rgba(240, 151, 9, 0.1); color: #f09709; }
-        .d-icon.card { background: rgba(163, 2, 255, 0.1); color: #a302ff; }
-        .d-icon.crypto { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
-        .d-text h4 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
-        .d-text span { font-size: 0.8rem; color: var(--text-gray); }
-        .link-arrow { position: absolute; right: 20px; color: #cbd5e1; transition: color 0.3s ease; }
-        .donate-card:hover .link-arrow { color: #a302ff; }
+        .circle-check { width: 70px; height: 70px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); }
+        .pf-success-state h4 { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .pf-success-state p { color: var(--text-gray); }
 
         /* Footer */
         footer { background: #ffffff; margin-top: 10px; padding: 30px 5% 20px; border-top: 1px solid var(--border); }
@@ -220,16 +368,28 @@
         .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
         .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
         .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
-        @media (max-width: 768px) {
+        /* Responsive Design */
+        @media (max-width: 900px) {
             .seo-grid { grid-template-columns: 1fr; gap: 30px; }
+            .seo-section { padding: 30px 20px; }
+        }
+
+        @media (max-width: 768px) {
             .hero-glass-container { padding: 30px 20px; border-radius: 24px; }
-            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
+            .hero-glass-container h1 { font-size: 1.8rem; }
+            .nav-tabs { padding: 10px 15px; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; scrollbar-width: none; }
+            .nav-tabs::-webkit-scrollbar { display: none; }
             .bento-grid { grid-template-columns: 1fr; }
+            .glass-slider-container { mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+            
             .glass-card { width: 320px; height: auto; flex-direction: column; }
             .t-img-wrapper { width: 100%; height: 200px; }
-            .t-content { width: 100%; }
+            .t-img-wrapper::after { top: auto; right: 0; bottom: 0; left: 0; width: 100%; height: 30px; background: linear-gradient(to top, rgba(255,255,255,0.6), transparent); }
+            .t-content { width: 100%; padding: 20px; }
+            
             .premium-feedback-wrapper { margin: 30px 15px 10px; padding: 30px 20px; }
             .pf-row { flex-direction: column; gap: 0; }
         }
@@ -238,9 +398,11 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc logo"></a>
+        <a href="index.html" class="logo-link">
+            <img src="Logo.png" alt="sedoc logo">
+        </a>
         <div class="header-actions">
-            <button class="btn-primary" id="openDonateBtn"><i class="fas fa-bolt"></i> Donate</button>
+            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
         </div>
     </header>
 
@@ -258,33 +420,149 @@
             <div class="glass-blob blob-1"></div>
             <div class="glass-blob blob-2"></div>
             <div class="glass-blob blob-3"></div>
+
             <div class="hero-glass-container">
                 <h1>Work Smarter with <span class="text-gradient">sedoc.</span></h1>
                 <p>Generate HR letters, legal drafts, financial invoices, and manipulate documents with AI.</p>
+                
                 <div class="search-container">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search tools (e.g., 'Salary Slip')...">
                 </div>
+
             </div>
         </section>
 
         <section id="hr" class="category-section">
-            <div class="category-header"><h2 class="category-title"><i class="fas fa-user-tie"></i> HR & Corporate</h2></div>
+            <div class="category-header">
+                <h2 class="category-title"><i class="fas fa-user-tie"></i> HR & Corporate</h2>
+            </div>
             <div class="bento-grid">
-                <a href="#" class="bento-card"><div class="icon-wrapper"><i class="fas fa-file-invoice-dollar"></i></div><div class="card-content"><h3>Salary Slip</h3><p>Auto-calculate and generate professional payslips.</p></div></a>
-                <a href="#" class="bento-card"><div class="icon-wrapper"><i class="fas fa-envelope-open-text"></i></div><div class="card-content"><h3>Offer Letter</h3><p>Draft compelling and legally binding job offers.</p></div></a>
-                <a href="#" class="bento-card"><div class="icon-wrapper"><i class="fas fa-certificate"></i></div><div class="card-content"><h3>Experience Letter</h3><p>Create official company service certificates.</p></div></a>
-                <a href="#" class="bento-card"><div class="icon-wrapper"><i class="fas fa-tasks"></i></div><div class="card-content"><h3>KPI Sheet</h3><p>Track employee performance with smart templates.</p></div></a>
+                <a href="salary-slip.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="card-content"><h3>Salary Slip</h3><p>Auto-calculate and generate professional payslips.</p></div>
+                </a>
+                <a href="offer-letter.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="card-content"><h3>Offer Letter</h3><p>Draft compelling and legally binding job offers.</p></div>
+                </a>
+                <a href="experience-letter.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-certificate"></i></div>
+                    <div class="card-content"><h3>Experience Letter</h3><p>Create official company service certificates.</p></div>
+                </a>
+                <a href="kpi-sheet.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-tasks"></i></div>
+                    <div class="card-content"><h3>KPI Sheet</h3><p>Track employee performance with smart templates.</p></div>
+                </a>
+                <a href="warning-letter.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="card-content"><h3>Warning Letter</h3><p>Standardized disciplinary notices and memos.</p></div>
+                </a>
+                <a href="resignation-letter.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="card-content"><h3>Resignation Letter</h3><p>Professional exit and handover documents.</p></div>
+                </a>
             </div>
         </section>
 
-        <div class="ad-container"><span class="ad-label">Advertisement</span><div style="height: 90px; background: #e2e8f0; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#64748b;">AdSense Banner Placement</div></div>
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <div style="height: 90px; background: #e2e8f0; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#64748b;">AdSense Banner Placement</div>
+        </div>
+
+        <section id="education" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title"><i class="fas fa-user-graduate"></i> Student & Education</h2>
+            </div>
+            <div class="bento-grid">
+                <a href="humanize-writing.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-pen-nib"></i></div>
+                    <div class="card-content"><h3>Humanize Writing</h3><p>Make AI-generated essays sound 100% natural.</p></div>
+                </a>
+                <a href="assignment-cover.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-book-open"></i></div>
+                    <div class="card-content"><h3>Assignment Cover</h3><p>Design beautiful academic title pages instantly.</p></div>
+                </a>
+                <a href="handwritten-to-pdf.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-file-image"></i></div>
+                    <div class="card-content"><h3>Handwritten to PDF</h3><p>Convert your physical notebook images to crisp PDFs.</p></div>
+                </a>
+                <a href="resume-builder.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-id-card"></i></div>
+                    <div class="card-content"><h3>Resume Builder</h3><p>ATS-friendly CVs designed for fresh graduates.</p></div>
+                </a>
+            </div>
+        </section>
+
+        <section id="finance" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title"><i class="fas fa-chart-pie"></i> Banking & Finance</h2>
+            </div>
+            <div class="bento-grid">
+                <a href="statement-to-excel.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-file-excel"></i></div>
+                    <div class="card-content"><h3>Statement to Excel</h3><p>Extract transactions from PDF to spreadsheets.</p></div>
+                </a>
+                <a href="invoice-generator.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-receipt"></i></div>
+                    <div class="card-content"><h3>Invoice Generator</h3><p>Create tax-ready invoices with your business logo.</p></div>
+                </a>
+                <a href="tax-calculator.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-calculator"></i></div>
+                    <div class="card-content"><h3>GST/VAT Calculator</h3><p>Generate financial PDFs with automated tax math.</p></div>
+                </a>
+                <a href="quotation-maker.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-file-contract"></i></div>
+                    <div class="card-content"><h3>Quotation Maker</h3><p>Send professional project estimates to clients.</p></div>
+                </a>
+            </div>
+        </section>
+
+        <section id="legal" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title"><i class="fas fa-balance-scale"></i> Legal & Compliance</h2>
+            </div>
+            <div class="bento-grid">
+                <a href="rental-agreement.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-home"></i></div>
+                    <div class="card-content"><h3>Rental Agreement</h3><p>Draft legally binding property lease contracts.</p></div>
+                </a>
+                <a href="affidavit-templates.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-stamp"></i></div>
+                    <div class="card-content"><h3>Affidavit Templates</h3><p>Ready-to-use sworn statement formats.</p></div>
+                </a>
+                <a href="partnership-deed.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-handshake"></i></div>
+                    <div class="card-content"><h3>Partnership Deed</h3><p>Secure your business collaborations legally.</p></div>
+                </a>
+                <a href="privacy-policy-maker.html" class="bento-card">
+                    <div class="icon-wrapper"><i class="fas fa-shield-alt"></i></div>
+                    <div class="card-content"><h3>Privacy Policy Maker</h3><p>Generate compliant policies for your website/app.</p></div>
+                </a>
+            </div>
+        </section>
 
         <section id="ai" class="category-section">
-            <div class="category-header"><h2 class="category-title"><i class="fas fa-robot"></i> Advanced AI Features</h2></div>
+            <div class="category-header">
+                <h2 class="category-title"><i class="fas fa-robot"></i> Advanced AI Features</h2>
+            </div>
             <div class="bento-grid">
-                <a href="#" class="bento-card ai-card"><div class="icon-wrapper"><i class="fas fa-compress-alt"></i></div><div class="card-content"><h3>Summarize It</h3><p>Condense 100-page PDFs into 1-page summaries.</p></div></a>
-                <a href="#" class="bento-card ai-card"><div class="icon-wrapper"><i class="fas fa-table"></i></div><div class="card-content"><h3>Extract Tables</h3><p>Use AI to pull structured data tables from PDFs.</p></div></a>
+                <a href="summarize-pdf.html" class="bento-card ai-card">
+                    <div class="icon-wrapper"><i class="fas fa-compress-alt"></i></div>
+                    <div class="card-content"><h3>Summarize It</h3><p>Condense 100-page PDFs into 1-page summaries.</p></div>
+                </a>
+                <a href="extract-tables.html" class="bento-card ai-card">
+                    <div class="icon-wrapper"><i class="fas fa-table"></i></div>
+                    <div class="card-content"><h3>Extract Tables</h3><p>Use AI to pull structured data tables from PDFs.</p></div>
+                </a>
+                <a href="ai-translate.html" class="bento-card ai-card">
+                    <div class="icon-wrapper"><i class="fas fa-language"></i></div>
+                    <div class="card-content"><h3>AI Translate</h3><p>Translate official documents without losing format.</p></div>
+                </a>
+                <a href="explain-legal.html" class="bento-card ai-card">
+                    <div class="icon-wrapper"><i class="fas fa-gavel"></i></div>
+                    <div class="card-content"><h3>Explain Legal Jargon</h3><p>Translate complex legal terms into simple English.</p></div>
+                </a>
             </div>
         </section>
 
@@ -294,14 +572,132 @@
                     <h2>The Smartest Document Platform on the Web</h2>
                     <p><strong>sedoc</strong> replaces the need for expensive lawyers, HR software, and complex PDF editors. Our cloud-based architecture ensures that whether you are drafting a <strong>Rental Agreement</strong>, converting a <strong>Bank Statement to Excel</strong>, or using AI to <strong>Summarize PDFs</strong>, everything happens in seconds directly in your browser.</p>
                 </div>
+                
                 <div class="faq-container">
-                    <details><summary>Are my uploaded documents secure and private?</summary><p>Yes. Privacy is our core foundation. We use enterprise-grade SSL encryption. Files are <strong>automatically deleted within 2 hours</strong>.</p></details>
-                    <details><summary>Are the legal templates valid for official use?</summary><p>Our templates are drafted by professionals and follow standard structures. However, we always recommend local review.</p></details>
+                    <details>
+                        <summary>Are my uploaded documents secure and private?</summary>
+                        <p>Yes. Privacy is our core foundation. We use enterprise-grade SSL encryption. Files uploaded for conversion or generation are <strong>automatically deleted from our servers within 2 hours</strong>. We do not read, store, or share your data.</p>
+                    </details>
+                    <details>
+                        <summary>Are the legal templates valid for official use?</summary>
+                        <p>Our templates are drafted by professionals and follow standard structures. However, we always recommend having them reviewed by a local attorney to ensure compliance with specific regional laws.</p>
+                    </details>
+                    <details>
+                        <summary>How does the AI PDF Summarizer work?</summary>
+                        <p>sedoc uses advanced NLP models to scan your document, identify key arguments, statistics, and conclusions, and generate a concise summary. It's perfect for dealing with long reports.</p>
+                    </details>
                 </div>
             </div>
         </section>
 
-        <!-- FEEDBACK FORM WITH GOOGLE SHEETS INTEGRATION -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="category-header" style="justify-content: center; margin-bottom: 20px;">
+                <h2 class="category-title"><i class="fas fa-heart"></i> Loved by Professionals</h2>
+            </div>
+            
+            <div class="glass-slider-container">
+                <div class="glass-testimonial-track">
+                    
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image1.png" alt="Syed Athar Bukhari" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="t-text">"sedoc has completely transformed how I handle my daily documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Syed Athar Bukhari</h4>
+                                <span class="t-role">CHRO IPAK Group</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image2.png" alt="Osama Adil" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Osama Adil</h4>
+                                <span class="t-role">HR Professional</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image3.png" alt="Meesha Khan" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <p class="t-text">"The legal templates are exceptionally well-drafted. The AI summarizer and jargon explainer are game changers for long contracts."</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Meesha Khan</h4>
+                                <span class="t-role">Legal Expert</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image1.png" alt="Syed Athar Bukhari" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="t-text">"sedoc has completely transformed how I handle my daily documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Syed Athar Bukhari</h4>
+                                <span class="t-role">CHRO IPAK Group</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image2.png" alt="Osama Adil" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Osama Adil</h4>
+                                <span class="t-role">HR Professional</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="t-img-wrapper">
+                            <img src="image3.png" alt="Meesha Khan" class="t-img">
+                        </div>
+                        <div class="t-content">
+                            <div class="t-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <p class="t-text">"The legal templates are exceptionally well-drafted. The AI summarizer and jargon explainer are game changers for long contracts."</p>
+                            <div class="t-profile-info">
+                                <h4 class="t-name">Meesha Khan</h4>
+                                <span class="t-role">Legal Expert</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
         <div class="premium-feedback-wrapper">
             <div id="pfFormContainer">
                 <div class="pf-header">
@@ -320,17 +716,17 @@
 
                     <div class="pf-row">
                         <div class="pf-input-group">
-                            <input type="text" id="pf-name" name="name" placeholder=" " required>
+                            <input type="text" id="pf-name" placeholder=" " required>
                             <label for="pf-name">Full Name</label>
                         </div>
                         <div class="pf-input-group">
-                            <input type="text" id="pf-role" name="role" placeholder=" " required>
+                            <input type="text" id="pf-role" placeholder=" " required>
                             <label for="pf-role">Role / Company</label>
                         </div>
                     </div>
                     
                     <div class="pf-input-group">
-                        <textarea id="pf-message" name="message" placeholder=" " required></textarea>
+                        <textarea id="pf-message" placeholder=" " required></textarea>
                         <label for="pf-message">Write your feedback...</label>
                     </div>
                     
@@ -341,9 +737,11 @@
             </div>
 
             <div id="pfSuccessState" class="pf-success-state">
-                <div class="circle-check"><i class="fas fa-check"></i></div>
+                <div class="circle-check">
+                    <i class="fas fa-check"></i>
+                </div>
                 <h4>Thank You!</h4>
-                <p>Your feedback has been successfully recorded in our system.</p>
+                <p>Your feedback helps us refine sedoc.</p>
             </div>
         </div>
 
@@ -351,30 +749,24 @@
 
     <footer>
         <div class="footer-content">
-            <a href="#" class="footer-logo"><img src="Logo.png" alt="sedoc footer logo"></a>
-            <div class="footer-links"><a href="#">Features</a><a href="#">Privacy Policy</a><a href="#">Contact Support</a></div>
-            <div class="footer-bottom">&copy; 2026 sedoc Inc. All Rights Reserved.</div>
+            <a href="#" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved.
+            </div>
         </div>
     </footer>
 
-    <!-- DONATE MODAL HTML -->
-    <div id="donateModal" class="donate-modal">
-        <div class="modal-glass-content">
-            <button class="close-modal"><i class="fas fa-times"></i></button>
-            <div class="modal-header">
-                <div class="modal-icon"><i class="fas fa-heart"></i></div>
-                <h3>Support sedoc</h3>
-                <p>Your contribution helps us keep these AI tools free and maintain our servers.</p>
-            </div>
-            <div class="donate-bento-grid">
-                <a href="#" class="donate-card"><div class="d-icon coffee"><i class="fas fa-mug-hot"></i></div><div class="d-text"><h4>Buy us a Coffee</h4><span>via Ko-fi or BMAC</span></div><i class="fas fa-external-link-alt link-arrow"></i></a>
-                <a href="#" class="donate-card"><div class="d-icon card"><i class="fas fa-credit-card"></i></div><div class="d-text"><h4>Credit / Debit Card</h4><span>via Stripe Secure</span></div><i class="fas fa-external-link-alt link-arrow"></i></a>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // 1. TABS
+        // 1. Tab functionality
         document.querySelectorAll('.nav-tabs a').forEach(tab => {
             tab.addEventListener('click', function(e) {
                 document.querySelectorAll('.nav-tabs a').forEach(t => t.classList.remove('active'));
@@ -382,80 +774,80 @@
             });
         });
 
-        // 2. LIVE SEARCH
+        // 2. LIVE SEARCH BAR FUNCTIONALITY
         const searchInput = document.querySelector('.search-container input');
         const sections = document.querySelectorAll('.category-section');
+
         searchInput.addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
+
             sections.forEach(section => {
                 const cards = section.querySelectorAll('.bento-card');
                 let hasVisibleCard = false; 
+
                 cards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
-                    if (title.includes(searchTerm) || description.includes(searchTerm)) { card.style.display = 'flex'; hasVisibleCard = true; } 
-                    else { card.style.display = 'none'; }
+
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        hasVisibleCard = true;
+                    } else {
+                        card.style.display = 'none'; 
+                    }
                 });
-                if (hasVisibleCard || searchTerm === '') { section.style.display = 'block'; } else { section.style.display = 'none'; }
+
+                if (hasVisibleCard || searchTerm === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
             });
         });
 
-        // 3. DONATE MODAL
-        const donateBtn = document.getElementById('openDonateBtn');
-        const donateModal = document.getElementById('donateModal');
-        const closeModalBtn = document.querySelector('.close-modal');
-
-        donateBtn.addEventListener('click', function(e) { e.preventDefault(); donateModal.classList.add('active'); });
-        closeModalBtn.addEventListener('click', function() { donateModal.classList.remove('active'); });
-        window.addEventListener('click', function(e) { if (e.target === donateModal) donateModal.classList.remove('active'); });
-
-        // 4. FEEDBACK FORM (GOOGLE SHEETS INTEGRATION)
+        // 3. Feedback Form Interactive Stars & Submission
         const stars = document.querySelectorAll('.pf-rating-container i');
-        let selectedRating = 5; // Default 5 star
+        let selectedRating = 0;
 
         stars.forEach(star => {
-            star.addEventListener('mouseover', function() { highlightStars(this.getAttribute('data-rating')); });
-            star.addEventListener('mouseout', function() { highlightStars(selectedRating); });
-            star.addEventListener('click', function() { selectedRating = this.getAttribute('data-rating'); highlightStars(selectedRating); });
+            // Hover effect
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                highlightStars(rating);
+            });
+
+            // Remove hover effect when mouse leaves
+            star.addEventListener('mouseout', function() {
+                highlightStars(selectedRating);
+            });
+
+            // Click to set rating
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-rating');
+                highlightStars(selectedRating);
+            });
         });
 
         function highlightStars(rating) {
             stars.forEach(star => {
                 if (star.getAttribute('data-rating') <= rating) {
-                    star.classList.remove('far'); star.classList.add('fas'); star.style.color = '#f09709';
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                    star.style.color = '#f09709';
                 } else {
-                    star.classList.remove('fas'); star.classList.add('far'); star.style.color = '#cbd5e1';
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                    star.style.color = '#cbd5e1';
                 }
             });
         }
 
-        const feedbackForm = document.getElementById('userFeedbackForm');
-        
-        feedbackForm.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            
-            const submitBtn = document.querySelector('.pf-submit');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
-
-            // YAHAN APNA APPS SCRIPT KA URL PASTE KAREIN
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbw2xweXopE7_u8UfeaGN01QA4pIvH92TUp7hqqnfbhe2ZhhXhtv-i-wle5V5gI6xijnzw/exec'; 
-
-            // FormData banana
-            const formData = new FormData(feedbackForm);
-            formData.append('rating', selectedRating);
-
-            // Google Sheets ko data bhejna
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    document.getElementById('pfFormContainer').style.display = 'none';
-                    document.getElementById('pfSuccessState').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert("Submission failed. Please try again later.");
-                    submitBtn.innerHTML = originalText;
-                });
+        // Form Submission Toggle
+        document.getElementById('userFeedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            // Hide form and show success state
+            document.getElementById('pfFormContainer').style.display = 'none';
+            document.getElementById('pfSuccessState').style.display = 'block';
         });
     </script>
 </body>
