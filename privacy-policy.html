@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Privacy Policy | sedoc</title>
+    <meta name="description" content="Privacy Policy for sedoc. Learn how we collect, use, and protect your data while you use our AI document tools.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Modern Design System Tokens */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-color: #f8fafc;
+            --border: rgba(15, 23, 42, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        body { background-color: var(--bg-color); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Clean White Header */
+        header { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 38px; width: auto; display: block; }
+        
+        .header-actions .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); }
+        .header-actions .btn-primary:hover { opacity: 0.9; }
+
+        /* =========================================
+           PREMIUM HERO BANNER FOR PAGE TITLE
+           ========================================= */
+        .page-banner {
+            position: relative;
+            background: var(--brand-gradient);
+            padding: 80px 5%;
+            text-align: center;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Glass blobs for banner aesthetics */
+        .banner-blob { position: absolute; filter: blur(50px); border-radius: 50%; opacity: 0.3; background: #ffffff; }
+        .blob-a { width: 300px; height: 300px; top: -100px; left: -50px; }
+        .blob-b { width: 200px; height: 200px; bottom: -50px; right: 10%; }
+
+        .page-banner-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .page-banner h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .page-banner p { font-size: 1.1rem; font-weight: 500; opacity: 0.95; line-height: 1.6; }
+
+        /* Document Styling */
+        main { flex-grow: 1; padding: -20px 5% 60px; display: flex; justify-content: center; }
+        
+        .legal-container {
+            max-width: 900px; width: 100%; background: #ffffff; padding: 50px;
+            border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border); margin-top: -30px; position: relative; z-index: 10;
+        }
+
+        .update-badge {
+            display: inline-block; background: #f1f5f9; color: #a302ff; padding: 6px 14px;
+            border-radius: 50px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 25px;
+        }
+
+        .legal-content h2 { font-size: 1.6rem; font-weight: 800; color: var(--text-dark); margin: 40px 0 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .legal-content h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin: 25px 0 10px; }
+        .legal-content p { font-size: 1.05rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 15px; }
+        .legal-content ul { margin-left: 20px; margin-bottom: 20px; }
+        .legal-content li { font-size: 1.05rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 8px; }
+        .legal-content li::marker { color: #a302ff; font-size: 1.2em; }
+        .legal-content strong { color: var(--text-dark); }
+
+        /* Footer Styles */
+        footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); margin-top: 40px; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.3s ease; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
+
+        @media (max-width: 768px) {
+            .page-banner { padding: 60px 5% 80px; }
+            .legal-container { padding: 30px 20px; margin-top: -40px; }
+            .legal-content h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-link">
+            <img src="Logo.png" alt="sedoc logo">
+        </a>
+        <div class="header-actions">
+            <a href="index.html" style="color: var(--text-gray); font-weight: 600; text-decoration: none; margin-right: 20px; font-size: 0.9rem; transition: color 0.3s ease;" onmouseover="this.style.color='#a302ff'" onmouseout="this.style.color='var(--text-gray)'">Back to Home</a>
+            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
+        </div>
+    </header>
+
+    <div class="page-banner">
+        <div class="banner-blob blob-a"></div>
+        <div class="banner-blob blob-b"></div>
+        <div class="page-banner-content">
+            <h1>Privacy Policy</h1>
+            <p>Transparency and security are at the core of everything we build at sedoc. Here is how we protect your data.</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="legal-container">
+            <div class="legal-content">
+                <span class="update-badge">Last Updated: May 2026</span>
+                
+                <p>Welcome to <strong>sedoc</strong>. We understand that when you use our AI document maker, HR utilities, and legal formatting tools, you are trusting us with your information. This Privacy Policy outlines exactly what data we collect, why we collect it, and the strict measures we take to keep it secure.</p>
+
+                <h2>1. Information We Collect</h2>
+                
+                <h3>A. Document & File Data</h3>
+                <p>When you utilize our platform to generate a salary slip, convert a PDF, or use our AI summarizer, your files are temporarily processed on our secure servers. <strong>We do not read, claim ownership of, or permanently store your documents.</strong></p>
+
+                <h3>B. Usage & Analytics Data</h3>
+                <p>To ensure our tools run smoothly, we automatically collect basic non-identifiable information, such as:</p>
+                <ul>
+                    <li>Browser type and operating system.</li>
+                    <li>Device information (Mobile or Desktop).</li>
+                    <li>Anonymous usage statistics (e.g., which tools are most popular).</li>
+                </ul>
+
+                <h2>2. How We Handle Your Files (The 2-Hour Rule)</h2>
+                <p>Security is our foundation. Any document you upload for AI processing or conversion is kept in temporary memory solely for the purpose of executing your request. <strong>All uploaded files and generated outputs are permanently and automatically deleted from our servers within 2 hours.</strong> We do not keep backups of your personal files.</p>
+
+                <h2>3. Use of Information</h2>
+                <p>The limited data we do collect is used strictly to:</p>
+                <ul>
+                    <li>Deliver the document generation and AI services you request.</li>
+                    <li>Improve our platform's speed, user interface, and overall aesthetics.</li>
+                    <li>Detect and prevent fraudulent activities or bot abuse.</li>
+                </ul>
+
+                <h2>4. Third-Party Services & Advertising</h2>
+                <p>To keep sedoc free for everyone, we use third-party advertising partners, such as Google AdSense. These partners may use cookies to serve ads based on your prior visits to our website or other websites on the internet. We also use standard analytics tools to monitor website traffic.</p>
+                <p>We absolutely <strong>do not sell, rent, or trade</strong> your personal information to third parties.</p>
+
+                <h2>5. Cookies Policy</h2>
+                <p>Our website uses minimal cookies to enhance your experience, such as remembering if you dismissed a notification or saving your theme preferences. You can choose to disable cookies through your browser settings, though this may affect how certain features function.</p>
+
+                <h2>6. Changes to This Policy</h2>
+                <p>As we add more AI features and tools to sedoc, we may occasionally update this Privacy Policy. Any changes will be reflected on this page, and the "Last Updated" date at the top will be modified accordingly. We encourage you to review this page periodically.</p>
+
+                <h2>7. Contact Us</h2>
+                <p>If you have any questions, concerns, or feedback regarding our privacy practices or the security of your documents, please reach out to us via our <a href="contact.html" style="color: #a302ff; font-weight: 600; text-decoration: none;">Contact Support</a> page.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-use.html">Terms of Use</a>
+                <a href="contact.html">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
