@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Free GST & VAT Calculator Online | Add or Remove Tax | sedoc</title>
+    <meta name="title" content="Free GST & VAT Calculator Online | Add or Remove Tax | sedoc">
+    <meta name="description" content="Instantly calculate GST, VAT, and Sales Tax. Add tax to a base price or reverse-calculate to find the net price and tax amount. Free online financial tool by sedoc.">
+    <meta name="keywords" content="GST calculator, VAT calculator, add GST to price, remove GST from total, reverse tax calculator, sales tax calculator, online finance tools, sedoc">
+    <meta name="author" content="sedoc">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://www.thesedoc.com/tax-calculator.html" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thesedoc.com/tax-calculator.html">
+    <meta property="og:title" content="Free GST & VAT Calculator Online | sedoc">
+    <meta property="og:description" content="Instantly calculate GST, VAT, and Sales Tax. Add tax to a base price or reverse-calculate with our free online tool.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "sedoc GST/VAT Calculator",
+      "url": "https://www.thesedoc.com/tax-calculator.html",
+      "description": "A free online financial calculator to easily add or extract GST and VAT amounts from any price.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
+
+    <style>
+        /* Modern Design System Tokens */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-color: #f8fafc;
+            --border: rgba(15, 23, 42, 0.06);
+            --hover-shadow: 0 20px 40px -10px rgba(163, 2, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        body { background-color: var(--bg-color); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Clean White Header */
+        header { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo-link { display: flex; align-items: center; text-decoration: none; gap: 15px; }
+        .logo-link img { height: 38px; width: auto; display: block; }
+        
+        /* Standard Back Button styling */
+        .back-btn-icon { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: var(--text-dark); border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .back-btn-icon:hover { background: #e2e8f0; color: #a302ff; transform: translateX(-2px); }
+        
+        .header-actions .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); }
+        .header-actions .btn-primary:hover { opacity: 0.9; }
+
+        /* PREMIUM HERO BANNER */
+        .page-banner {
+            position: relative; background: var(--brand-gradient); padding: 60px 5% 70px;
+            text-align: center; color: #ffffff; overflow: hidden;
+        }
+        .banner-blob { position: absolute; filter: blur(50px); border-radius: 50%; opacity: 0.3; background: #ffffff; }
+        .blob-a { width: 300px; height: 300px; top: -100px; left: -50px; }
+        .blob-b { width: 200px; height: 200px; bottom: -50px; right: 10%; }
+
+        .page-banner-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .page-banner h1 { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 12px; text-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .page-banner p { font-size: 1.05rem; font-weight: 500; opacity: 0.95; line-height: 1.5; }
+
+        /* Main Workspace Content */
+        main { flex-grow: 1; padding: 0 5% 60px; display: flex; flex-direction: column; align-items: center; }
+        
+        .calculator-grid { max-width: 1000px; width: 100%; margin-top: -30px; position: relative; z-index: 10; display: grid; grid-template-columns: 1.2fr 1fr; gap: 25px; }
+
+        /* Left Panel - Inputs */
+        .calc-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 35px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.04); border: 1px solid #ffffff; }
+        
+        /* Premium Segmented Controls */
+        .tax-operation-tabs { display: flex; background: #f1f5f9; padding: 5px; border-radius: 12px; margin-bottom: 30px; }
+        .tax-tab { flex: 1; text-align: center; padding: 12px; font-size: 0.95rem; font-weight: 700; color: var(--text-gray); border-radius: 10px; cursor: pointer; transition: all 0.3s ease; }
+        .tax-tab.active { background: #ffffff; color: var(--text-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .input-label { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; display: block; }
+        .input-wrapper { position: relative; margin-bottom: 25px; }
+        .input-wrapper input, .input-wrapper select { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; outline: none; font-size: 1.1rem; font-weight: 600; color: var(--text-dark); background: #ffffff; transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
+        .input-wrapper input { padding-left: 50px; }
+        .input-wrapper select { appearance: none; cursor: pointer; padding-right: 40px; font-size: 1rem; }
+        .input-wrapper input:focus, .input-wrapper select:focus { border-color: #a302ff; box-shadow: 0 0 0 4px rgba(163, 2, 255, 0.08); }
+        .input-wrapper .currency-symbol { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-weight: 700; color: #a302ff; font-size: 1.1rem; pointer-events: none; }
+        .input-wrapper .select-arrow { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; }
+
+        /* Quick Select Percentages Grid */
+        .rate-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
+        .rate-btn { background: #ffffff; border: 1px solid var(--border); padding: 12px; border-radius: 10px; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .rate-btn:hover, .rate-btn.active { border-color: #fe0097; background: rgba(254,0,151,0.03); color: #fe0097; }
+
+        /* Right Panel - Results Displays */
+        .results-panel { background: #ffffff; padding: 35px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .results-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
+        .results-panel h2 i { color: #f09709; }
+
+        .result-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px dashed var(--border); }
+        .result-row:last-of-type { border-bottom: none; margin-bottom: 20px; }
+        .result-label { font-size: 0.95rem; font-weight: 600; color: var(--text-gray); }
+        .result-value { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+        
+        /* Final Total Block */
+        .total-box { background: linear-gradient(135deg, rgba(163, 2, 255, 0.05), rgba(0, 0, 255, 0.05)); border: 1px solid rgba(163, 2, 255, 0.1); padding: 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .total-label { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); }
+        .total-value { font-size: 1.6rem; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* SEO & Guide Section */
+        .guide-section { max-width: 1000px; width: 100%; margin-top: 40px; background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .guide-section h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 15px; color: var(--text-dark); }
+        .guide-section h3 { font-size: 1.2rem; font-weight: 700; margin-top: 20px; margin-bottom: 10px; color: var(--text-dark); }
+        .guide-section p { font-size: 1rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 15px; }
+
+        /* AdSense Containers - Aesthetic & Invisible */
+        .ad-container { margin: 40px auto; max-width: 900px; display: block; min-height: 90px; text-align: center; width: 100%; }
+        .ad-container ins { display: block; width: 100%; height: 100%; background: transparent; }
+
+        /* Footer */
+        footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); width: 100%; margin-top: 20px; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.3s ease; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
+
+        @media (max-width: 768px) {
+            .calculator-grid { grid-template-columns: 1fr; }
+            .calc-panel, .results-panel { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-link">
+            <a href="index.html" class="back-btn-icon" title="Go Back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <a href="index.html">
+                <img src="Logo.png" alt="sedoc logo">
+            </a>
+        </div>
+        <div class="header-actions">
+            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
+        </div>
+    </header>
+
+    <div class="page-banner">
+        <div class="banner-blob blob-a"></div>
+        <div class="banner-blob blob-b"></div>
+        <div class="page-banner-content">
+            <h1>GST / VAT Calculator</h1>
+            <p>Accurately calculate net price, tax amount, and gross price. Switch between adding or removing tax values effortlessly with instant financial precision.</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="calculator-grid">
+            
+            <div class="calc-panel">
+                <div class="tax-operation-tabs">
+                    <div class="tax-tab active" id="tabAdd" onclick="setOperation('add')"><i class="fas fa-plus-circle"></i> Add GST / VAT</div>
+                    <div class="tax-tab" id="tabRemove" onclick="setOperation('remove')"><i class="fas fa-minus-circle"></i> Remove GST / VAT</div>
+                </div>
+
+                <label class="input-label">Select Currency</label>
+                <div class="input-wrapper">
+                    <select id="currencySelect" onchange="changeCurrency()">
+                        <option value="$" selected>USD ($) - US Dollar</option>
+                        <option value="Rs">PKR (Rs) - Pakistani Rupee</option>
+                        <option value="₹">INR (₹) - Indian Rupee</option>
+                        <option value="€">EUR (€) - Euro</option>
+                        <option value="£">GBP (£) - British Pound</option>
+                        <option value="A$">AUD (A$) - Australian Dollar</option>
+                        <option value="C$">CAD (C$) - Canadian Dollar</option>
+                        <option value="د.إ">AED (د.إ) - UAE Dirham</option>
+                        <option value="﷼">SAR (﷼) - Saudi Riyal</option>
+                        <option value="¥">JPY / CNY (¥) - Yen / Yuan</option>
+                        <option value="Fr">CHF (Fr) - Swiss Franc</option>
+                        <option value="S$">SGD (S$) - Singapore Dollar</option>
+                        <option value="RM">MYR (RM) - Malaysian Ringgit</option>
+                        <option value="Rp">IDR (Rp) - Indonesian Rupiah</option>
+                        <option value="৳">BDT (৳) - Bangladeshi Taka</option>
+                        <option value="R">ZAR (R) - South African Rand</option>
+                        <option value="NZ$">NZD (NZ$) - New Zealand Dollar</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+
+                <label class="input-label" id="amountLabel">Amount (Exclusive of Tax)</label>
+                <div class="input-wrapper">
+                    <span class="currency-symbol" id="inputSymbol">$</span>
+                    <input type="number" id="baseAmount" value="1000" placeholder="0.00" oninput="calculateTax()">
+                </div>
+
+                <label class="input-label">Tax Rate (%)</label>
+                <div class="rate-grid">
+                    <div class="rate-btn" onclick="setTaxRate(5)">5%</div>
+                    <div class="rate-btn active" onclick="setTaxRate(12)">12%</div>
+                    <div class="rate-btn" onclick="setTaxRate(18)">18%</div>
+                    <div class="rate-btn" onclick="setTaxRate(22)">22%</div>
+                </div>
+
+                <div class="input-wrapper" style="margin-bottom: 0;">
+                    <span class="currency-symbol" style="left: auto; right: 20px; color: var(--text-gray);">%</span>
+                    <input type="number" id="customTaxRate" value="12" placeholder="Custom rate" oninput="customRateInput()" style="padding-left: 20px; padding-right: 40px;">
+                </div>
+            </div>
+
+            <div class="results-panel">
+                <div>
+                    <h2><i class="fas fa-chart-pie"></i> Calculation Breakdown</h2>
+                    
+                    <div class="result-row">
+                        <span class="result-label" id="labelNet">Net Price (Base)</span>
+                        <span class="result-value" id="valNet">$ 1,000.00</span>
+                    </div>
+                    
+                    <div class="result-row">
+                        <span class="result-label">Calculated Tax Amount</span>
+                        <span class="result-value" id="valTax">$ 120.00</span>
+                    </div>
+                    
+                    <div class="result-row" id="splitTaxBlock" style="display:none;">
+                        <span class="result-label">CGST / SGST Split (50/50)</span>
+                        <span class="result-value" id="valSplit">$ 60.00 + $ 60.00</span>
+                    </div>
+                </div>
+
+                <div class="total-box">
+                    <span class="total-label" id="labelTotal">Gross Price (Total)</span>
+                    <span class="total-value" id="valTotal">$ 1,120.00</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4598765809021376"
+                 data-ad-slot="1122334455"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="guide-section">
+            <h2>How to Use This Free Online GST & VAT Calculator</h2>
+            <p>Our intelligent financial tool allows business owners, freelancers, and accountants to instantly determine tax calculations without the hassle of manual math. Whether you are generating an invoice or auditing purchases, this tool guarantees precise values across multiple global currencies.</p>
+            
+            <h3>Adding Tax to a Base Price</h3>
+            <p>Select the <strong>"Add GST/VAT"</strong> option when you have a net amount and need to calculate the final price an end-user will pay. The algorithm automatically determines the exact tax volume based on your selected percentage and sums it into the Gross Total.</p>
+            
+            <h3>Reverse Calculating (Removing Tax)</h3>
+            <p>If you have a receipt with a final total and need to extract the exact base price and the tax paid, select the <strong>"Remove GST/VAT"</strong> tab. This reverse-calculation method is highly useful for corporate expense claims, ensuring accurate tax credit inputs.</p>
+        </div>
+
+        <div class="ad-container" style="margin-top: 30px;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4598765809021376"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-use.html">Terms of Use</a>
+                <a href="contact.html">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentOperation = 'add'; // 'add' or 'remove'
+        let currentRate = 12;
+        let currentSymbol = '$';
+
+        function changeCurrency() {
+            currentSymbol = document.getElementById('currencySelect').value;
+            document.getElementById('inputSymbol').textContent = currentSymbol;
+            calculateTax();
+        }
+
+        function setOperation(op) {
+            currentOperation = op;
+            document.getElementById('tabAdd').classList.toggle('active', op === 'add');
+            document.getElementById('tabRemove').classList.toggle('active', op === 'remove');
+            
+            // Adjust label titles dynamic configurations
+            const amountLabel = document.getElementById('amountLabel');
+            if(op === 'add') {
+                amountLabel.textContent = "Amount (Exclusive of Tax)";
+                document.getElementById('labelNet').textContent = "Net Price (Base Amount)";
+                document.getElementById('labelTotal').textContent = "Gross Price (Tax Inclusive)";
+            } else {
+                amountLabel.textContent = "Amount (Inclusive of Tax)";
+                document.getElementById('labelNet').textContent = "Net Price (Tax Cleared)";
+                document.getElementById('labelTotal').textContent = "Original Invoice Value";
+            }
+            calculateTax();
+        }
+
+        function setTaxRate(rate) {
+            currentRate = rate;
+            document.getElementById('customTaxRate').value = rate;
+            
+            // Toggle highlight selections matrix buttons
+            const buttons = document.querySelectorAll('.rate-btn');
+            buttons.forEach(btn => {
+                const buttonRate = parseInt(btn.textContent);
+                btn.classList.toggle('active', buttonRate === rate);
+            });
+            calculateTax();
+        }
+
+        function customRateInput() {
+            const val = parseFloat(document.getElementById('customTaxRate').value) || 0;
+            currentRate = val;
+            
+            // Reset active preset button borders configurations
+            const buttons = document.querySelectorAll('.rate-btn');
+            buttons.forEach(btn => {
+                const buttonRate = parseInt(btn.textContent);
+                btn.classList.toggle('active', buttonRate === val);
+            });
+            calculateTax();
+        }
+
+        function calculateTax() {
+            const amountInput = parseFloat(document.getElementById('baseAmount').value) || 0;
+            let netAmount = 0;
+            let taxAmount = 0;
+            let grossAmount = 0;
+
+            if (currentOperation === 'add') {
+                netAmount = amountInput;
+                taxAmount = (amountInput * currentRate) / 100;
+                grossAmount = netAmount + taxAmount;
+            } else {
+                grossAmount = amountInput;
+                netAmount = amountInput / (1 + (currentRate / 100));
+                taxAmount = grossAmount - netAmount;
+            }
+
+            // Function to format numbers with commas
+            const formatNumber = (num) => num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+            // UI Render Layout Outputs Metrics Formatting
+            document.getElementById('valNet').textContent = currentSymbol + ' ' + formatNumber(netAmount);
+            document.getElementById('valTax').textContent = currentSymbol + ' ' + formatNumber(taxAmount);
+            document.getElementById('valTotal').textContent = currentSymbol + ' ' + formatNumber(grossAmount);
+
+            // Dynamic Split calculation parameters panel tracking for subcontinent layouts standard checks
+            const splitBlock = document.getElementById('splitTaxBlock');
+            if(currentRate > 0) {
+                splitBlock.style.display = 'flex';
+                const halfTax = taxAmount / 2;
+                document.getElementById('valSplit').textContent = currentSymbol + ' ' + formatNumber(halfTax) + ' + ' + currentSymbol + ' ' + formatNumber(halfTax);
+            } else {
+                splitBlock.style.display = 'none';
+            }
+        }
+
+        // Initialize First Computation Matrix
+        calculateTax();
+    </script>
+</body>
+</html>
