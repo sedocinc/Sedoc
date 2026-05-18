@@ -34,6 +34,9 @@
     </script>
     <!-- ================= END SEO ================= -->
 
+    <!-- html2pdf Library for Direct PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -59,6 +62,7 @@
         .back-btn-icon:hover { background: #e2e8f0; color: #a302ff; }
         .btn-primary { background: var(--brand-gradient); color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;}
         .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
         /* Hero Area */
         .hero-section { text-align: center; padding: 40px 5% 10px; }
@@ -207,7 +211,7 @@
         .text-muted { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block;}
         .text-body { color: #334155; font-size: 0.95rem; line-height: 1.5; white-space: pre-line;}
         
-        /* A4 PRINT FIXES */
+        /* A4 PRINT FIXES - Fallback */
         @media print {
             @page { size: A4 portrait; margin: 0; }
             body { margin: 0; padding: 0; background: white !important; }
@@ -253,7 +257,8 @@
             <a href="index.html" class="back-btn-icon" title="Go Back"><i class="fas fa-arrow-left"></i></a>
             <a href="index.html"><img src="Logo.png" alt="sedoc logo"></a>
         </div>
-        <button class="btn-primary" onclick="window.print()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        <!-- Button updated to call generatePDF() function -->
+        <button class="btn-primary" id="downloadPdfBtn" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
     </header>
 
     <div class="hero-section">
@@ -504,11 +509,11 @@
         <h3>1. Smart Brand Color Picker</h3>
         <p>Maintain perfect brand consistency. Upload your logo and simply pick your primary brand color using our hex tool. The system intelligently applies your selected color to table headers, borders, and typography across all 6 templates, making the document uniquely yours.</p>
 
-        <h3>2. 6 World-Class Design Templates</h3>
-        <p>Choose from Modern Minimalist, Corporate Solid, our dynamic sedoc Layout, the sleek <strong>Dark Mode Tech</strong> (perfect for developers), the luxurious <strong>Elegant Studio</strong>, or the high-contrast <strong>Bold Creative</strong> brutalist design. Switch themes and watch the colors adapt instantly.</p>
+        <h3>2. Instant Client-Side PDF Generation</h3>
+        <p>Your business data is completely private. Thanks to the integrated <strong>html2pdf</strong> rendering engine, your invoices are generated locally on your device without communicating with any external servers. Click download, and your A4 document saves instantly.</p>
 
         <h3>3. Global Currency & Auto-Calculations</h3>
-        <p>Select from worldwide currencies including USD, EUR, GBP, PKR, INR, and AED. Input your line items, apply a tax rate, or add a flat discount. The engine dynamically calculates your subtotal, tax amount, and grand total error-free. Hit "Download PDF" to generate a pixel-perfect A4 invoice.</p>
+        <p>Select from worldwide currencies including USD, EUR, GBP, PKR, INR, and AED. Input your line items, apply a tax rate, or add a flat discount. The engine dynamically calculates your subtotal, tax amount, and grand total error-free.</p>
     </section>
 
     <!-- STRICT BOTTOM ADSENSE PLACEMENT -->
@@ -658,6 +663,39 @@
             }
 
             document.getElementById('p-grandtotal').textContent = formatCash(grandTotal);
+        }
+
+        // --- DIRECT PDF DOWNLOAD LOGIC ---
+        function generatePDF() {
+            const element = document.getElementById('printArea');
+            const docNum = document.getElementById('invNum').value || 'Invoice';
+            const btn = document.getElementById('downloadPdfBtn');
+            
+            // Show loading state
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            btn.disabled = true;
+
+            // Remove box-shadow temporarily to avoid ugly edges in PDF
+            const originalShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
+
+            // html2pdf options
+            const opt = {
+                margin:       0,
+                filename:     docNum + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, windowWidth: element.scrollWidth },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generate and save
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore button and styling after download
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                element.style.boxShadow = originalShadow;
+            });
         }
 
         // Run Init
