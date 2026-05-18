@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ================= VIRAL SEO & META TAGS ================= -->
+    <title>Free Pro Invoice Generator | 6 Templates & Custom Colors | sedoc</title>
+    <meta name="title" content="Free Pro Invoice Generator | 6 Templates & Custom Colors | sedoc">
+    <meta name="description" content="Create stunning, print-ready invoices in seconds. Choose from 6 premium designs, customize brand colors to match your logo, and download A4 PDF instantly.">
+    <meta name="keywords" content="custom color invoice, free invoice generator, dark mode invoice, creative invoice template, online PDF invoice maker, business billing software, sedoc">
+    <meta name="author" content="sedoc">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://www.thesedoc.com/invoice-generator.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thesedoc.com/invoice-generator.html">
+    <meta property="og:title" content="Free Pro Invoice Generator | Custom Colors & Templates">
+    <meta property="og:description" content="Instantly generate world-class invoices. Match your brand colors, select from 6 Pro Templates, and download PDF. 100% Free by sedoc.">
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "sedoc Pro Invoice Generator",
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication",
+      "url": "https://www.thesedoc.com/invoice-generator.html",
+      "description": "Create and download professional PDF invoices with custom brand colors, 6 creative templates, auto-calculations, and multi-currency support.",
+      "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" }
+    }
+    </script>
+    <!-- ================= END SEO ================= -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Modern Design System Tokens */
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #475569;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-body: #f8fafc;
+            --bg-panel: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Header */
+        header { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo-link { display: flex; align-items: center; text-decoration: none; gap: 15px; }
+        .logo-link img { height: 35px; width: auto; }
+        .back-btn-icon { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--bg-body); color: var(--text-dark); border-radius: 50%; text-decoration: none; transition: 0.2s; }
+        .back-btn-icon:hover { background: #e2e8f0; color: #a302ff; }
+        .btn-primary { background: var(--brand-gradient); color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;}
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Hero Area */
+        .hero-section { text-align: center; padding: 40px 5% 10px; }
+        .hero-section h1 { font-size: 2.2rem; font-weight: 900; color: var(--text-dark); margin-bottom: 10px; letter-spacing: -0.5px;}
+        .hero-section p { font-size: 1rem; color: var(--text-gray); max-width: 600px; margin: 0 auto; }
+
+        /* Workspace Layout */
+        .workspace-container { display: flex; max-width: 1600px; margin: 0 auto; width: 100%; padding: 20px 2% 40px; gap: 30px; flex-grow: 1; align-items: flex-start;}
+        .editor-side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+        
+        /* Clean Tabs */
+        .editor-tabs { display: flex; background: #ffffff; padding: 6px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.02); gap: 5px; margin-bottom: 5px;}
+        .tab-btn { flex: 1; padding: 12px; text-align: center; font-weight: 700; font-size: 0.9rem; color: var(--text-gray); border-radius: 8px; transition: all 0.2s; cursor: default; }
+        .tab-btn.active { background: #f1f5f9; color: #a302ff; }
+
+        /* Bento Panels */
+        .calc-panel { background: var(--bg-panel); padding: 25px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02); }
+        .panel-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-dark); }
+        .panel-title i { color: #fe0097; background: #fff0f7; padding: 6px; border-radius: 6px; font-size: 0.9rem;}
+
+        .bento-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .input-group { flex: 1; }
+        .input-label { font-size: 0.75rem; font-weight: 700; color: var(--text-gray); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px;}
+        
+        .input-wrapper input[type="text"], .input-wrapper input[type="number"], .input-wrapper input[type="date"], .input-wrapper select, .input-wrapper textarea { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 0.95rem; font-weight: 500; background: #ffffff; transition: 0.2s ease; }
+        .input-wrapper textarea { resize: vertical; min-height: 75px; }
+        .input-wrapper input:focus, .input-wrapper select:focus, .input-wrapper textarea:focus { border-color: #a302ff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
+
+        /* Custom Color Picker Input */
+        .color-picker-wrapper { display: flex; align-items: center; border: 1px solid #cbd5e1; border-radius: 8px; padding: 5px 10px; background: #ffffff; height: 46px; transition: 0.2s; }
+        .color-picker-wrapper:focus-within { border-color: #a302ff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
+        .color-picker-wrapper input[type="color"] { border: none; width: 100%; height: 100%; background: none; cursor: pointer; padding: 0; }
+
+        .logo-upload-box { border: 2px dashed #cbd5e1; padding: 20px; text-align: center; border-radius: 10px; background: #f8fafc; cursor: pointer; transition: 0.2s; position: relative; overflow: hidden; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 100px;}
+        .logo-upload-box:hover { border-color: #a302ff; background: #f5f3ff; }
+        .logo-upload-box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; }
+        .logo-upload-content i { font-size: 1.5rem; color: #a302ff; margin-bottom: 5px; }
+
+        .items-header-grid { display: grid; grid-template-columns: 3fr 1fr 1.5fr 40px; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 12px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: var(--text-gray); }
+        .item-row { display: grid; grid-template-columns: 3fr 1fr 1.5fr 40px; gap: 10px; align-items: start; margin-bottom: 10px; }
+        .btn-icon { background: #fee2e2; color: #ef4444; border: none; width: 40px; height: 42px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .btn-icon:hover { background: #ef4444; color: white; }
+        .add-btn { background: #ffffff; color: #a302ff; padding: 10px 15px; border-radius: 8px; border: 1px dashed #a302ff; font-weight: 700; cursor: pointer; margin-top: 5px; width: 100%; transition: 0.2s; }
+        .add-btn:hover { background: #f5f3ff; border-style: solid; }
+
+        /* RIGHT: Live Preview Sticky Pane */
+        .preview-side { width: 800px; flex-shrink: 0; position: sticky; top: 80px; }
+        .preview-wrapper { background: #e2e8f0; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+        
+        /* THE A4 PAPER BASE & DYNAMIC VARIABLE */
+        .a4-paper { 
+            --brand-color: #0f172a; /* Default Dynamic Color */
+            background: #ffffff; width: 100%; aspect-ratio: 1 / 1.414; padding: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; overflow: hidden; transition: all 0.3s ease; 
+        }
+
+        .p-logo-wrapper { height: 80px; margin-bottom: 15px; display: flex; align-items: flex-end; justify-content: flex-start; }
+        #p-logo-img { max-width: 200px; max-height: 100%; object-fit: contain; object-position: left bottom; display: none; }
+
+        /* ======================================================== */
+        /* DYNAMIC COLOR TEMPLATES CSS                              */
+        /* ======================================================== */
+        
+        /* TPL 1: Modern Minimalist */
+        .tpl-modern .p-header { display: flex; justify-content: space-between; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px; align-items: flex-end;}
+        .tpl-modern .p-title { font-size: 2.2rem; font-weight: 900; color: var(--brand-color); letter-spacing: -0.5px; }
+        .tpl-modern .p-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .tpl-modern .p-table th { background: #f8fafc; padding: 12px; text-align: left; font-size: 0.75rem; text-transform: uppercase; color: #64748b; border-bottom: 2px solid #e2e8f0; }
+        .tpl-modern .p-table td { padding: 15px 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #0f172a; }
+        .tpl-modern .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 2px solid #e2e8f0; font-size: 1.2rem; font-weight: 800; color: var(--brand-color); }
+
+        /* TPL 2: Corporate Solid */
+        .tpl-corporate .p-header { display: flex; justify-content: space-between; background: var(--brand-color); color: white; padding: 35px; margin: -45px -45px 35px -45px; align-items: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-corporate .p-title { font-size: 2.2rem; font-weight: 800; color: white; margin: 0;}
+        .tpl-corporate .p-logo-wrapper { height: 60px; margin: 0;}
+        .tpl-corporate #p-logo-img { filter: brightness(0) invert(1); }
+        .tpl-corporate .text-muted { color: #94a3b8; }
+        .tpl-corporate .p-header .text-muted, .tpl-corporate .p-header .text-body { color: rgba(255,255,255,0.8); }
+        .tpl-corporate .p-header .font-extrabold { color: white; }
+        .tpl-corporate .p-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .tpl-corporate .p-table th { background: #f8fafc; padding: 12px; text-align: left; font-size: 0.8rem; font-weight: 700; color: var(--brand-color); border-bottom: 2px solid var(--brand-color); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-corporate .p-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        .tpl-corporate .p-totals-box { border: 2px solid var(--brand-color); padding: 15px; border-radius: 6px; }
+        .tpl-corporate .tot-grand { margin-top: 10px; padding-top: 10px; border-top: 1px solid #cbd5e1; font-size: 1.2rem; font-weight: 800; color: var(--brand-color);}
+
+        /* TPL 3: sedoc Dynamic */
+        .tpl-sedoc .p-header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 35px; }
+        .tpl-sedoc .p-logo-wrapper { justify-content: center; margin-bottom: 10px; }
+        .tpl-sedoc #p-logo-img { object-position: center bottom; }
+        .tpl-sedoc .p-title { font-size: 2.5rem; font-weight: 900; color: var(--brand-color); margin-top: 10px;}
+        .tpl-sedoc .p-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-sedoc .p-table { width: 100%; border-collapse: separate; border-spacing: 0 5px; margin-bottom: 30px; }
+        .tpl-sedoc .p-table th { padding: 10px 12px; text-align: left; font-size: 0.75rem; color: var(--brand-color); text-transform: uppercase; letter-spacing: 1px;}
+        .tpl-sedoc .p-table td { padding: 15px 12px; background: #f8fafc; font-size: 0.95rem; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-sedoc .p-totals-box { background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 5px solid var(--brand-color); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-sedoc .tot-grand { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0; font-size: 1.3rem; font-weight: 900; color: var(--brand-color);}
+
+        /* TPL 4: Dark Mode Tech */
+        .tpl-dark { background-color: #0f172a !important; color: #e2e8f0; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-dark .p-header { display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 20px; margin-bottom: 30px; align-items: flex-end;}
+        .tpl-dark .p-title { font-size: 2.2rem; font-weight: 900; color: var(--brand-color); letter-spacing: 2px; text-transform: uppercase;}
+        .tpl-dark .text-body { color: #cbd5e1; }
+        .tpl-dark .font-extrabold { color: #f8fafc; }
+        .tpl-dark .text-muted { color: #64748b; }
+        .tpl-dark .p-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .tpl-dark .p-table th { background: #1e293b; padding: 12px; text-align: left; font-size: 0.75rem; text-transform: uppercase; color: var(--brand-color); border-bottom: 1px solid #334155; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-dark .p-table td { padding: 15px 12px; border-bottom: 1px solid #1e293b; font-size: 0.95rem; color: #e2e8f0; }
+        .tpl-dark .p-totals-box { background: #1e293b; padding: 20px; border-radius: 8px; border-left: 4px solid var(--brand-color); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-dark .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 1px solid #334155; font-size: 1.2rem; font-weight: 800; color: var(--brand-color);}
+        .tpl-dark #p-logo-img { filter: brightness(0) invert(1); }
+
+        /* TPL 5: Elegant Studio */
+        .tpl-elegant { font-family: 'Playfair Display', serif; background: #fffcf8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-elegant .p-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--brand-color); padding-bottom: 25px; margin-bottom: 35px; align-items: center;}
+        .tpl-elegant .p-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--brand-color); letter-spacing: 4px; font-style: italic;}
+        .tpl-elegant .font-extrabold { font-weight: 600; color: #2c2c2c; }
+        .tpl-elegant .text-muted { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #a1a1aa; letter-spacing: 1px; }
+        .tpl-elegant .p-table { width: 100%; border-collapse: collapse; margin-bottom: 35px; }
+        .tpl-elegant .p-table th { padding: 12px; text-align: left; font-size: 0.8rem; text-transform: uppercase; color: var(--brand-color); border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; letter-spacing: 1px;}
+        .tpl-elegant .p-table td { padding: 15px 12px; border-bottom: 1px dashed #e5e7eb; font-size: 0.95rem; color: #2c2c2c; }
+        .tpl-elegant .p-totals-box { background: transparent; padding: 20px; border: 1px solid var(--brand-color); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-elegant .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 1px solid var(--brand-color); font-size: 1.3rem; font-weight: 600; color: var(--brand-color); font-style: italic;}
+
+        /* TPL 6: Bold Creative (Brutalist) */
+        .tpl-bold { border: 6px solid #000 !important; box-shadow: 15px 15px 0px var(--brand-color) !important; padding: 40px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-bold .p-header { display: flex; justify-content: space-between; border-bottom: 4px solid #000; padding-bottom: 20px; margin-bottom: 30px; align-items: flex-end;}
+        .tpl-bold .p-title { font-size: 3.5rem; font-weight: 900; color: #000; text-transform: uppercase; line-height: 0.8; letter-spacing: -2px;}
+        .tpl-bold .text-muted { color: #000; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; font-size: 0.85rem;}
+        .tpl-bold .font-extrabold { color: #000; font-size: 1.1rem; text-transform: uppercase; }
+        .tpl-bold .text-body { color: #000; font-weight: 500; }
+        .tpl-bold .p-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; border: 2px solid #000; }
+        .tpl-bold .p-table th { background: var(--brand-color); padding: 12px; text-align: left; font-size: 0.8rem; text-transform: uppercase; color: #fff; border: 2px solid #000; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-bold .p-table td { padding: 15px 12px; border: 2px solid #000; font-size: 0.95rem; font-weight: 600; color: #000; }
+        .tpl-bold .p-totals-box { background: #f1f5f9; padding: 20px; border: 4px solid #000; box-shadow: 6px 6px 0px #000; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-bold .tot-row { color: #000; font-weight: 800; }
+        .tpl-bold .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 4px solid #000; font-size: 1.4rem; font-weight: 900; color: var(--brand-color);}
+
+        /* Shared Grids */
+        .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 35px; }
+        .p-footer-flex { display: flex; justify-content: space-between; align-items: flex-start;}
+        .p-totals-box { width: 320px; }
+        .tot-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.95rem; color: #475569;}
+
+        .text-right { text-align: right !important; }
+        .font-bold { font-weight: 700 !important; }
+        .font-extrabold { font-weight: 800 !important; color: #0f172a;}
+        .text-muted { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block;}
+        .text-body { color: #334155; font-size: 0.95rem; line-height: 1.5; white-space: pre-line;}
+        
+        /* A4 PRINT FIXES */
+        @media print {
+            @page { size: A4 portrait; margin: 0; }
+            body { margin: 0; padding: 0; background: white !important; }
+            body > *:not(.workspace-container) { display: none !important; }
+            header, footer, .ad-container, .hero-section, .seo-article-section { display: none !important; }
+            .workspace-container { display: block !important; padding: 0 !important; margin: 0 !important; }
+            .preview-side { width: 100% !important; position: static !important; }
+            .preview-wrapper { padding: 0 !important; border: none !important; box-shadow: none !important; background: transparent !important; }
+            #printArea {
+                width: 210mm !important; min-height: 297mm !important; margin: 0 !important; padding: 15mm 20mm !important;
+                box-shadow: none !important; border: none !important; aspect-ratio: auto !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .tpl-dark .text-body { color: #cbd5e1 !important; }
+            .tpl-dark .font-extrabold { color: #f8fafc !important; }
+            .tpl-bold { box-shadow: none !important; }
+        }
+
+        /* SEO Section */
+        .seo-article-section { max-width: 1000px; margin: 20px auto 40px; padding: 40px; background: #ffffff; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .seo-article-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark); }
+        .seo-article-section h3 { font-size: 1.2rem; font-weight: 700; margin-top: 25px; margin-bottom: 10px; color: var(--text-dark); }
+        .seo-article-section p { font-size: 1rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 15px; }
+
+        /* Bottom Ads & Footer */
+        .ad-container { margin: 20px auto 40px; max-width: 900px; display: block; text-align: center; }
+        footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); text-align: center; }
+        .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
+        .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
+        .footer-bottom-links a { color: var(--text-gray); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+        .footer-bottom-links a:hover { color: #a302ff; }
+
+        @media (max-width: 1400px) {
+            .workspace-container { flex-direction: column; }
+            .preview-side { width: 100%; position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-link">
+            <a href="index.html" class="back-btn-icon" title="Go Back"><i class="fas fa-arrow-left"></i></a>
+            <a href="index.html"><img src="Logo.png" alt="sedoc logo"></a>
+        </div>
+        <button class="btn-primary" onclick="window.print()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+    </header>
+
+    <div class="hero-section">
+        <h1>Brand Custom Invoice Generator</h1>
+        <p>Create high-conversion invoices that impress. Select a template, pick your brand color, upload your logo, and instantly generate an A4 PDF for your clients.</p>
+    </div>
+
+    <div class="workspace-container">
+        
+        <!-- PRO EDITOR PANEL -->
+        <div class="editor-side">
+            
+            <div class="editor-tabs">
+                <div class="tab-btn active"><i class="fas fa-magic"></i> Invoice Workspace</div>
+            </div>
+
+            <!-- Global Settings Bento -->
+            <div class="calc-panel">
+                <div class="panel-title"><i class="fas fa-paint-roller"></i> Design & Branding</div>
+                <div class="bento-row" style="margin-bottom: 0;">
+                    <div class="input-group" style="flex: 1.5;">
+                        <label class="input-label">Select Premium Template</label>
+                        <div class="input-wrapper">
+                            <select id="themeSelect" onchange="changeTemplate()">
+                                <option value="tpl-modern">1. Modern Minimalist</option>
+                                <option value="tpl-corporate">2. Corporate Solid</option>
+                                <option value="tpl-sedoc">3. sedoc Dynamic</option>
+                                <option value="tpl-dark">4. Dark Mode Tech 🔥</option>
+                                <option value="tpl-elegant">5. Elegant Studio ✨</option>
+                                <option value="tpl-bold">6. Bold Creative (Brutalist) ⚡</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW: Custom Brand Color Picker -->
+                    <div class="input-group" style="flex: 0.8;">
+                        <label class="input-label">Brand Color</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="brandColor" value="#0f172a" oninput="updateBrandColor()" title="Choose your brand color">
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="flex: 1;">
+                        <label class="input-label">Currency</label>
+                        <div class="input-wrapper">
+                            <select id="currency" onchange="syncData()">
+                                <option value="$">USD ($)</option>
+                                <option value="Rs">PKR (Rs)</option>
+                                <option value="€">EUR (€)</option>
+                                <option value="£">GBP (£)</option>
+                                <option value="₹">INR (₹)</option>
+                                <option value="د.إ">AED (د.إ)</option>
+                                <option value="﷼">SAR (﷼)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business & Logo -->
+            <div class="calc-panel">
+                <div class="panel-title"><i class="fas fa-building"></i> Your Company Info</div>
+                <div class="bento-row" style="margin-bottom: 0;">
+                    <div class="input-group" style="flex: 1;">
+                        <label class="input-label">Upload Logo</label>
+                        <div class="logo-upload-box">
+                            <input type="file" accept="image/*" onchange="handleLogoUpload(event)">
+                            <div class="logo-upload-content">
+                                <i class="fas fa-image"></i>
+                                <span style="font-size: 0.8rem; font-weight: 600;">Browse Logo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group" style="flex: 2;">
+                        <div class="input-wrapper" style="margin-bottom: 12px;">
+                            <label class="input-label">Company Name</label>
+                            <input type="text" id="bName" value="Your Company Name" oninput="syncData()">
+                        </div>
+                        <div class="input-wrapper">
+                            <label class="input-label">Company Details</label>
+                            <textarea id="bDetails" oninput="syncData()">123 Business Avenue, Suite 100&#10;City, State, Zip Code&#10;contact@yourcompany.com</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client & Meta -->
+            <div class="calc-panel">
+                <div class="panel-title"><i class="fas fa-user-tie"></i> Bill To (Client)</div>
+                <div class="bento-row">
+                    <div class="input-group">
+                        <label class="input-label">Client Details</label>
+                        <div class="input-wrapper" style="margin-bottom: 12px;">
+                            <input type="text" id="cName" placeholder="Client Name" oninput="syncData()">
+                        </div>
+                        <div class="input-wrapper">
+                            <textarea id="cDetails" placeholder="Client Address" oninput="syncData()"></textarea>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Invoice Meta Data</label>
+                        <div class="input-wrapper" style="margin-bottom: 12px;">
+                            <input type="text" id="invNum" value="INV-001" placeholder="Invoice Number" oninput="syncData()">
+                        </div>
+                        <div class="bento-row" style="gap: 10px; margin-bottom: 0;">
+                            <div class="input-wrapper">
+                                <label style="font-size: 0.7rem; color: #94a3b8;">Issue Date</label>
+                                <input type="date" id="invDate" oninput="syncData()">
+                            </div>
+                            <div class="input-wrapper">
+                                <label style="font-size: 0.7rem; color: #94a3b8;">Due Date</label>
+                                <input type="date" id="dueDate" oninput="syncData()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Items -->
+            <div class="calc-panel">
+                <div class="panel-title"><i class="fas fa-list-ul"></i> Invoice Items</div>
+                <div class="items-header-grid">
+                    <div>Description</div>
+                    <div>Qty</div>
+                    <div>Price</div>
+                    <div></div>
+                </div>
+                <div id="itemsContainer">
+                    <div class="item-row">
+                        <div class="input-wrapper"><input type="text" class="i-name" placeholder="Web Development Services" oninput="syncData()"></div>
+                        <div class="input-wrapper"><input type="number" class="i-qty" value="1" oninput="syncData()"></div>
+                        <div class="input-wrapper"><input type="number" class="i-price" value="500" oninput="syncData()"></div>
+                        <button class="btn-icon" onclick="removeRow(this)"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <button class="add-btn" onclick="addRow()"><i class="fas fa-plus"></i> Add New Item</button>
+            </div>
+
+            <!-- Financials & Terms -->
+            <div class="calc-panel">
+                <div class="panel-title"><i class="fas fa-file-invoice-dollar"></i> Totals & Terms</div>
+                <div class="bento-row">
+                    <div class="input-group" style="flex: 2;">
+                        <label class="input-label">Payment Terms & Notes</label>
+                        <div class="input-wrapper">
+                            <textarea id="invNotes" oninput="syncData()">Thank you for your business!&#10;Payment is due within 15 days.</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Tax Rate (%)</label>
+                        <div class="input-wrapper" style="margin-bottom: 12px;">
+                            <input type="number" id="inpTax" value="0" placeholder="e.g. 5" oninput="syncData()">
+                        </div>
+                        <label class="input-label">Discount (Flat)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="inpDisc" value="0" placeholder="e.g. 50" oninput="syncData()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LIVE PREVIEW PANEL (A4 PRINT AREA) -->
+        <div class="preview-side">
+            <div class="preview-wrapper">
+                
+                <div class="a4-paper tpl-modern" id="printArea">
+                    <div class="p-header">
+                        <div style="flex: 1;">
+                            <div class="p-logo-wrapper">
+                                <img id="p-logo-img" src="" alt="Logo">
+                            </div>
+                            <h2 class="font-extrabold" id="p-bName" style="font-size: 1.4rem; margin-bottom: 5px;">Your Company Name</h2>
+                            <p class="text-body" id="p-bDetails">123 Business Avenue, Suite 100<br>City, State, Zip Code</p>
+                        </div>
+                        <div class="text-right">
+                            <h1 class="p-title">INVOICE</h1>
+                            <p class="font-bold text-body" id="p-invNum" style="font-size: 1.1rem;">INV-001</p>
+                        </div>
+                    </div>
+
+                    <div class="p-grid">
+                        <div>
+                            <span class="text-muted">Billed To</span>
+                            <p class="font-extrabold" id="p-cName" style="font-size: 1.1rem; margin-bottom: 5px;">Client Name</p>
+                            <p class="text-body" id="p-cDetails">Client Address</p>
+                        </div>
+                        <div class="text-right" style="display: flex; justify-content: flex-end; gap: 40px;">
+                            <div>
+                                <span class="text-muted">Issue Date</span>
+                                <p class="font-bold text-body" id="p-invDate">YYYY-MM-DD</p>
+                            </div>
+                            <div>
+                                <span class="text-muted">Due Date</span>
+                                <p class="font-bold text-body" id="p-dueDate">YYYY-MM-DD</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="p-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th class="text-right">Qty</th>
+                                <th class="text-right">Price</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="p-tableBody"></tbody>
+                    </table>
+
+                    <div class="p-footer-flex">
+                        <div style="flex: 1; padding-right: 50px;">
+                            <span class="text-muted">Terms & Notes</span>
+                            <p class="text-body" id="p-notes">Thank you for your business!</p>
+                        </div>
+                        <div class="p-totals-box">
+                            <div class="tot-row">
+                                <span>Subtotal</span>
+                                <span class="font-bold" id="p-subtotal">$0.00</span>
+                            </div>
+                            <div class="tot-row" id="p-taxRow">
+                                <span>Tax</span>
+                                <span class="font-bold" id="p-tax">$0.00</span>
+                            </div>
+                            <div class="tot-row" id="p-discRow">
+                                <span>Discount</span>
+                                <span class="font-bold" id="p-disc">-$0.00</span>
+                            </div>
+                            <div class="tot-grand">
+                                <span>Total Due</span>
+                                <span id="p-grandtotal">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO ARTICLE SECTION -->
+    <section class="seo-article-section">
+        <h2>Custom Color Brand Invoices Generated Free Online</h2>
+        <p>Creating professional invoices that perfectly match your brand's identity has never been easier. The <strong>sedoc Pro Invoice Generator</strong> allows freelancers, agencies, and businesses to apply their exact logo color hex code to 6 stunning layout templates, rendering a high-quality PDF directly in the browser.</p>
+        
+        <h3>1. Smart Brand Color Picker</h3>
+        <p>Maintain perfect brand consistency. Upload your logo and simply pick your primary brand color using our hex tool. The system intelligently applies your selected color to table headers, borders, and typography across all 6 templates, making the document uniquely yours.</p>
+
+        <h3>2. 6 World-Class Design Templates</h3>
+        <p>Choose from Modern Minimalist, Corporate Solid, our dynamic sedoc Layout, the sleek <strong>Dark Mode Tech</strong> (perfect for developers), the luxurious <strong>Elegant Studio</strong>, or the high-contrast <strong>Bold Creative</strong> brutalist design. Switch themes and watch the colors adapt instantly.</p>
+
+        <h3>3. Global Currency & Auto-Calculations</h3>
+        <p>Select from worldwide currencies including USD, EUR, GBP, PKR, INR, and AED. Input your line items, apply a tax rate, or add a flat discount. The engine dynamically calculates your subtotal, tax amount, and grand total error-free. Hit "Download PDF" to generate a pixel-perfect A4 invoice.</p>
+    </section>
+
+    <!-- STRICT BOTTOM ADSENSE PLACEMENT -->
+    <div class="ad-container">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer>
+        <a href="index.html" class="footer-logo"><img src="Logo.png" alt="sedoc footer logo"></a>
+        <div class="footer-bottom-links" style="margin-bottom: 10px;">
+            <a href="features.html">Features</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <p style="color: var(--text-gray); font-size: 0.8rem;">&copy; 2026 sedoc Inc. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const today = new Date();
+        document.getElementById('invDate').valueAsDate = today;
+        const nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 15);
+        document.getElementById('dueDate').valueAsDate = nextWeek;
+
+        // Default colors for each template to look good out of the box
+        const templateColors = {
+            'tpl-modern': '#0f172a',    // Dark Slate
+            'tpl-corporate': '#1e3a8a', // Corporate Blue
+            'tpl-sedoc': '#a302ff',     // Purple
+            'tpl-dark': '#38bdf8',      // Neon Blue
+            'tpl-elegant': '#b8860b',   // Gold
+            'tpl-bold': '#fe0097'       // Hot Pink
+        };
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('p-logo-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block'; 
+                    document.getElementById('p-bName').style.display = 'none'; 
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Change Template & Update Color Variables
+        function changeTemplate() {
+            const selected = document.getElementById('themeSelect').value;
+            const paper = document.getElementById('printArea');
+            
+            // Remove old classes
+            paper.classList.remove('tpl-modern', 'tpl-corporate', 'tpl-sedoc', 'tpl-dark', 'tpl-elegant', 'tpl-bold');
+            // Add new class
+            paper.classList.add(selected);
+            
+            // Update color picker to match template default
+            const defaultColor = templateColors[selected];
+            document.getElementById('brandColor').value = defaultColor;
+            updateBrandColor();
+        }
+
+        // Dynamic Custom Color Updater
+        function updateBrandColor() {
+            const pickedColor = document.getElementById('brandColor').value;
+            document.getElementById('printArea').style.setProperty('--brand-color', pickedColor);
+        }
+
+        function addRow() {
+            const container = document.getElementById('itemsContainer');
+            const div = document.createElement('div');
+            div.className = 'item-row';
+            div.innerHTML = `
+                <div class="input-wrapper"><input type="text" class="i-name" placeholder="Item description" oninput="syncData()"></div>
+                <div class="input-wrapper"><input type="number" class="i-qty" value="1" oninput="syncData()"></div>
+                <div class="input-wrapper"><input type="number" class="i-price" value="0" oninput="syncData()"></div>
+                <button class="btn-icon" onclick="removeRow(this)"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(div);
+            syncData();
+        }
+
+        function removeRow(btn) {
+            if(document.querySelectorAll('.item-row').length > 1) {
+                btn.parentElement.remove();
+                syncData();
+            }
+        }
+
+        function syncData() {
+            const sym = document.getElementById('currency').value;
+            const formatCash = (num) => sym + ' ' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('p-bName').textContent = document.getElementById('bName').value || 'Your Company Name';
+            document.getElementById('p-bDetails').textContent = document.getElementById('bDetails').value;
+            document.getElementById('p-cName').textContent = document.getElementById('cName').value || 'Client Name';
+            document.getElementById('p-cDetails').textContent = document.getElementById('cDetails').value;
+            document.getElementById('p-invNum').textContent = document.getElementById('invNum').value;
+            document.getElementById('p-invDate').textContent = document.getElementById('invDate').value;
+            document.getElementById('p-dueDate').textContent = document.getElementById('dueDate').value;
+            document.getElementById('p-notes').textContent = document.getElementById('invNotes').value;
+
+            const tbody = document.getElementById('p-tableBody');
+            tbody.innerHTML = '';
+            let subtotal = 0;
+
+            document.querySelectorAll('.item-row').forEach(row => {
+                const name = row.querySelector('.i-name').value || 'Item Description';
+                const qty = parseFloat(row.querySelector('.i-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.i-price').value) || 0;
+                const amt = qty * price;
+                subtotal += amt;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="font-bold text-body">${name}</td>
+                        <td class="text-right text-body">${qty}</td>
+                        <td class="text-right text-body">${formatCash(price)}</td>
+                        <td class="text-right font-bold text-body">${formatCash(amt)}</td>
+                    </tr>
+                `;
+            });
+
+            const taxRate = parseFloat(document.getElementById('inpTax').value) || 0;
+            const discount = parseFloat(document.getElementById('inpDisc').value) || 0;
+            
+            const taxAmt = (subtotal * taxRate) / 100;
+            const grandTotal = (subtotal + taxAmt) - discount;
+
+            document.getElementById('p-subtotal').textContent = formatCash(subtotal);
+            
+            if(taxAmt > 0) {
+                document.getElementById('p-taxRow').style.display = 'flex';
+                document.getElementById('p-tax').textContent = formatCash(taxAmt) + ` (${taxRate}%)`;
+            } else {
+                document.getElementById('p-taxRow').style.display = 'none';
+            }
+
+            if(discount > 0) {
+                document.getElementById('p-discRow').style.display = 'flex';
+                document.getElementById('p-disc').textContent = '-' + formatCash(discount);
+            } else {
+                document.getElementById('p-discRow').style.display = 'none';
+            }
+
+            document.getElementById('p-grandtotal').textContent = formatCash(grandTotal);
+        }
+
+        // Run Init
+        updateBrandColor();
+        syncData();
+    </script>
+</body>
+</html>
