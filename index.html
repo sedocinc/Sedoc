@@ -216,6 +216,23 @@
         .ad-container ins { display: block; width: 100%; height: 100%; background: transparent; }
         .ad-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600; }
 
+        /* Donate Modal */
+        .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .donate-overlay.active { display: flex; }
+        .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .donate-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; border: none; color: var(--text-gray); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .donate-close:hover { background: #e2e8f0; color: var(--text-dark); }
+        .donate-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 18px; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.25); }
+        .donate-modal h3 { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .donate-modal p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+        .donate-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 10px; }
+        .donate-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 6px; }
+        .donate-card-number { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); letter-spacing: 0.02em; }
+        .donate-copy-btn { margin-top: 12px; background: var(--brand-gradient); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.2s ease; }
+        .donate-copy-btn:hover { opacity: 0.9; }
+        .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
+
         /* Footer Styles */
         footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); }
         .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -245,7 +262,7 @@
             <img src="Logo.png" alt="sedoc logo">
         </a>
         <div class="header-actions">
-            <a href="#donate-section" class="btn-primary"><i class="fas fa-heart"></i> Donate</a>
+            <a href="#" id="donateBtn" class="btn-primary"><i class="fas fa-heart"></i> Donate</a>
         </div>
     </header>
 
@@ -447,23 +464,20 @@
             </div>
         </section>
 
-        <section id="donate-section" class="category-section" style="scroll-margin-top: 130px;">
-            <div class="seo-section" style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
-                <div class="editorial-icon" style="margin: 0 auto 20px;"><i class="fas fa-heart"></i></div>
-                <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 15px;">Support sedoc</h2>
-                <p style="color: var(--text-gray); font-size: 1rem; line-height: 1.7; margin-bottom: 25px;">
-                    sedoc is free to use for everyone. If our tools have saved you time, you can support the
-                    project by sending a donation via JazzCash.
-                </p>
-                <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 20px 30px; display: inline-block;">
-                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">JazzCash Number</div>
-                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); letter-spacing: 0.02em;">0307-8600020</div>
+        <div class="donate-overlay" id="donateOverlay">
+            <div class="donate-modal">
+                <button class="donate-close" id="donateClose"><i class="fas fa-times"></i></button>
+                <div class="donate-icon"><i class="fas fa-heart"></i></div>
+                <h3>Support sedoc</h3>
+                <p>sedoc is free for everyone. If our tools saved you time, a small donation helps keep it running.</p>
+                <div class="donate-card">
+                    <div class="donate-card-label">JazzCash Number</div>
+                    <div class="donate-card-number" id="donateNumber">0307-8600020</div>
+                    <button class="donate-copy-btn" id="donateCopyBtn"><i class="fas fa-copy"></i> Copy Number</button>
                 </div>
-                <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 15px;">
-                    Please confirm the name on the account before sending any donation.
-                </p>
+                <p class="donate-note">Please confirm the account name before sending any donation.</p>
             </div>
-        </section>
+        </div>
 
         <div class="premium-feedback-wrapper">
             <div id="pfFormContainer">
@@ -552,6 +566,35 @@
     </footer>
 
     <script>
+        // Donate Modal
+        const donateBtn = document.getElementById('donateBtn');
+        const donateOverlay = document.getElementById('donateOverlay');
+        const donateClose = document.getElementById('donateClose');
+        const donateCopyBtn = document.getElementById('donateCopyBtn');
+        const donateNumber = document.getElementById('donateNumber');
+
+        donateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            donateOverlay.classList.add('active');
+        });
+        donateClose.addEventListener('click', function() {
+            donateOverlay.classList.remove('active');
+        });
+        donateOverlay.addEventListener('click', function(e) {
+            if (e.target === donateOverlay) donateOverlay.classList.remove('active');
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') donateOverlay.classList.remove('active');
+        });
+        donateCopyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(donateNumber.textContent.replace(/-/g, '')).then(function() {
+                donateCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function() {
+                    donateCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Number';
+                }, 2000);
+            });
+        });
+
         // Tab functionality
         document.querySelectorAll('.nav-tabs a').forEach(tab => {
             tab.addEventListener('click', function(e) {
