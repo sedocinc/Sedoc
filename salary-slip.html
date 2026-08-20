@@ -590,17 +590,18 @@
                 margin:       0,
                 filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
                 image:        { type: 'jpeg', quality: 1 },
-                // scrollY/scrollX/windowHeight/windowWidth: forces html2canvas to capture
-                // from the exact top-left of the slip, regardless of how far the page
-                // itself has been scrolled. Without this, the export can come out
-                // vertically shifted/mis-aligned depending on scroll position.
+                // scrollX/scrollY reset the capture to the top-left regardless of page
+                // scroll position. windowWidth/windowHeight use the FULL document size
+                // (not the slip's own size) so the page's normal desktop layout stays
+                // intact during capture — using a narrow width here previously triggered
+                // the site's mobile layout mid-capture and corrupted the output.
                 html2canvas:  {
                     scale: 2,
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
-                    windowWidth: element.scrollWidth,
-                    windowHeight: element.scrollHeight
+                    windowWidth: document.documentElement.scrollWidth,
+                    windowHeight: document.documentElement.scrollHeight
                 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
