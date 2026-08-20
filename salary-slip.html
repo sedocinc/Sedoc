@@ -33,10 +33,13 @@
         body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Header */
-        header { background-color: #ffffff; padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        header { background-color: #ffffff; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .header-left { display: flex; align-items: center; }
         .back-btn { font-size: 1.2rem; color: var(--text-dark); text-decoration: none; margin-right: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f5f9; transition: 0.3s; }
         .back-btn:hover { background: #e2e8f0; }
         .logo-link img { height: 35px; }
+        .donate-header-btn { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); display: inline-flex; align-items: center; gap: 6px; }
+        .donate-header-btn:hover { opacity: 0.9; }
 
         /* Workspace Grid */
         .workspace { max-width: 1450px; margin: 30px auto; padding: 0 3%; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; align-items: start; }
@@ -173,6 +176,32 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
+        /* Donate Modal (same as homepage) */
+        .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .donate-overlay.active { display: flex; }
+        .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .donate-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; border: none; color: var(--text-gray); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .donate-close:hover { background: #e2e8f0; color: var(--text-dark); }
+        .donate-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 18px; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.25); }
+        .donate-modal h3 { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .donate-modal p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+        .donate-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 10px; }
+        .donate-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 6px; }
+        .donate-card-number { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); letter-spacing: 0.02em; }
+        .donate-copy-btn { margin-top: 12px; background: var(--brand-gradient); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.2s ease; }
+        .donate-copy-btn:hover { opacity: 0.9; }
+        .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
+
+        /* Download Ad Modal */
+        .download-modal { background: #ffffff; border-radius: 24px; padding: 36px; max-width: 420px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .download-modal h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .download-modal p { color: var(--text-gray); font-size: 0.88rem; margin-bottom: 20px; }
+        .download-ad-slot { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; }
+        .download-now-btn { width: 100%; background: var(--brand-gradient); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.3s ease; }
+        .download-now-btn:hover { opacity: 0.9; }
+        .download-now-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
         @media (max-width: 1024px) {
             .workspace { grid-template-columns: 1fr; }
             .preview-panel { position: static; }
@@ -183,8 +212,11 @@
 
     <!-- Header -->
     <header>
-        <a href="index.html" class="back-btn" title="Back to Tools"><i class="fas fa-arrow-left"></i></a>
-        <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+        <div class="header-left">
+            <a href="index.html" class="back-btn" title="Back to Tools"><i class="fas fa-arrow-left"></i></a>
+            <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+        </div>
+        <a href="#" id="donateBtn" class="donate-header-btn"><i class="fas fa-heart"></i> Donate</a>
     </header>
 
     <main class="workspace">
@@ -300,7 +332,7 @@
         <div class="preview-panel">
             <div class="preview-header">
                 <h3 style="font-weight: 800;">Live Preview</h3>
-                <button class="btn-primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                <button class="btn-primary" id="downloadTriggerBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
             </div>
 
             <div class="slip-container">
@@ -394,11 +426,49 @@
         </div>
     </main>
 
-    <!-- Google AdSense Placeholder Placement -->
+    <!-- Google AdSense Real Ad Unit -->
     <div class="ad-container">
         <span class="ad-label">Advertisement</span>
-        <div style="height: 90px; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center; color:#94a3b8;">
-            AdSense Banner Placement (ca-pub-4598765809021376)
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4598765809021376"
+             data-ad-slot="8422543747"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Donate Modal -->
+    <div class="donate-overlay" id="donateOverlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donateClose"><i class="fas fa-times"></i></button>
+            <div class="donate-icon"><i class="fas fa-heart"></i></div>
+            <h3>Support sedoc</h3>
+            <p>sedoc is free for everyone. If our tools saved you time, a small donation helps keep it running.</p>
+            <div class="donate-card">
+                <div class="donate-card-label">JazzCash Number</div>
+                <div class="donate-card-number" id="donateNumber">0307-8600020</div>
+                <button class="donate-copy-btn" id="donateCopyBtn"><i class="fas fa-copy"></i> Copy Number</button>
+            </div>
+            <p class="donate-note">Please confirm the account name before sending any donation.</p>
+        </div>
+    </div>
+
+    <!-- Download Ad Modal: shows an ad at the highest-intent moment (right before download) -->
+    <div class="donate-overlay" id="downloadOverlay">
+        <div class="download-modal">
+            <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
+            <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Payslip is Ready</h3>
+            <p>Your PDF is being prepared. Thanks for using sedoc!</p>
+            <div class="download-ad-slot">
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; min-height:100px;"
+                     data-ad-client="ca-pub-4598765809021376"
+                     data-ad-slot="8422543747"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+            <button class="download-now-btn" id="downloadNowBtn"><i class="fas fa-download"></i> Download Now</button>
         </div>
     </div>
 
@@ -409,11 +479,11 @@
                 <img src="Logo.png" alt="sedoc footer logo">
             </a>
             <div class="footer-links">
-                <a href="#">Features</a>
-                <a href="#">Pricing</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-                <a href="#">Contact Support</a>
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-use.html">Terms of Use</a>
+                <a href="contact.html">Contact Support</a>
             </div>
             <div class="footer-bottom">
                 &copy; 2026 sedoc Inc. All Rights Reserved. Designed with precision for professionals.
@@ -515,17 +585,87 @@
             const element = document.getElementById('slip-paper');
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const month = document.getElementById('in-month').value || 'Month';
-            
+
             const opt = {
                 margin:       0,
                 filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
                 image:        { type: 'jpeg', quality: 1 },
-                html2canvas:  { scale: 2, useCORS: true },
+                // scrollY/scrollX/windowHeight/windowWidth: forces html2canvas to capture
+                // from the exact top-left of the slip, regardless of how far the page
+                // itself has been scrolled. Without this, the export can come out
+                // vertically shifted/mis-aligned depending on scroll position.
+                html2canvas:  {
+                    scale: 2,
+                    useCORS: true,
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight
+                },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(element).save();
         }
+
+        // --- 7. Download flow: show ad modal first (highest-intent ad placement),
+        //     then trigger the actual PDF generation when user clicks "Download Now" ---
+        const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');
+        const downloadOverlay = document.getElementById('downloadOverlay');
+        const downloadClose = document.getElementById('downloadClose');
+        const downloadNowBtn = document.getElementById('downloadNowBtn');
+
+        downloadTriggerBtn.addEventListener('click', function() {
+            downloadOverlay.classList.add('active');
+        });
+        downloadClose.addEventListener('click', function() {
+            downloadOverlay.classList.remove('active');
+        });
+        downloadOverlay.addEventListener('click', function(e) {
+            if (e.target === downloadOverlay) downloadOverlay.classList.remove('active');
+        });
+        downloadNowBtn.addEventListener('click', function() {
+            downloadNowBtn.disabled = true;
+            downloadNowBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
+            downloadPDF();
+            setTimeout(function() {
+                downloadOverlay.classList.remove('active');
+                downloadNowBtn.disabled = false;
+                downloadNowBtn.innerHTML = '<i class="fas fa-download"></i> Download Now';
+            }, 800);
+        });
+
+        // --- 8. Donate Modal ---
+        const donateBtn = document.getElementById('donateBtn');
+        const donateOverlay = document.getElementById('donateOverlay');
+        const donateClose = document.getElementById('donateClose');
+        const donateCopyBtn = document.getElementById('donateCopyBtn');
+        const donateNumber = document.getElementById('donateNumber');
+
+        donateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            donateOverlay.classList.add('active');
+        });
+        donateClose.addEventListener('click', function() {
+            donateOverlay.classList.remove('active');
+        });
+        donateOverlay.addEventListener('click', function(e) {
+            if (e.target === donateOverlay) donateOverlay.classList.remove('active');
+        });
+        donateCopyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(donateNumber.textContent.replace(/-/g, '')).then(function() {
+                donateCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function() {
+                    donateCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Number';
+                }, 2000);
+            });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                donateOverlay.classList.remove('active');
+                downloadOverlay.classList.remove('active');
+            }
+        });
 
         // Initial setup on load
         changeTheme();
