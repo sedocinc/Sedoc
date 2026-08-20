@@ -23,6 +23,59 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
+    <!-- ============================================================
+         FIX #1: Google Analytics 4 — traffic ka data mile bina isk
+         konsa page/tool zyada chal raha hai pata nahi chalega.
+         Apna GA4 Measurement ID (G-XXXXXXXXXX) yahan daalo (2 jagah).
+    ============================================================ -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!-- ============================================================
+         FIX #2: FAQPage structured data (JSON-LD) — Google search
+         results mein FAQ dikhne se click-through rate badhta hai,
+         jo traffic aur AdSense revenue dono badhata hai.
+    ============================================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my generated documents secure and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Privacy is our core foundation. We use enterprise-grade SSL encryption. Information entered for generation is never stored on our servers permanently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the HR and Finance templates valid for official use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our templates are drafted by professionals and follow standard corporate structures, perfect for daily business use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the platform process formatting so quickly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our system uses a lightweight client-side rendering engine, so your browser does the work locally instead of waiting on a server."
+          }
+        }
+      ]
+    }
+    </script>
+
     <style>
         /* Modern Design System Tokens */
         :root {
@@ -151,6 +204,8 @@
         .pf-input-group textarea:focus ~ label, .pf-input-group textarea:not(:placeholder-shown) ~ label { top: -10px; left: 15px; font-size: 0.8rem; font-weight: 600; color: #a302ff; background: #ffffff; border-radius: 4px; }
         .pf-submit { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 300px; margin: 20px auto 0; background: var(--brand-gradient); color: white; padding: 14px 24px; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.2); }
         .pf-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(163, 2, 255, 0.3); }
+        .pf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .pf-error-msg { display: none; text-align: center; color: #dc2626; font-size: 0.85rem; font-weight: 600; margin-top: 15px; }
         .pf-success-state { display: none; text-align: center; padding: 40px 0; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .circle-check { width: 70px; height: 70px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); }
@@ -159,6 +214,7 @@
         /* AdSense Container */
         .ad-container { margin: 20px auto; max-width: 900px; display: block; min-height: 90px; text-align: center; }
         .ad-container ins { display: block; width: 100%; height: 100%; background: transparent; }
+        .ad-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600; }
 
         /* Footer Styles */
         footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); }
@@ -189,7 +245,8 @@
             <img src="Logo.png" alt="sedoc logo">
         </a>
         <div class="header-actions">
-            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
+            <!-- FIX #3: "Donate" replaced with a CTA that matches a tools platform -->
+            <a href="#all-tools" class="btn-primary"><i class="fas fa-bolt"></i> Get Started</a>
         </div>
     </header>
 
@@ -265,6 +322,20 @@
             </div>
         </section>
 
+        <!-- FIX #4: Second, lighter ad placement between Tools and Insights.
+             High-intent zone (user just browsed tools) = better RPM.
+             Keep ad density reasonable — 2 total on this page is safe for AdSense policy. -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4598765809021376"
+                 data-ad-slot="1122334455"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
         <!-- Updated Insights Section -->
         <section id="insights" class="category-section">
             <div class="category-header">
@@ -333,7 +404,7 @@
             <div class="glass-slider-container">
                 <div class="glass-testimonial-track">
                     <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image1.png" alt="Syed Athar Bukhari" class="t-img"></div>
+                        <div class="t-img-wrapper"><img src="image1.png" alt="Syed Athar Bukhari" class="t-img" loading="lazy"></div>
                         <div class="t-content">
                             <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                             <p class="t-text">"sedoc has completely transformed how I handle my daily HR documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
@@ -342,7 +413,7 @@
                     </div>
                     
                     <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img"></div>
+                        <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img" loading="lazy"></div>
                         <div class="t-content">
                             <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
                             <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
@@ -351,7 +422,7 @@
                     </div>
                     
                     <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image3.png" alt="Meesha Khan" class="t-img"></div>
+                        <div class="t-img-wrapper"><img src="image3.png" alt="Meesha Khan" class="t-img" loading="lazy"></div>
                         <div class="t-content">
                             <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
                             <p class="t-text">"The invoice generation and quotation templates are exceptionally well-drafted. Plus, the ATS resume builder is a game changer for the candidates we screen."</p>
@@ -359,9 +430,9 @@
                         </div>
                     </div>
 
-                    <!-- Duplicates for infinite scroll effect -->
+                    <!-- Duplicates for infinite scroll effect (intentional, not a bug) -->
                     <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image1.png" alt="Syed Athar Bukhari" class="t-img"></div>
+                        <div class="t-img-wrapper"><img src="image1.png" alt="Syed Athar Bukhari" class="t-img" loading="lazy"></div>
                         <div class="t-content">
                             <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                             <p class="t-text">"sedoc has completely transformed how I handle my daily HR documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
@@ -370,7 +441,7 @@
                     </div>
                     
                     <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img"></div>
+                        <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img" loading="lazy"></div>
                         <div class="t-content">
                             <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
                             <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
@@ -388,7 +459,13 @@
                     <h3>How was your experience?</h3>
                 </div>
 
-                <form id="userFeedbackForm" class="pf-form">
+                <!-- ============================================================
+                     FIX #5: Feedback form ab actually kahin jaata hai.
+                     Formspree free hai: https://formspree.io par sign up karo,
+                     apna form banao, wahan se milne wala endpoint neeche
+                     "YOUR_FORMSPREE_ID" ki jagah paste kar do.
+                ============================================================ -->
+                <form id="userFeedbackForm" class="pf-form" action="https://formspree.io/f/myegllrw" method="POST">
                     <div class="pf-rating-container" id="starRating">
                         <i class="far fa-star" data-rating="1"></i>
                         <i class="far fa-star" data-rating="2"></i>
@@ -396,26 +473,28 @@
                         <i class="far fa-star" data-rating="4"></i>
                         <i class="far fa-star" data-rating="5"></i>
                     </div>
+                    <input type="hidden" id="pf-rating-value" name="rating" value="0">
 
                     <div class="pf-row">
                         <div class="pf-input-group">
-                            <input type="text" id="pf-name" placeholder=" " required>
+                            <input type="text" id="pf-name" name="name" placeholder=" " required>
                             <label for="pf-name">Full Name</label>
                         </div>
                         <div class="pf-input-group">
-                            <input type="text" id="pf-role" placeholder=" " required>
+                            <input type="text" id="pf-role" name="role" placeholder=" " required>
                             <label for="pf-role">Role / Company</label>
                         </div>
                     </div>
                     
                     <div class="pf-input-group">
-                        <textarea id="pf-message" placeholder=" " required></textarea>
+                        <textarea id="pf-message" name="message" placeholder=" " required></textarea>
                         <label for="pf-message">Write your feedback...</label>
                     </div>
                     
-                    <button type="submit" class="pf-submit">
+                    <button type="submit" class="pf-submit" id="pfSubmitBtn">
                         Submit Feedback <i class="fas fa-arrow-right"></i>
                     </button>
+                    <p class="pf-error-msg" id="pfErrorMsg">Something went wrong. Please try again in a moment.</p>
                 </form>
             </div>
 
@@ -427,6 +506,7 @@
         </div>
 
         <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-4598765809021376"
@@ -443,7 +523,7 @@
     <footer>
         <div class="footer-content">
             <a href="index.html" class="footer-logo">
-                <img src="Logo.png" alt="sedoc footer logo">
+                <img src="Logo.png" alt="sedoc footer logo" loading="lazy">
             </a>
             <div class="footer-links">
                 <a href="features.html">Features</a>
@@ -491,11 +571,16 @@
 
         // Feedback Form Stars
         const stars = document.querySelectorAll('.pf-rating-container i');
+        const ratingValueInput = document.getElementById('pf-rating-value');
         let selectedRating = 0;
         stars.forEach(star => {
             star.addEventListener('mouseover', function() { highlightStars(this.getAttribute('data-rating')); });
             star.addEventListener('mouseout', function() { highlightStars(selectedRating); });
-            star.addEventListener('click', function() { selectedRating = this.getAttribute('data-rating'); highlightStars(selectedRating); });
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-rating');
+                ratingValueInput.value = selectedRating;
+                highlightStars(selectedRating);
+            });
         });
 
         function highlightStars(rating) {
@@ -510,10 +595,40 @@
             });
         }
 
-        document.getElementById('userFeedbackForm').addEventListener('submit', function(e) {
+        // FIX #5 (continued): Form now submits to Formspree via fetch,
+        // so the "Thank You" state only shows if the submission actually worked.
+        const feedbackForm = document.getElementById('userFeedbackForm');
+        const submitBtn = document.getElementById('pfSubmitBtn');
+        const errorMsg = document.getElementById('pfErrorMsg');
+
+        feedbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            document.getElementById('pfFormContainer').style.display = 'none';
-            document.getElementById('pfSuccessState').style.display = 'block';
+            errorMsg.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            const formData = new FormData(feedbackForm);
+
+            fetch(feedbackForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('pfFormContainer').style.display = 'none';
+                    document.getElementById('pfSuccessState').style.display = 'block';
+                } else {
+                    throw new Error('Submission failed');
+                }
+            })
+            .catch(() => {
+                errorMsg.style.display = 'block';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Feedback <i class="fas fa-arrow-right"></i>';
+            });
         });
     </script>
 </body>
