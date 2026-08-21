@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <!-- ============================================================
+         FAVICON FIX: same as homepage. favicon.png / favicon.ico /
+         apple-touch-icon.png files root folder mein hona zaroori hai
+         (jahan index.html hai) — sab pages inhi shared files ko
+         use karenge kyunke path root-relative (/) hai.
+    ============================================================ -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NS6MJR5G0R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NS6MJR5G0R');
+    </script>
+
     <title>Free GST & VAT Calculator Online | Add or Remove Tax | sedoc</title>
     <meta name="title" content="Free GST & VAT Calculator Online | Add or Remove Tax | sedoc">
     <meta name="description" content="Instantly calculate GST, VAT, and Sales Tax. Add tax to a base price or reverse-calculate to find the net price and tax amount. Free online financial tool by sedoc.">
@@ -60,7 +79,7 @@
         .back-btn-icon { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: var(--text-dark); border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
         .back-btn-icon:hover { background: #e2e8f0; color: #a302ff; transform: translateX(-2px); }
         
-        .header-actions .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); }
+        .header-actions .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); display: inline-flex; align-items: center; gap: 6px; }
         .header-actions .btn-primary:hover { opacity: 0.9; }
 
         /* PREMIUM HERO BANNER */
@@ -138,6 +157,23 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
+        /* Donate Modal (same as homepage / other tools) */
+        .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .donate-overlay.active { display: flex; }
+        .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .donate-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; border: none; color: var(--text-gray); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .donate-close:hover { background: #e2e8f0; color: var(--text-dark); }
+        .donate-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 18px; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.25); }
+        .donate-modal h3 { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .donate-modal p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+        .donate-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 10px; }
+        .donate-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 6px; }
+        .donate-card-number { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); letter-spacing: 0.02em; }
+        .donate-copy-btn { margin-top: 12px; background: var(--brand-gradient); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.2s ease; }
+        .donate-copy-btn:hover { opacity: 0.9; }
+        .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
+
         @media (max-width: 768px) {
             .calculator-grid { grid-template-columns: 1fr; }
             .calc-panel, .results-panel { padding: 25px 20px; }
@@ -156,7 +192,7 @@
             </a>
         </div>
         <div class="header-actions">
-            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
+            <a href="#" id="donateBtn" class="btn-primary"><i class="fas fa-heart"></i> Donate</a>
         </div>
     </header>
 
@@ -254,7 +290,7 @@
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-4598765809021376"
-                 data-ad-slot="1122334455"
+                 data-ad-slot="8422543747"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -277,7 +313,7 @@
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-4598765809021376"
-                 data-ad-slot="0987654321"
+                 data-ad-slot="8422543747"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -286,6 +322,22 @@
         </div>
 
     </main>
+
+    <!-- Donate Modal -->
+    <div class="donate-overlay" id="donateOverlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donateClose"><i class="fas fa-times"></i></button>
+            <div class="donate-icon"><i class="fas fa-heart"></i></div>
+            <h3>Support sedoc</h3>
+            <p>sedoc is free for everyone. If our tools saved you time, a small donation helps keep it running.</p>
+            <div class="donate-card">
+                <div class="donate-card-label">JazzCash Number</div>
+                <div class="donate-card-number" id="donateNumber">0307-8600020</div>
+                <button class="donate-copy-btn" id="donateCopyBtn"><i class="fas fa-copy"></i> Copy Number</button>
+            </div>
+            <p class="donate-note">Please confirm the account name before sending any donation.</p>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -395,6 +447,37 @@
                 splitBlock.style.display = 'none';
             }
         }
+
+        // --- Donate Modal ---
+        const donateBtn = document.getElementById('donateBtn');
+        const donateOverlay = document.getElementById('donateOverlay');
+        const donateClose = document.getElementById('donateClose');
+        const donateCopyBtn = document.getElementById('donateCopyBtn');
+        const donateNumber = document.getElementById('donateNumber');
+
+        donateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            donateOverlay.classList.add('active');
+        });
+        donateClose.addEventListener('click', function() {
+            donateOverlay.classList.remove('active');
+        });
+        donateOverlay.addEventListener('click', function(e) {
+            if (e.target === donateOverlay) donateOverlay.classList.remove('active');
+        });
+        donateCopyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(donateNumber.textContent.replace(/-/g, '')).then(function() {
+                donateCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function() {
+                    donateCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Number';
+                }, 2000);
+            });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                donateOverlay.classList.remove('active');
+            }
+        });
 
         // Initialize First Computation Matrix
         calculateTax();
