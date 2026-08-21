@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <!-- ============================================================
+         FAVICON FIX: same as homepage. favicon.png / favicon.ico /
+         apple-touch-icon.png files root folder mein hona zaroori hai
+         (jahan index.html hai) — sab pages inhi shared files ko
+         use karenge kyunke path root-relative (/) hai.
+    ============================================================ -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NS6MJR5G0R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NS6MJR5G0R');
+    </script>
+
     <!-- ================= VIRAL SEO & META TAGS ================= -->
     <title>Free Pro Quotation Maker | Create & Download PDF Estimates | sedoc</title>
     <meta name="title" content="Free Pro Quotation Maker | Create & Download PDF Estimates | sedoc">
@@ -13,11 +32,35 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://www.thesedoc.com/quotation-maker.html" />
 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.thesedoc.com/quotation-maker.html">
+    <meta property="og:title" content="Free Pro Quotation Maker | Create & Download PDF Estimates">
+    <meta property="og:description" content="Create winning project quotations and estimates in seconds. 6 premium designs, custom brand colors, instant A4 PDF. 100% Free by sedoc.">
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "sedoc Pro Quotation Maker",
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication",
+      "url": "https://www.thesedoc.com/quotation-maker.html",
+      "description": "Create and download professional PDF quotations and estimates with custom brand colors, 6 creative templates, auto-calculations, and multi-currency support.",
+      "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" }
+    }
+    </script>
+    <!-- ================= END SEO ================= -->
+
     <!-- html2pdf Library for Direct PDF Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
     <style>
         /* Modern Design System Tokens */
@@ -39,9 +82,12 @@
         .logo-link img { height: 35px; width: auto; }
         .back-btn-icon { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--bg-body); color: var(--text-dark); border-radius: 50%; text-decoration: none; transition: 0.2s; }
         .back-btn-icon:hover { background: #e2e8f0; color: #a302ff; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
         .btn-primary { background: var(--brand-gradient); color: white; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;}
         .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
         .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .donate-header-btn { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); display: inline-flex; align-items: center; gap: 6px; }
+        .donate-header-btn:hover { opacity: 0.9; }
 
         /* Hero Area */
         .hero-section { text-align: center; padding: 40px 5% 10px; }
@@ -211,11 +257,40 @@
 
         /* Bottom Ads & Footer */
         .ad-container { margin: 20px auto 40px; max-width: 900px; display: block; text-align: center; }
-        footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); text-align: center; }
+        footer { background: #ffffff; padding: 40px 5% 20px; border-top: 1px solid var(--border); text-align: center; margin-top: auto; }
+        .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
         .footer-logo img:hover { opacity: 1; filter: grayscale(0%); }
-        .footer-bottom-links a { color: var(--text-gray); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
-        .footer-bottom-links a:hover { color: #a302ff; }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: #a302ff; }
+        .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
+
+        /* Donate Modal (same as homepage / other tools) */
+        .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .donate-overlay.active { display: flex; }
+        .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .donate-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; border: none; color: var(--text-gray); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .donate-close:hover { background: #e2e8f0; color: var(--text-dark); }
+        .donate-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 18px; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.25); }
+        .donate-modal h3 { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .donate-modal p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+        .donate-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 10px; }
+        .donate-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 700; margin-bottom: 6px; }
+        .donate-card-number { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); letter-spacing: 0.02em; }
+        .donate-copy-btn { margin-top: 12px; background: var(--brand-gradient); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.2s ease; }
+        .donate-copy-btn:hover { opacity: 0.9; }
+        .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
+
+        /* Download Ad Modal */
+        .download-modal { background: #ffffff; border-radius: 24px; padding: 36px; max-width: 420px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .download-modal h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .download-modal p { color: var(--text-gray); font-size: 0.88rem; margin-bottom: 20px; }
+        .download-ad-slot { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; }
+        .download-now-btn { width: 100%; background: var(--brand-gradient); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.3s ease; }
+        .download-now-btn:hover { opacity: 0.9; }
+        .download-now-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         @media (max-width: 1400px) {
             .workspace-container { flex-direction: column; }
@@ -230,8 +305,10 @@
             <a href="index.html" class="back-btn-icon" title="Go Back"><i class="fas fa-arrow-left"></i></a>
             <a href="index.html"><img src="Logo.png" alt="sedoc logo"></a>
         </div>
-        <!-- Button updated to call generatePDF() function -->
-        <button class="btn-primary" id="downloadPdfBtn" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        <div class="header-right">
+            <a href="#" id="donateBtn" class="donate-header-btn"><i class="fas fa-heart"></i> Donate</a>
+            <button class="btn-primary" id="downloadTriggerBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        </div>
     </header>
 
     <div class="hero-section">
@@ -499,20 +576,68 @@
         <p>Select from worldwide currencies. Input your project phases or line items, apply a tax rate, or add a flat discount to close the deal. The engine dynamically calculates your subtotal and grand total error-free. Hit "Download PDF" to send a pixel-perfect estimate to your client.</p>
     </section>
 
-    <!-- STRICT BOTTOM ADSENSE PLACEMENT -->
+    <!-- Google AdSense Real Ad Unit -->
     <div class="ad-container">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <span class="ad-label" style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; margin-bottom:10px; display:block;">Advertisement</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4598765809021376"
+             data-ad-slot="8422543747"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <footer>
-        <a href="index.html" class="footer-logo"><img src="Logo.png" alt="sedoc footer logo"></a>
-        <div class="footer-bottom-links" style="margin-bottom: 10px;">
-            <a href="features.html">Features</a>
-            <a href="privacy-policy.html">Privacy</a>
-            <a href="terms.html">Terms</a>
+    <!-- Donate Modal -->
+    <div class="donate-overlay" id="donateOverlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donateClose"><i class="fas fa-times"></i></button>
+            <div class="donate-icon"><i class="fas fa-heart"></i></div>
+            <h3>Support sedoc</h3>
+            <p>sedoc is free for everyone. If our tools saved you time, a small donation helps keep it running.</p>
+            <div class="donate-card">
+                <div class="donate-card-label">JazzCash Number</div>
+                <div class="donate-card-number" id="donateNumber">0307-8600020</div>
+                <button class="donate-copy-btn" id="donateCopyBtn"><i class="fas fa-copy"></i> Copy Number</button>
+            </div>
+            <p class="donate-note">Please confirm the account name before sending any donation.</p>
         </div>
-        <p style="color: var(--text-gray); font-size: 0.8rem;">&copy; 2026 sedoc Inc. All Rights Reserved.</p>
+    </div>
+
+    <!-- Download Ad Modal: shows an ad at the highest-intent moment (right before download) -->
+    <div class="donate-overlay" id="downloadOverlay">
+        <div class="download-modal">
+            <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
+            <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Document is Ready</h3>
+            <p>Your PDF is being prepared. Thanks for using sedoc!</p>
+            <div class="download-ad-slot">
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%; min-height:100px;"
+                     data-ad-client="ca-pub-4598765809021376"
+                     data-ad-slot="8422543747"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+            <button class="download-now-btn" id="downloadNowBtn"><i class="fas fa-download"></i> Download Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">
+                <img src="Logo.png" alt="sedoc footer logo">
+            </a>
+            <div class="footer-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-use.html">Terms of Use</a>
+                <a href="contact.html">Contact Support</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 sedoc Inc. All Rights Reserved. Designed with precision for professionals.
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -643,16 +768,10 @@
             document.getElementById('p-grandtotal').textContent = formatCash(grandTotal);
         }
 
-        // --- DIRECT PDF DOWNLOAD LOGIC ---
+        // --- DIRECT PDF GENERATION LOGIC (called after ad modal confirmation) ---
         function generatePDF() {
             const element = document.getElementById('printArea');
             const docNum = document.getElementById('invNum').value || 'Document';
-            const btn = document.getElementById('downloadPdfBtn');
-            
-            // Show loading state
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-            btn.disabled = true;
 
             // Remove box-shadow temporarily to avoid ugly edges in PDF
             const originalShadow = element.style.boxShadow;
@@ -669,12 +788,68 @@
 
             // Generate and save
             html2pdf().set(opt).from(element).save().then(() => {
-                // Restore button and styling after download
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
                 element.style.boxShadow = originalShadow;
             });
         }
+
+        // --- Download flow: show ad modal first (highest-intent ad placement),
+        //     then trigger the actual PDF generation when user clicks "Download Now" ---
+        const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');
+        const downloadOverlay = document.getElementById('downloadOverlay');
+        const downloadClose = document.getElementById('downloadClose');
+        const downloadNowBtn = document.getElementById('downloadNowBtn');
+
+        downloadTriggerBtn.addEventListener('click', function() {
+            downloadOverlay.classList.add('active');
+        });
+        downloadClose.addEventListener('click', function() {
+            downloadOverlay.classList.remove('active');
+        });
+        downloadOverlay.addEventListener('click', function(e) {
+            if (e.target === downloadOverlay) downloadOverlay.classList.remove('active');
+        });
+        downloadNowBtn.addEventListener('click', function() {
+            downloadNowBtn.disabled = true;
+            downloadNowBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
+            generatePDF();
+            setTimeout(function() {
+                downloadOverlay.classList.remove('active');
+                downloadNowBtn.disabled = false;
+                downloadNowBtn.innerHTML = '<i class="fas fa-download"></i> Download Now';
+            }, 800);
+        });
+
+        // --- Donate Modal ---
+        const donateBtn = document.getElementById('donateBtn');
+        const donateOverlay = document.getElementById('donateOverlay');
+        const donateClose = document.getElementById('donateClose');
+        const donateCopyBtn = document.getElementById('donateCopyBtn');
+        const donateNumber = document.getElementById('donateNumber');
+
+        donateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            donateOverlay.classList.add('active');
+        });
+        donateClose.addEventListener('click', function() {
+            donateOverlay.classList.remove('active');
+        });
+        donateOverlay.addEventListener('click', function(e) {
+            if (e.target === donateOverlay) donateOverlay.classList.remove('active');
+        });
+        donateCopyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(donateNumber.textContent.replace(/-/g, '')).then(function() {
+                donateCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(function() {
+                    donateCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Number';
+                }, 2000);
+            });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                donateOverlay.classList.remove('active');
+                downloadOverlay.classList.remove('active');
+            }
+        });
 
         // Run Init
         updateBrandColor();
