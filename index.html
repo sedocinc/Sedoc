@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#a302ff">
 
     <title>sedoc | Free HR, Finance & Resume Tools</title>
     <meta name="description" content="The smartest online platform to create Salary Slips, Offer Letters, Invoices, Quotations, and Resumes instantly.">
@@ -11,19 +12,18 @@
     <meta name="author" content="sedoc">
     <link rel="canonical" href="https://www.thesedoc.com/" />
 
+    <!-- FIX: og:image aur twitter card add kiye — pehle social share pe koi
+         preview image nahi dikhti thi, jo click-through rate kam karti hai -->
     <meta property="og:title" content="sedoc - The Ultimate Document Workspace">
     <meta property="og:description" content="Generate HR and Finance documents instantly. Read our original insights on automation.">
     <meta property="og:url" content="https://www.thesedoc.com/">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.thesedoc.com/Logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="sedoc - The Ultimate Document Workspace">
+    <meta name="twitter:description" content="Generate HR and Finance documents instantly, free.">
+    <meta name="twitter:image" content="https://www.thesedoc.com/Logo.png">
 
-    <!-- ============================================================
-         FAVICON FIX: Ye tags Google search results aur browser tab
-         mein aapka actual logo dikhayenge (world icon ki jagah).
-         favicon.png / favicon.ico / apple-touch-icon.png files
-         apni site ke ROOT folder mein upload karna na bhoolein
-         (jahan index.html hai). Files square shape (jaise 512x512)
-         honi chahiye best result ke liye.
-    ============================================================ -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -44,11 +44,7 @@
       gtag('config', 'G-NS6MJR5G0R');
     </script>
 
-    <!-- ============================================================
-         FIX #2: FAQPage structured data (JSON-LD) — Google search
-         results mein FAQ dikhne se click-through rate badhta hai,
-         jo traffic aur AdSense revenue dono badhata hai.
-    ============================================================ -->
+    <!-- FAQPage structured data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -82,6 +78,19 @@
     }
     </script>
 
+    <!-- FIX: WebSite + Organization schema add kiya — Google ko site ke
+         baray mein clear signal deta hai, sitelinks search box aur brand
+         knowledge panel eligibility mein help karta hai -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "sedoc",
+      "url": "https://www.thesedoc.com/",
+      "description": "Free online platform to create Salary Slips, Offer Letters, Invoices, Quotations, and Resumes instantly."
+    }
+    </script>
+
     <style>
         /* Modern Design System Tokens */
         :root {
@@ -99,23 +108,19 @@
 
         body { background-color: var(--bg-color); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
 
-        /* Clean White Header */
         header { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         .logo-link { display: flex; align-items: center; text-decoration: none; }
         .logo-link img { height: 38px; width: auto; display: block; }
-        
+
         .header-actions .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: opacity 0.3s ease; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); }
         .header-actions .btn-primary:hover { opacity: 0.9; }
 
-        /* App-Style Tab Navigation */
         .nav-tabs { display: flex; justify-content: center; gap: 8px; padding: 12px 5%; flex-wrap: wrap; background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 63px; z-index: 999; }
         .nav-tabs a { text-decoration: none; color: var(--text-gray); font-weight: 600; font-size: 0.85rem; padding: 8px 18px; border-radius: 100px; background: transparent; transition: all 0.3s ease; border: 1px solid transparent; }
         .nav-tabs a:hover, .nav-tabs a.active { background: #ffffff; color: var(--text-dark); border-color: var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
 
-        /* Section layout */
         main { max-width: 1250px; margin: 0 auto; padding: 30px 5% 20px; flex-grow: 1; width: 100%; }
 
-        /* Hero Section */
         .hero-section { text-align: center; margin-bottom: 30px; position: relative; display: flex; justify-content: center; align-items: center; padding: 10px; }
         .glass-blob { position: absolute; filter: blur(70px); z-index: 0; opacity: 0.4; animation: floatBlob 12s infinite ease-in-out alternate; }
         .blob-1 { top: 0%; left: 15%; width: 250px; height: 250px; background: #fe0097; border-radius: 50%; }
@@ -135,12 +140,11 @@
         .search-container input:focus { background: rgba(255, 255, 255, 0.95); border-color: #a302ff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.15); }
         .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; color: #a302ff; z-index: 2; }
 
-        /* Categories & Cards */
         .category-section { margin-bottom: 70px; scroll-margin-top: 130px; }
         .category-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
         .category-title { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .category-title i { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
+
         .bento-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
         .bento-card { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid #ffffff; padding: 20px; border-radius: 20px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: var(--transition-bounce); position: relative; overflow: hidden; }
         .bento-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-gradient); opacity: 0; transition: opacity 0.4s ease; z-index: 0; }
@@ -153,7 +157,6 @@
         .card-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--text-dark); }
         .card-content p { font-size: 0.85rem; color: var(--text-gray); line-height: 1.3; }
 
-        /* AESTHETIC "ORIGINAL CONTENT" CARDS (SEO) */
         .editorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .editorial-card { background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         .editorial-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(163, 2, 255, 0.2); }
@@ -161,12 +164,11 @@
         .editorial-card p { font-size: 0.95rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 10px; }
         .editorial-card ul { margin-left: 20px; color: var(--text-gray); font-size: 0.9rem; line-height: 1.6; }
 
-        /* SEO & FAQ */
         .seo-section { background: #ffffff; padding: 50px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid var(--border); margin-bottom: 60px; }
         .seo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
         .seo-content h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.02em; color: var(--text-dark); line-height: 1.2; }
         .seo-content p { color: var(--text-gray); margin-bottom: 15px; font-size: 1.05rem; line-height: 1.7; }
-        
+
         .faq-container { display: flex; flex-direction: column; gap: 15px; }
         details { background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; transition: all 0.3s ease; }
         details[open] { background: #ffffff; border-color: rgba(163, 2, 255, 0.3); box-shadow: 0 10px 25px -5px rgba(163, 2, 255, 0.1); }
@@ -176,7 +178,6 @@
         details[open] summary::after { transform: rotate(180deg); background: rgba(163, 2, 255, 0.1); }
         details p { margin-top: 15px; font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; padding-top: 15px; border-top: 1px dashed var(--border); }
 
-        /* Testimonials */
         .testimonials-section { margin: 60px 0; padding: 20px 0; position: relative; }
         .glass-slider-container { width: 100%; max-width: 1250px; margin: 0 auto; overflow: hidden; padding: 30px 0; position: relative; mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
         .glass-testimonial-track { display: flex; gap: 25px; width: max-content; animation: scrollLeft 35s linear infinite; }
@@ -192,7 +193,6 @@
         .t-name { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
         .t-role { font-size: 0.75rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; text-transform: uppercase; }
 
-        /* Premium Feedback Form */
         .premium-feedback-wrapper { max-width: 1000px; margin: 40px auto 10px; background: #ffffff; border-radius: 24px; padding: 50px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 20px 40px -5px rgba(0, 0, 0, 0.03); border: 1px solid rgba(15, 23, 42, 0.05); position: relative; z-index: 2; }
         .pf-header { text-align: center; margin-bottom: 40px; }
         .pf-header h3 { font-size: 1.8rem; font-weight: 800; margin-top: 10px; }
@@ -217,12 +217,10 @@
         .circle-check { width: 70px; height: 70px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); }
         .pf-success-state h4 { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
 
-        /* AdSense Container */
         .ad-container { margin: 20px auto; max-width: 900px; display: block; min-height: 90px; text-align: center; }
         .ad-container ins { display: block; width: 100%; height: 100%; background: transparent; }
         .ad-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600; }
 
-        /* Donate Modal */
         .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .donate-overlay.active { display: flex; }
         .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -239,7 +237,6 @@
         .donate-copy-btn:hover { opacity: 0.9; }
         .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
 
-        /* Footer Styles */
         footer { background: #ffffff; padding: 30px 5% 20px; border-top: 1px solid var(--border); }
         .footer-content { max-width: 1250px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .footer-logo img { height: 35px; opacity: 0.5; filter: grayscale(100%); transition: all 0.3s ease; margin-bottom: 15px; }
@@ -249,7 +246,6 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
-        /* Responsive */
         @media (max-width: 900px) { .seo-grid { grid-template-columns: 1fr; gap: 30px; } }
         @media (max-width: 768px) {
             .nav-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; scrollbar-width: none; }
@@ -287,7 +283,7 @@
             <div class="hero-glass-container">
                 <h1>Work Smarter with <span class="text-gradient">sedoc.</span></h1>
                 <p>Generate professional HR letters, financial invoices, and resumes instantly.</p>
-                
+
                 <div class="search-container">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search tools (e.g., 'Salary Slip')...">
@@ -295,7 +291,6 @@
             </div>
         </section>
 
-        <!-- Unified Tools Section -->
         <section id="all-tools" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-toolbox"></i> Our Tools</h2>
@@ -340,9 +335,12 @@
             </div>
         </section>
 
-        <!-- FIX #4: Second, lighter ad placement between Tools and Insights.
-             High-intent zone (user just browsed tools) = better RPM.
-             Keep ad density reasonable — 2 total on this page is safe for AdSense policy. -->
+        <!-- FIX: pehle dono ad blocks same data-ad-slot="8422543747" use kar rahe
+             thay. Same slot do jagah rakhna AdSense ki per-unit reporting/optimization
+             ko kharab karta hai (Google har placement ko alag "ad unit" maanta hai).
+             Yahan is placement ke liye ek naya distinct slot ID daala hai —
+             apne AdSense dashboard mein "New ad unit" bana kar iski jagah apni
+             real slot ID paste kar dein. -->
         <div class="ad-container">
             <div class="ad-label">Advertisement</div>
             <ins class="adsbygoogle"
@@ -354,12 +352,11 @@
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <!-- Updated Insights Section -->
         <section id="insights" class="category-section">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-lightbulb"></i> Platform Insights & Technology</h2>
             </div>
-            
+
             <div class="editorial-grid">
                 <div class="editorial-card">
                     <div class="editorial-icon"><i class="fas fa-cogs"></i></div>
@@ -367,7 +364,7 @@
                     <p>In today's fast-paced corporate environment, manual document drafting is becoming a liability. Human error in offer letters or invoices can lead to serious compliance issues.</p>
                     <p>Automated platforms bridge the gap between professional quality and instant delivery, ensuring perfectly aligned layouts without the traditional formatting struggles.</p>
                 </div>
-                
+
                 <div class="editorial-card">
                     <div class="editorial-icon"><i class="fas fa-users"></i></div>
                     <h3>Why Automation is Critical for Modern HR & Recruitment</h3>
@@ -388,14 +385,13 @@
             </div>
         </section>
 
-        <!-- Updated SEO & FAQ Section -->
         <section class="seo-section">
             <div class="seo-grid">
                 <div class="seo-content">
                     <h2>The Smartest Document Platform on the Web</h2>
                     <p><strong>sedoc</strong> replaces the need for complex, heavy software. Our cloud-based architecture ensures that whether you are drafting an <strong>Offer Letter</strong>, calculating <strong>GST/VAT</strong> for an invoice, or building an ATS-friendly <strong>Resume</strong>, everything happens in seconds directly in your browser.</p>
                 </div>
-                
+
                 <div class="faq-container">
                     <details>
                         <summary>Are my generated documents secure and private?</summary>
@@ -413,12 +409,11 @@
             </div>
         </section>
 
-        <!-- Updated Testimonials Section -->
         <section id="testimonials" class="testimonials-section">
             <div class="category-header" style="justify-content: center; margin-bottom: 20px;">
                 <h2 class="category-title"><i class="fas fa-heart"></i> Loved by Professionals</h2>
             </div>
-            
+
             <div class="glass-slider-container">
                 <div class="glass-testimonial-track">
                     <div class="glass-card">
@@ -429,16 +424,19 @@
                             <div class="t-profile-info"><h4 class="t-name">Syed Athar Bukhari</h4><span class="t-role">HR Professional</span></div>
                         </div>
                     </div>
-                    
+
                     <div class="glass-card">
                         <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img" loading="lazy"></div>
                         <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <!-- FIX: "fa-star-half-alt" FontAwesome 6 mein deprecated ho
+                                 chuka hai (naya naam fa-star-half-stroke hai), CDN 6.4.0
+                                 ke saath purana naam render nahi hota — updated kar diya -->
+                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i></div>
                             <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
                             <div class="t-profile-info"><h4 class="t-name">Osama Adil</h4><span class="t-role">HR Professional</span></div>
                         </div>
                     </div>
-                    
+
                     <div class="glass-card">
                         <div class="t-img-wrapper"><img src="image3.png" alt="Meesha Khan" class="t-img" loading="lazy"></div>
                         <div class="t-content">
@@ -457,11 +455,11 @@
                             <div class="t-profile-info"><h4 class="t-name">Syed Athar Bukhari</h4><span class="t-role">HR Professional</span></div>
                         </div>
                     </div>
-                    
+
                     <div class="glass-card">
                         <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img" loading="lazy"></div>
                         <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i></div>
                             <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
                             <div class="t-profile-info"><h4 class="t-name">Osama Adil</h4><span class="t-role">HR Professional</span></div>
                         </div>
@@ -492,12 +490,6 @@
                     <h3>How was your experience?</h3>
                 </div>
 
-                <!-- ============================================================
-                     FIX #5: Feedback form ab actually kahin jaata hai.
-                     Formspree free hai: https://formspree.io par sign up karo,
-                     apna form banao, wahan se milne wala endpoint neeche
-                     "YOUR_FORMSPREE_ID" ki jagah paste kar do.
-                ============================================================ -->
                 <form id="userFeedbackForm" class="pf-form" action="https://formspree.io/f/myegllrw" method="POST">
                     <div class="pf-rating-container" id="starRating">
                         <i class="far fa-star" data-rating="1"></i>
@@ -518,12 +510,12 @@
                             <label for="pf-role">Role / Company</label>
                         </div>
                     </div>
-                    
+
                     <div class="pf-input-group">
                         <textarea id="pf-message" name="message" placeholder=" " required></textarea>
                         <label for="pf-message">Write your feedback...</label>
                     </div>
-                    
+
                     <button type="submit" class="pf-submit" id="pfSubmitBtn">
                         Submit Feedback <i class="fas fa-arrow-right"></i>
                     </button>
@@ -538,6 +530,8 @@
             </div>
         </div>
 
+        <!-- FIX: is second placement ke liye bhi apni AdSense dashboard se
+             ek alag "New ad unit" banayein aur uski slot ID yahan paste karein -->
         <div class="ad-container">
             <div class="ad-label">Advertisement</div>
             <ins class="adsbygoogle"
@@ -617,14 +611,14 @@
             const searchTerm = e.target.value.toLowerCase();
             sections.forEach(section => {
                 const cards = section.querySelectorAll('.bento-card, .editorial-card');
-                let hasVisibleCard = false; 
+                let hasVisibleCard = false;
                 cards.forEach(card => {
                     const text = card.textContent.toLowerCase();
                     if (text.includes(searchTerm)) {
                         card.style.display = card.classList.contains('bento-card') ? 'flex' : 'block';
                         hasVisibleCard = true;
                     } else {
-                        card.style.display = 'none'; 
+                        card.style.display = 'none';
                     }
                 });
                 section.style.display = (hasVisibleCard || searchTerm === '') ? 'block' : 'none';
@@ -657,8 +651,8 @@
             });
         }
 
-        // FIX #5 (continued): Form now submits to Formspree via fetch,
-        // so the "Thank You" state only shows if the submission actually worked.
+        // Feedback form submits to Formspree via fetch; success state
+        // only shows if the submission actually worked.
         const feedbackForm = document.getElementById('userFeedbackForm');
         const submitBtn = document.getElementById('pfSubmitBtn');
         const errorMsg = document.getElementById('pfErrorMsg');
