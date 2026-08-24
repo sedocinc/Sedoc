@@ -74,7 +74,7 @@
 
         /* Left: Editor Panel */
         .editor-panel { background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .editor-panel h1 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         
         .form-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -121,7 +121,7 @@
         .slip-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 25px; }
         .company-logo { max-height: 60px; max-width: 180px; object-fit: contain; }
         .company-details { text-align: right; }
-        .company-details h1 { font-size: 22px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; color: #0f172a; }
+        .company-details h2 { font-size: 22px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; color: #0f172a; }
         .company-details p { font-size: 12px; color: #475569; }
         .slip-title { font-size: 16px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #0f172a; margin-top: 10px; }
 
@@ -156,7 +156,7 @@
         
         /* THEME 2: sedoc Brand Gradient */
         .theme-gradient .slip-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 15px; border-bottom: 1px solid #cbd5e1; }
-        .theme-gradient .company-details h1 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-gradient .company-details h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .theme-gradient .net-pay-box { background: var(--brand-gradient); color: white; box-shadow: 0 10px 20px rgba(254, 0, 151, 0.2); }
         .theme-gradient .slip-table th { background: linear-gradient(to right, rgba(240, 151, 9, 0.05), rgba(163, 2, 255, 0.05)); color: #0f172a; border-bottom: 2px solid #a302ff; }
 
@@ -182,7 +182,7 @@
 
         /* THEME 5: Premium Dark Header */
         .theme-dark .slip-header { background: #0f172a; color: white; padding: 30px; margin: -40px -40px 30px -40px; }
-        .theme-dark .company-details h1 { color: white; }
+        .theme-dark .company-details h2 { color: white; }
         .theme-dark .company-details p { color: #94a3b8; }
         .theme-dark .slip-title { color: #e2e8f0; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; display: inline-block; }
         .theme-dark .slip-table th { background: #0f172a; color: white; border: none; }
@@ -251,7 +251,7 @@
         
         <!-- EDITOR PANEL -->
         <div class="editor-panel" id="form-container">
-            <h2><i class="fas fa-file-invoice"></i> Corporate Payslip Setup</h2>
+            <h1><i class="fas fa-file-invoice"></i> Corporate Payslip Setup</h1>
             
             <!-- Settings & Logo -->
             <div class="form-section">
@@ -373,7 +373,7 @@
                             <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
                         </div>
                         <div class="company-details">
-                            <h1 id="out-company">sedoc Technologies</h1>
+                            <h2 id="out-company">sedoc Technologies</h2>
                             <p id="out-address">123 Tech Park, Innovation City</p>
                             <div class="slip-title">Payslip for <span id="out-month">May 2026</span></div>
                         </div>
