@@ -80,7 +80,7 @@
         .editor-panel { background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-height: calc(100vh - 110px); overflow-y: auto; position: sticky; top: 90px; }
         .editor-panel::-webkit-scrollbar { width: 6px; }
         .editor-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .editor-panel h1 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         .editor-sub { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 20px; }
 
         .quick-actions { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -183,7 +183,7 @@
         .r-main { width: 66%; padding: 30mm 9mm 12mm 8mm; }
         .r-photo { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.7); margin: 0 auto 16px; display: block; background: rgba(255,255,255,0.15); }
         .r-name-block { text-align: center; margin-bottom: 22px; }
-        .r-name-block h1 { font-size: 19px; font-weight: 800; margin-bottom: 3px; color: #fff; line-height: 1.25; }
+        .r-name-block h2 { font-size: 19px; font-weight: 800; margin-bottom: 3px; color: #fff; line-height: 1.25; }
         .r-name-block p { font-size: 11.5px; color: rgba(255,255,255,0.85); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
         .r-side-section { margin-bottom: 20px; }
         .r-side-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; color: #fff; opacity: 0.9; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 4px; }
@@ -205,7 +205,7 @@
 
         /* Executive: fixed dark navy sidebar regardless of accent, accent used as thin highlight only */
         .layout-sidebar.template-executive .r-sidebar { background: #0f172a; }
-        .layout-sidebar.template-executive .r-name-block h1 { font-family: 'Lora', Georgia, serif; }
+        .layout-sidebar.template-executive .r-name-block h2 { font-family: 'Lora', Georgia, serif; }
         .layout-sidebar.template-executive .r-side-title { border-bottom-color: var(--accent); }
         .layout-sidebar.template-executive .r-main .r-section-title { border-bottom-color: #0f172a; }
 
@@ -214,7 +214,7 @@
 
         /* Elegant: light premium sidebar with dark text (instead of colored/dark bg) */
         .template-elegant .r-sidebar { background: #f8fafc; color: #0f172a; border-right: 3px solid var(--accent); }
-        .template-elegant .r-name-block h1 { color: #0f172a; font-family: 'Lora', Georgia, serif; }
+        .template-elegant .r-name-block h2 { color: #0f172a; font-family: 'Lora', Georgia, serif; }
         .template-elegant .r-name-block p { color: var(--accent); opacity: 1; }
         .template-elegant .r-side-title { color: #0f172a; opacity: 1; border-bottom-color: var(--accent); }
         .template-elegant .r-contact-item { color: #334155; }
@@ -227,7 +227,7 @@
 
         /* Bold: thick accent sidebar, oversized uppercase name */
         .template-bold .r-sidebar { background: var(--accent); }
-        .template-bold .r-name-block h1 { font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
+        .template-bold .r-name-block h2 { font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
         .template-bold .r-side-title { font-size: 12px; letter-spacing: 1.2px; }
         .template-bold .r-photo { border-radius: 12px; border-width: 4px; }
         .template-bold .r-main .r-section-title { border-bottom-width: 3px; }
@@ -236,12 +236,12 @@
         .template-tech .r-sidebar { background: #1e293b; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 2px, transparent 2px, transparent 11px); }
         .template-tech .r-side-title { color: var(--accent); opacity: 1; }
         .template-tech .r-skill-side-name { font-family: 'Courier New', monospace; }
-        .template-tech .r-name-block h1 { font-family: 'Courier New', monospace; letter-spacing: 0.5px; }
+        .template-tech .r-name-block h2 { font-family: 'Courier New', monospace; letter-spacing: 0.5px; }
         .template-tech .r-main .r-section-title { font-family: 'Courier New', monospace; }
 
         /* Minimalist: max whitespace, muted tones, no heavy rules */
         .template-minimalist .r-header-simple { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
-        .template-minimalist .r-header-simple h1 { font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 21px; }
+        .template-minimalist .r-header-simple h2 { font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 21px; }
         .template-minimalist .r-header-simple .r-title-line { color: #64748b; font-weight: 500; }
         .template-minimalist .r-section-title { border-bottom: none; color: #64748b; font-weight: 700; letter-spacing: 1.5px; }
         .template-minimalist .r-contact-row i { color: #94a3b8; }
@@ -249,7 +249,7 @@
         /* Corporate: colored header band across the top, plain body */
         .resume-paper.template-corporate.layout-simple { padding-top: 0; }
         .template-corporate .r-header-simple { background: var(--accent); color: #fff; margin: 0 -20mm 20px; padding: 20mm 20mm 16px; }
-        .template-corporate .r-header-simple h1 { color: #fff; }
+        .template-corporate .r-header-simple h2 { color: #fff; }
         .template-corporate .r-header-simple .r-title-line { color: rgba(255,255,255,0.85); }
         .template-corporate .r-header-simple .r-contact-row { color: rgba(255,255,255,0.9); }
         .template-corporate .r-header-simple .r-contact-row i { color: #fff; }
@@ -257,7 +257,7 @@
         /* Simple layout (classic / ats) */
         .resume-paper.layout-simple { padding: 20mm 20mm; }
         .r-header-simple { margin-bottom: 20px; }
-        .r-header-simple h1 { font-size: 25px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; }
+        .r-header-simple h2 { font-size: 25px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; }
         .r-header-simple .r-title-line { font-size: 13.5px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
         .r-contact-row { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: #475569; }
         .r-contact-row span { display: flex; align-items: center; gap: 5px; }
@@ -267,14 +267,14 @@
         .resume-paper.template-ats { font-family: Arial, Helvetica, sans-serif; }
         .resume-paper.template-ats .r-section-title { border-bottom: 1px solid #0f172a; color: #0f172a; }
         .resume-paper.template-ats .r-header-simple .r-title-line { color: #334155; }
-        .resume-paper.template-ats .r-header-simple h1 { border-bottom: 3px solid #0f172a; padding-bottom: 8px; }
+        .resume-paper.template-ats .r-header-simple h2 { border-bottom: 3px solid #0f172a; padding-bottom: 8px; }
         .resume-paper.template-ats .r-contact-row i { color: #334155; }
 
         /* Classic: serif, formal double rule */
         .resume-paper.template-classic { font-family: 'Lora', Georgia, 'Times New Roman', serif; }
         .resume-paper.template-classic .r-header-simple { text-align: center; border-bottom: 3px double #0f172a; padding-bottom: 14px; }
         .resume-paper.template-classic .r-header-simple .r-contact-row { justify-content: center; }
-        .resume-paper.template-classic .r-header-simple h1 { letter-spacing: 1px; text-transform: uppercase; }
+        .resume-paper.template-classic .r-header-simple h2 { letter-spacing: 1px; text-transform: uppercase; }
         .resume-paper.template-classic .r-section-title { text-align: center; border-bottom: none; position: relative; }
         .resume-paper.template-classic .r-section-title::after { content: ''; display: block; width: 50px; height: 2px; background: var(--accent); margin: 6px auto 0; }
         .resume-paper.template-classic .r-item-title { font-weight: 700; }
@@ -353,7 +353,7 @@
 
         <!-- EDITOR PANEL -->
         <div class="editor-panel" id="form-container">
-            <h2><i class="fas fa-file-signature"></i> Resume Builder</h2>
+            <h1><i class="fas fa-file-signature"></i> Resume Builder</h1>
             <p class="editor-sub">Fill in your details — your resume updates live on the right. Everything stays in your browser.</p>
 
             <div class="quick-actions">
@@ -515,6 +515,10 @@
     <!-- Google AdSense Real Ad Unit -->
     <div class="ad-container">
         <span class="ad-label">Advertisement</span>
+        <!-- NOTE: resume-builder.html ki bhi apni koi dedicated AdSense unit nahi hai abhi,
+             isliye generic "Sedoc" unit (8422543747) fallback ke taur pe use ho rahi hai.
+             AdSense dashboard mein "resume-builder.html" ke naam se naya Ad unit banayein
+             aur uski slot ID yahan paste kar dein. -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4598765809021376"
@@ -546,8 +550,7 @@
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
             <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Resume is Ready</h3>
             <p>Your PDF is being prepared. Thanks for using sedoc!</p>
-            <div class="download-ad-slot">
-                <ins class="adsbygoogle"
+            <div class="download-ad-slot">                <ins class="adsbygoogle"
                      style="display:block; width:100%; min-height:100px;"
                      data-ad-client="ca-pub-4598765809021376"
                      data-ad-slot="8422543747"
@@ -1050,7 +1053,7 @@
             return `
                 ${photoHtml}
                 <div class="r-name-block">
-                    <h1>${esc(p.name) || 'Your Name'}</h1>
+                    <h2>${esc(p.name) || 'Your Name'}</h2>
                     <p>${esc(p.title) || 'Job Title'}</p>
                 </div>
                 <div class="r-side-section"><div class="r-side-title">Contact</div>${contact || '<p class="r-empty-note" style="color:rgba(255,255,255,0.7)">Add your contact info</p>'}</div>
@@ -1082,7 +1085,7 @@
 
             return `
                 <div class="r-header-simple">
-                    <h1>${esc(p.name) || 'Your Name'}</h1>
+                    <h2>${esc(p.name) || 'Your Name'}</h2>
                     <div class="r-title-line">${esc(p.title) || 'Job Title'}</div>
                     <div class="r-contact-row">${contactRow}</div>
                 </div>
