@@ -73,6 +73,22 @@
             "@type": "Answer",
             "text": "Our system uses a lightweight client-side rendering engine, so your browser does the work locally instead of waiting on a server."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Is sedoc really free, and do I need to create an account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, every tool on sedoc is completely free with no signup required. The platform is supported by advertising and optional donations rather than subscriptions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which currencies and regions does sedoc support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tools like the Salary Slip Generator, Invoice Generator, and GST/VAT Calculator support multiple currencies including PKR, USD, EUR, GBP, INR, and AED, so the platform works for businesses outside a single country."
+          }
         }
       ]
     }
@@ -87,6 +103,19 @@
       "@type": "WebSite",
       "name": "sedoc",
       "url": "https://www.thesedoc.com/",
+      "description": "Free online platform to create Salary Slips, Offer Letters, Invoices, Quotations, and Resumes instantly."
+    }
+    </script>
+
+    <!-- FIX: The comment above previously claimed an Organization schema was
+         included too, but only WebSite was actually present — adding it now. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "sedoc",
+      "url": "https://www.thesedoc.com/",
+      "logo": "https://www.thesedoc.com/Logo.png",
       "description": "Free online platform to create Salary Slips, Offer Letters, Invoices, Quotations, and Resumes instantly."
     }
     </script>
@@ -397,6 +426,14 @@
                     <details>
                         <summary>How does the platform process formatting so quickly?</summary>
                         <p>Our system uses a lightweight client-side rendering engine. This means your browser does the heavy lifting locally, avoiding server wait times and ensuring your layouts stay pixel-perfect every time.</p>
+                    </details>
+                    <details>
+                        <summary>Is sedoc really free, and do I need to create an account?</summary>
+                        <p>Yes — every tool on sedoc is completely free, with no signup or account required. The platform is supported by advertising and optional donations rather than subscriptions, so you can generate as many documents as you need.</p>
+                    </details>
+                    <details>
+                        <summary>Which currencies and regions does sedoc support?</summary>
+                        <p>Tools like the Salary Slip Generator, Invoice Generator, and GST/VAT Calculator support multiple currencies including PKR, USD, EUR, GBP, INR, and AED, so the platform works well beyond a single country or region.</p>
                     </details>
                 </div>
             </div>
