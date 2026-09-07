@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | sedoc</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Explore sedoc's free HR, finance, and resume tools instead.">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --brand-gradient: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            --bg-color: #f8fafc;
+            --border: rgba(15, 23, 42, 0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
+
+        header { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-link img { height: 38px; width: auto; display: block; }
+        .btn-primary { background: var(--brand-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(254, 0, 151, 0.3); }
+
+        main { max-width: 720px; margin: 0 auto; padding: 70px 5% 60px; flex-grow: 1; width: 100%; text-align: center; position: relative; }
+        .glass-blob { position: absolute; filter: blur(70px); z-index: 0; opacity: 0.35; pointer-events: none; }
+        .blob-1 { top: -30px; left: 5%; width: 220px; height: 220px; background: #fe0097; border-radius: 50%; }
+        .blob-2 { bottom: 10%; right: 5%; width: 260px; height: 260px; background: #a302ff; border-radius: 50%; }
+
+        .error-code { position: relative; z-index: 1; font-size: clamp(4rem, 14vw, 7rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        main h1 { position: relative; z-index: 1; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin: 10px 0 12px; }
+        main p { position: relative; z-index: 1; color: var(--text-gray); font-size: 1rem; max-width: 460px; margin: 0 auto 32px; line-height: 1.6; }
+
+        .btn-home { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; background: var(--brand-gradient); color: #fff; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.95rem; box-shadow: 0 10px 20px rgba(163, 2, 255, 0.2); margin-bottom: 50px; }
+
+        .tools-hint { position: relative; z-index: 1; }
+        .tools-hint p { font-weight: 700; color: var(--text-dark); margin-bottom: 16px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .tool-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .tool-links a { text-decoration: none; color: var(--text-gray); font-weight: 600; font-size: 0.85rem; padding: 8px 16px; border-radius: 100px; background: #ffffff; border: 1px solid var(--border); transition: all 0.2s ease; }
+        .tool-links a:hover { color: var(--text-dark); border-color: rgba(163,2,255,0.3); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+
+        footer { background: #ffffff; padding: 24px 5%; border-top: 1px solid var(--border); text-align: center; color: #94a3b8; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="/" class="logo-link">
+        <img src="Logo.png" alt="sedoc logo">
+    </a>
+    <a href="/" class="btn-primary"><i class="fas fa-home"></i> Home</a>
+</header>
+
+<main>
+    <div class="glass-blob blob-1"></div>
+    <div class="glass-blob blob-2"></div>
+
+    <div class="error-code">404</div>
+    <h1>This page doesn't exist.</h1>
+    <p>The link you followed might be broken, or the page may have moved. Let's get you back to something useful instead.</p>
+
+    <a href="/" class="btn-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+    <div class="tools-hint">
+        <p>Or jump straight to a tool</p>
+        <div class="tool-links">
+            <a href="/salary-slip.html">Salary Slip</a>
+            <a href="/offer-letter.html">Offer Letter</a>
+            <a href="/experience-letter.html">Experience Letter</a>
+            <a href="/kpi-sheet.html">KPI Sheet</a>
+            <a href="/warning-letter.html">Warning Letter</a>
+            <a href="/resume-builder.html">Resume Builder</a>
+            <a href="/invoice-generator.html">Invoice Generator</a>
+            <a href="/tax-calculator.html">GST/VAT Calculator</a>
+            <a href="/quotation-maker.html">Quotation Maker</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2026 sedoc Inc. All Rights Reserved.
+</footer>
+
+</body>
+</html>
