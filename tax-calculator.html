@@ -179,6 +179,20 @@
             .calc-panel, .results-panel { padding: 25px 20px; }
         }
     </style>
+
+    <style>
+        .related-tools-section { max-width: 1200px; margin: 60px auto; padding: 0 24px; }
+        .related-tools-section h2 { font-size: 1.6rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; text-align: center; }
+        .related-tools-section .rt-sub { text-align: center; color: var(--text-gray); margin-bottom: 32px; font-size: 0.98rem; }
+        .related-tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        @media (max-width: 900px) { .related-tools-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 520px) { .related-tools-grid { grid-template-columns: 1fr; } }
+        .related-tool-card { display: flex; align-items: flex-start; gap: 12px; padding: 18px; border: 1px solid var(--border); border-radius: 14px; text-decoration: none; background: #fff; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+        .related-tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(15,23,42,0.08); border-color: transparent; }
+        .related-tool-card .rt-icon { width: 38px; height: 38px; min-width: 38px; border-radius: 10px; background: var(--brand-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; }
+        .related-tool-card .rt-text h3 { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0 0 4px; }
+        .related-tool-card .rt-text p { font-size: 0.82rem; color: var(--text-gray); margin: 0; line-height: 1.4; }
+    </style>
 </head>
 <body>
 
@@ -342,6 +356,70 @@
             <p class="donate-note">Please confirm the account name before sending any donation.</p>
         </div>
     </div>
+
+    <!-- Related Tools (internal linking for SEO + navigation) -->
+    <section class="related-tools-section">
+        <h2>Explore More Free Tools</h2>
+        <p class="rt-sub">Everything you need to run HR & finance paperwork, all in one place.</p>
+        <div class="related-tools-grid">
+                <a href="salary-slip.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="rt-text">
+                        <h3>Salary Slip Generator</h3>
+                        <p>Create payslips with tax auto-calculation.</p>
+                    </div>
+                </a>
+                <a href="offer-letter.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="rt-text">
+                        <h3>Offer Letter Maker</h3>
+                        <p>Draft professional job offer letters.</p>
+                    </div>
+                </a>
+                <a href="experience-letter.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-award"></i></div>
+                    <div class="rt-text">
+                        <h3>Experience Letter Maker</h3>
+                        <p>Generate official experience certificates.</p>
+                    </div>
+                </a>
+                <a href="kpi-sheet.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="rt-text">
+                        <h3>KPI Sheet Maker</h3>
+                        <p>Build employee performance review sheets.</p>
+                    </div>
+                </a>
+                <a href="warning-letter.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                    <div class="rt-text">
+                        <h3>Warning Letter Maker</h3>
+                        <p>Create HR disciplinary warning letters.</p>
+                    </div>
+                </a>
+                <a href="resume-builder.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-id-card"></i></div>
+                    <div class="rt-text">
+                        <h3>Resume Builder</h3>
+                        <p>Build an ATS-friendly resume in minutes.</p>
+                    </div>
+                </a>
+                <a href="invoice-generator.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-file-invoice"></i></div>
+                    <div class="rt-text">
+                        <h3>Invoice Generator</h3>
+                        <p>Design print-ready invoices in seconds.</p>
+                    </div>
+                </a>
+                <a href="quotation-maker.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="rt-text">
+                        <h3>Quotation Maker</h3>
+                        <p>Create winning project quotations & estimates.</p>
+                    </div>
+                </a>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-content">
