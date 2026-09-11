@@ -235,6 +235,14 @@
         .r-contact-row span { display: flex; align-items: center; gap: 5px; }
         .r-contact-row i { font-size: 10.5px; color: var(--accent); }
 
+        .r-header-flex { display: flex; align-items: center; gap: 16px; }
+        .r-header-flex .r-header-text { flex: 1; min-width: 0; }
+        .r-header-photo { width: 64px; height: 64px; min-width: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+        .template-corporate .r-header-photo { border-color: rgba(255,255,255,0.7); }
+        .template-classic .r-header-flex { flex-direction: column; }
+        .template-classic .r-header-photo { border-color: var(--accent); margin-bottom: 4px; }
+        .template-minimalist .r-header-photo { border-radius: 8px; }
+
         .resume-paper.template-ats { font-family: Arial, Helvetica, sans-serif; }
         .resume-paper.template-ats .r-section-title { border-bottom: 1px solid #0f172a; color: #0f172a; }
         .resume-paper.template-ats .r-header-simple .r-title-line { color: #334155; }
@@ -1108,12 +1116,23 @@
 
             const mainHtml = state.order.map(k => MAIN_RENDERERS[k]()).join('') + sectionCustomAll();
 
-            return `
-                <div class="r-header-simple">
+            const headerInner = `
                     <h2>${esc(p.name) || 'Your Name'}</h2>
                     <div class="r-title-line">${esc(p.title) || 'Job Title'}</div>
-                    <div class="r-contact-row">${contactRow}</div>
-                </div>
+                    <div class="r-contact-row">${contactRow}</div>`;
+
+            // ATS Simple stays photo-free by design (keeps it scanner-friendly); every other
+            // simple layout shows the photo next to the header when one is uploaded and enabled.
+            const showPhotoHere = state.showPhoto && state.photo && state.template !== 'ats';
+            const headerContent = showPhotoHere
+                ? `<div class="r-header-flex">
+                        <img class="r-header-photo" src="${state.photo}" alt="Profile photo">
+                        <div class="r-header-text">${headerInner}</div>
+                    </div>`
+                : headerInner;
+
+            return `
+                <div class="r-header-simple">${headerContent}</div>
                 ${mainHtml || '<p class="r-empty-note">Start filling in your details from the left panel.</p>'}
             `;
         }
