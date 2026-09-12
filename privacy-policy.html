@@ -215,42 +215,47 @@
             </div>
         </div>
     </footer>
-
-
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
-        #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 9999; font-family: 'Inter', sans-serif; }
+        #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
         #sedocLangWidget .lang-toggle {
-            display: flex; align-items: center; gap: 8px; background: #ffffff; color: #0f172a;
-            border: 1px solid rgba(15,23,42,0.08); box-shadow: 0 8px 24px rgba(15,23,42,0.12);
-            padding: 10px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #f09709, #fe0097, #a302ff, #0000ff);
+            color: #ffffff; border: none;
+            box-shadow: 0 10px 28px rgba(163,2,255,0.35);
+            padding: 12px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 700;
             cursor: pointer; user-select: none; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            animation: sedocLangPulse 2.4s ease-in-out 3;
         }
-        #sedocLangWidget .lang-toggle:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(163,2,255,0.25); }
-        #sedocLangWidget .lang-toggle i.fa-globe { color: #a302ff; }
+        @keyframes sedocLangPulse {
+            0%, 100% { box-shadow: 0 10px 28px rgba(163,2,255,0.35); }
+            50% { box-shadow: 0 10px 34px rgba(163,2,255,0.65); }
+        }
+        #sedocLangWidget .lang-toggle:hover { transform: translateY(-2px) scale(1.03); }
+        #sedocLangWidget .lang-toggle .globe-emoji { font-size: 1.05rem; line-height: 1; }
         #sedocLangWidget .lang-panel {
-            display: none; position: absolute; bottom: 54px; right: 0; background: #fff;
-            border: 1px solid rgba(15,23,42,0.08); border-radius: 16px; box-shadow: 0 16px 40px rgba(15,23,42,0.16);
-            padding: 10px; width: 190px;
+            display: none; position: absolute; bottom: 60px; right: 0; background: #fff;
+            border: 1px solid rgba(15,23,42,0.08); border-radius: 16px; box-shadow: 0 16px 40px rgba(15,23,42,0.2);
+            padding: 12px; width: 210px;
         }
         #sedocLangWidget .lang-panel.open { display: block; }
-        #sedocLangWidget .lang-panel-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 800; padding: 6px 8px 4px; }
-        #sedocLangWidget #google_translate_element { padding: 4px 6px; }
+        #sedocLangWidget .lang-panel-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 800; padding: 4px 6px 8px; }
+        #sedocLangWidget #google_translate_element { padding: 2px 4px; }
         /* Neutralize Google's default widget chrome so it fits our card */
         #sedocLangWidget .goog-te-gadget { font-family: 'Inter', sans-serif !important; font-size: 0px !important; color: transparent !important; }
         #sedocLangWidget .goog-te-gadget > span > a { display: none !important; }
         #sedocLangWidget .goog-te-gadget .goog-te-combo {
-            font-family: 'Inter', sans-serif !important; font-size: 0.85rem !important; font-weight: 600;
-            color: #0f172a !important; border: 1px solid rgba(15,23,42,0.12) !important; border-radius: 10px !important;
-            padding: 7px 8px !important; width: 100%; background: #f8fafc !important;
+            font-family: 'Inter', sans-serif !important; font-size: 0.9rem !important; font-weight: 600;
+            color: #0f172a !important; border: 1px solid rgba(15,23,42,0.15) !important; border-radius: 10px !important;
+            padding: 9px 8px !important; width: 100%; background: #f8fafc !important;
         }
         .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
         #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         .goog-text-highlight { background: none !important; box-shadow: none !important; }
         @media (max-width: 600px) {
-            #sedocLangWidget { bottom: 14px; right: 14px; }
-            #sedocLangWidget .lang-toggle span.lbl { display: none; }
+            #sedocLangWidget { bottom: 16px; right: 16px; }
+            #sedocLangWidget .lang-toggle { padding: 11px 16px; }
         }
     </style>
     <div id="sedocLangWidget">
@@ -259,7 +264,7 @@
             <div id="google_translate_element"></div>
         </div>
         <button type="button" class="lang-toggle" id="sedocLangToggle" aria-label="Change language">
-            <i class="fas fa-globe"></i> <span class="lbl">EN</span> <i class="fas fa-chevron-up" style="font-size:0.65rem;"></i>
+            <span class="globe-emoji">🌐</span> <span class="lbl">Language</span>
         </button>
     </div>
     <script>
@@ -287,6 +292,7 @@
         })();
     </script>
     <!-- ===== end sedoc Language Switcher ===== -->
+
 
 </body>
 </html>
