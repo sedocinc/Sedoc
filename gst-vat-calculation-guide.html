@@ -216,6 +216,7 @@
         <a href="index.html" class="logo-link"><img src="Logo.png" alt="sedoc footer logo" style="height:32px;"></a>
         <div class="footer-links" style="margin-top:18px;">
             <a href="features.html">Features</a>
+            <a href="about.html">About Us</a>
             <a href="pricing.html">Pricing</a>
             <a href="insights.html">Insights</a>
             <a href="privacy-policy.html">Privacy Policy</a>
@@ -225,6 +226,78 @@
         <div class="footer-copy">&copy; 2026 sedoc Inc. All Rights Reserved.</div>
     </div>
 </footer>
+
+
+    <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
+    <style>
+        #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 9999; font-family: 'Inter', sans-serif; }
+        #sedocLangWidget .lang-toggle {
+            display: flex; align-items: center; gap: 8px; background: #ffffff; color: #0f172a;
+            border: 1px solid rgba(15,23,42,0.08); box-shadow: 0 8px 24px rgba(15,23,42,0.12);
+            padding: 10px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700;
+            cursor: pointer; user-select: none; transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #sedocLangWidget .lang-toggle:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(163,2,255,0.25); }
+        #sedocLangWidget .lang-toggle i.fa-globe { color: #a302ff; }
+        #sedocLangWidget .lang-panel {
+            display: none; position: absolute; bottom: 54px; right: 0; background: #fff;
+            border: 1px solid rgba(15,23,42,0.08); border-radius: 16px; box-shadow: 0 16px 40px rgba(15,23,42,0.16);
+            padding: 10px; width: 190px;
+        }
+        #sedocLangWidget .lang-panel.open { display: block; }
+        #sedocLangWidget .lang-panel-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 800; padding: 6px 8px 4px; }
+        #sedocLangWidget #google_translate_element { padding: 4px 6px; }
+        /* Neutralize Google's default widget chrome so it fits our card */
+        #sedocLangWidget .goog-te-gadget { font-family: 'Inter', sans-serif !important; font-size: 0px !important; color: transparent !important; }
+        #sedocLangWidget .goog-te-gadget > span > a { display: none !important; }
+        #sedocLangWidget .goog-te-gadget .goog-te-combo {
+            font-family: 'Inter', sans-serif !important; font-size: 0.85rem !important; font-weight: 600;
+            color: #0f172a !important; border: 1px solid rgba(15,23,42,0.12) !important; border-radius: 10px !important;
+            padding: 7px 8px !important; width: 100%; background: #f8fafc !important;
+        }
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+        #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+        .goog-text-highlight { background: none !important; box-shadow: none !important; }
+        @media (max-width: 600px) {
+            #sedocLangWidget { bottom: 14px; right: 14px; }
+            #sedocLangWidget .lang-toggle span.lbl { display: none; }
+        }
+    </style>
+    <div id="sedocLangWidget">
+        <div class="lang-panel" id="sedocLangPanel">
+            <div class="lang-panel-label">Choose Language</div>
+            <div id="google_translate_element"></div>
+        </div>
+        <button type="button" class="lang-toggle" id="sedocLangToggle" aria-label="Change language">
+            <i class="fas fa-globe"></i> <span class="lbl">EN</span> <i class="fas fa-chevron-up" style="font-size:0.65rem;"></i>
+        </button>
+    </div>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                autoDisplay: false,
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+    <script>
+        (function() {
+            var toggle = document.getElementById('sedocLangToggle');
+            var panel = document.getElementById('sedocLangPanel');
+            if (!toggle || !panel) return;
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                panel.classList.toggle('open');
+            });
+            document.addEventListener('click', function(e) {
+                if (!panel.contains(e.target) && e.target !== toggle) panel.classList.remove('open');
+            });
+        })();
+    </script>
+    <!-- ===== end sedoc Language Switcher ===== -->
 
 </body>
 </html>
