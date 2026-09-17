@@ -1237,7 +1237,7 @@
                 filename: `Resume_${name.replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'png' },
                 html2canvas: {
-                    scale: 3,
+                    scale: 2,
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
@@ -1245,7 +1245,7 @@
                     // same crisp, full-size layout as desktop instead of the device's own
                     // (often much narrower) viewport width.
                     windowWidth: 1600,
-                    windowHeight: 2200
+                    windowHeight: document.documentElement.scrollHeight
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
                 pagebreak: { mode: ['css', 'legacy'] }

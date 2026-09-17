@@ -866,7 +866,7 @@
                 image:        { type: 'png' },
                 // windowWidth fixed (not device width) so mobile phones capture the same
                 // full-size, high-res layout as desktop instead of a shrunk mobile view.
-                html2canvas:  { scale: 3, useCORS: true, windowWidth: 1600, windowHeight: 2200 },
+                html2canvas:  { scale: 2, useCORS: true, windowWidth: 1600, windowHeight: document.documentElement.scrollHeight },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true }
             };
 

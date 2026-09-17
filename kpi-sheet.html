@@ -640,12 +640,12 @@
                 // using the device's own narrow width here still triggers the site's
                 // mobile layout mid-capture on real phones and produces a low-res PDF.
                 html2canvas: {
-                    scale: 3,
+                    scale: 2,
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
                     windowWidth: 1600,
-                    windowHeight: 2200
+                    windowHeight: document.documentElement.scrollHeight
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
