@@ -609,6 +609,10 @@
             e.preventDefault();
             donateOverlay.classList.add('active');
         });
+        // Auto-open the donate modal when arriving via a #donate link from another page
+        if (window.location.hash === '#donate') {
+            donateOverlay.classList.add('active');
+        }
         donateClose.addEventListener('click', function() {
             donateOverlay.classList.remove('active');
         });

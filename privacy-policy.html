@@ -127,6 +127,9 @@
             .legal-container { padding: 30px 20px; margin-top: -40px; }
             .legal-content h2 { font-size: 1.4rem; }
         }
+            .ad-container { margin: 30px auto; max-width: 900px; display: block; min-height: 90px; text-align: center; }
+        .ad-container ins { display: block; width: 100%; height: 100%; background: transparent; }
+        .ad-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -137,7 +140,7 @@
         </a>
         <div class="header-actions">
             <a href="index.html" style="color: var(--text-gray); font-weight: 600; text-decoration: none; margin-right: 20px; font-size: 0.9rem; transition: color 0.3s ease;" onmouseover="this.style.color='#a302ff'" onmouseout="this.style.color='var(--text-gray)'">Back to Home</a>
-            <a href="#" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
+            <a href="index.html#donate" class="btn-primary"><i class="fas fa-bolt"></i> Donate</a>
         </div>
     </header>
 
@@ -197,7 +200,18 @@
         </div>
     </main>
 
-    <footer>
+        <div class="ad-container">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4598765809021376"
+             data-ad-slot="5615239973"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+<footer>
         <div class="footer-content">
             <a href="index.html" class="footer-logo">
                 <img src="Logo.png" alt="sedoc footer logo">

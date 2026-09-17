@@ -1255,7 +1255,14 @@
         const downloadClose = document.getElementById('downloadClose');
         const downloadNowBtn = document.getElementById('downloadNowBtn');
 
-        downloadTriggerBtn.addEventListener('click', function () { downloadOverlay.classList.add('active'); });
+        let downloadAdLoaded = false;
+        downloadTriggerBtn.addEventListener('click', function () {
+            downloadOverlay.classList.add('active');
+            if (!downloadAdLoaded) {
+                downloadAdLoaded = true;
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        });
         downloadClose.addEventListener('click', function () { downloadOverlay.classList.remove('active'); });
         downloadOverlay.addEventListener('click', function (e) { if (e.target === downloadOverlay) downloadOverlay.classList.remove('active'); });
         downloadNowBtn.addEventListener('click', function () {
