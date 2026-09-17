@@ -631,21 +631,22 @@
                 margin:       0,
                 pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
                 filename:     `Experience_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 1 },
+                image:        { type: 'png' },
                 // scrollX/scrollY reset the capture to the top-left regardless of page
-                // scroll position. windowWidth/windowHeight use the FULL document size
-                // (not the letter's own size) so the page's normal desktop layout stays
-                // intact during capture — using a narrow width here would trigger the
-                // site's mobile layout mid-capture and corrupt the output.
+                // scroll position. windowWidth/windowHeight are FIXED (not tied to the
+                // visiting device's actual screen width) so the page's normal desktop
+                // layout stays intact during capture on every device, including phones —
+                // using the device's own narrow width here still triggers the site's
+                // mobile layout mid-capture on real phones and produces a low-res PDF.
                 html2canvas:  {
-                    scale: 2,
+                    scale: 3,
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
-                    windowWidth: document.documentElement.scrollWidth,
-                    windowHeight: document.documentElement.scrollHeight
+                    windowWidth: 1600,
+                    windowHeight: 2200
                 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
 
             html2pdf().set(opt).from(element).save();

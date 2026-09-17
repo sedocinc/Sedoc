@@ -868,9 +868,11 @@
             const opt = {
                 margin:       0,
                 filename:     docNum + '.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, windowWidth: element.scrollWidth },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                image:        { type: 'png' },
+                // windowWidth fixed (not device width) so mobile phones capture the same
+                // full-size, high-res layout as desktop instead of a shrunk mobile view.
+                html2canvas:  { scale: 3, useCORS: true, windowWidth: 1600, windowHeight: 2200 },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true }
             };
 
             // Generate and save
