@@ -1241,11 +1241,15 @@
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
-                    // Fixed, device-independent capture window so mobile phones render the
-                    // same crisp, full-size layout as desktop instead of the device's own
-                    // (often much narrower) viewport width.
-                    windowWidth: 1600,
-                    windowHeight: document.documentElement.scrollHeight
+                    width: element.offsetWidth,
+                    height: element.offsetHeight,
+                    // Use the paper's OWN natural width/height as the capture window —
+                    // not the device's viewport (too narrow on mobile, triggers the
+                    // mobile CSS layout) and not an oversized guess (distorts the grid
+                    // layout and clips content on the right edge). The paper has a fixed
+                    // physical size, so this is identical on every device.
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
                 pagebreak: { mode: ['css', 'legacy'] }

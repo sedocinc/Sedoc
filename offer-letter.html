@@ -679,8 +679,10 @@
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
-                    windowWidth: 1600,
-                    windowHeight: document.documentElement.scrollHeight
+                    width: element.offsetWidth,
+                    height: element.offsetHeight,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight
                 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
