@@ -733,34 +733,32 @@
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const month = document.getElementById('in-month').value || 'Month';
 
-            // FIX: agar page scroll hua hota hai (lambi form ke saath aam baat hai),
-            // to position:fixed wrapper ka capture galat offset se start hota tha —
-            // isi wajah se PDF mein content left/side se cut nazar aata tha.
-            // Capture se pehle scroll ko top par reset karte hain aur baad mein restore.
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
             const clone = original.cloneNode(true);
+            
+            // FIX: Remove shadow and margin for clean PDF edges without grayish borders
+            clone.style.boxShadow = 'none';
+            clone.style.margin = '0';
+            clone.style.transform = 'none';
 
-            // Wrapper ko explicitly width dena zaroori hai taake mobile screens
-            // par HTML squish ho kar cut na ho jaye.
             const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
+            wrapper.style.position = 'absolute'; 
             wrapper.style.top = '0';
             wrapper.style.left = '0';
             wrapper.style.margin = '0';
-            wrapper.style.width = '800px'; // Forces desktop width for A4 proportion
+            // Set exact A4 pixel width at 96 DPI (210mm ~ 794px) to perfectly fit format
+            wrapper.style.width = '794px'; 
             wrapper.style.height = 'max-content';
-            wrapper.style.overflow = 'visible';
-            wrapper.style.background = '#ffffff'; // Prevents transparent black background
+            wrapper.style.overflow = 'hidden'; 
+            wrapper.style.background = '#ffffff'; 
             wrapper.style.zIndex = '-9999';
             
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
-            // Logo jaisi images fully load hone ka wait karte hain, warna kabhi
-            // kabhi image blank/torn PDF mein aa jati thi.
             const imgs = wrapper.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
@@ -772,20 +770,18 @@
                 const opt = {
                     margin:       0,
                     filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 }, // PNG se JPEG 1.0 par shift for better crispness
+                    image:        { type: 'jpeg', quality: 1.0 },
                     html2canvas:  {
-                        scale: 3, // HD resolution (blur khatam karega)
+                        scale: 4, // Increased scale for Ultra High Res
                         useCORS: true,
                         scrollY: 0,
                         scrollX: 0,
-                        windowWidth: wrapper.scrollWidth,
-                        windowHeight: wrapper.scrollHeight
+                        windowWidth: 794 // Locks capture window to exactly A4 proportion
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    pagebreak:    { mode: ['avoid-all'] }
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                html2pdf().set(opt).from(clone).save().then(() => {
+                html2pdf().set(opt).from(wrapper).save().then(() => {
                     document.body.removeChild(wrapper);
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
