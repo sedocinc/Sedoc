@@ -1230,44 +1230,24 @@
         }
 
         function downloadPDF() {
-            const original = document.getElementById('resume-paper');
+            const element = document.getElementById('resume-paper');
             const name = state.personal.name || 'Resume';
-
-            // Clone the resume into an isolated, off-screen container so the
-            // page's grid + sticky preview layout can never shift html2canvas's
-            // capture offset and clip the output — this was cutting off part of
-            // the resume in exported PDFs.
-            const clone = original.cloneNode(true);
-
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'fixed';
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
-
             const opt = {
                 margin: 0,
                 filename: `Resume_${name.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'png' },
-                // windowWidth/windowHeight matched to the isolated clone's own
-                // size (not the full page or the device's width) so capture is
-                // always full-size, high-res, and correctly framed — on desktop
-                // and mobile alike.
+                image: { type: 'jpeg', quality: 1 },
                 html2canvas: {
-                    scale: 200 / 96, // ~200 DPI output
+                    scale: 2,
                     useCORS: true,
-                    windowWidth: clone.scrollWidth,
-                    windowHeight: clone.scrollHeight
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: document.documentElement.scrollWidth,
+                    windowHeight: document.documentElement.scrollHeight
                 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                 pagebreak: { mode: ['css', 'legacy'] }
             };
-            html2pdf().set(opt).from(clone).save().then(() => {
-                document.body.removeChild(wrapper);
-            });
+            html2pdf().set(opt).from(element).save();
         }
 
         const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');
