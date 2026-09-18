@@ -595,9 +595,11 @@
                 <img src="Logo.png" alt="sedoc footer logo">
             </a>
             <div class="footer-links">
+                <a href="index.html">Home</a>
                 <a href="features.html">Features</a>
                 <a href="about.html">About Us</a>
                 <a href="pricing.html">Pricing</a>
+                <a href="insights.html">Insights</a>
                 <a href="privacy-policy.html">Privacy Policy</a>
                 <a href="terms-of-use.html">Terms of Use</a>
                 <a href="contact.html">Contact Support</a>
@@ -675,7 +677,7 @@
                 // using the device's own narrow width here still triggers the site's
                 // mobile layout mid-capture on real phones and produces a low-res PDF.
                 html2canvas:  {
-                    scale: 2,
+                    scale: 200 / 96, // ~200 DPI output
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,

@@ -709,9 +709,11 @@
                 <img src="Logo.png" alt="sedoc footer logo">
             </a>
             <div class="footer-links">
+                <a href="index.html">Home</a>
                 <a href="features.html">Features</a>
                 <a href="about.html">About Us</a>
                 <a href="pricing.html">Pricing</a>
+                <a href="insights.html">Insights</a>
                 <a href="privacy-policy.html">Privacy Policy</a>
                 <a href="terms-of-use.html">Terms of Use</a>
                 <a href="contact.html">Contact Support</a>
@@ -866,7 +868,7 @@
                 image:        { type: 'png' },
                 // windowWidth fixed (not device width) so mobile phones capture the same
                 // full-size, high-res layout as desktop instead of a shrunk mobile view.
-                html2canvas:  { scale: 2, useCORS: true, width: element.offsetWidth, height: element.offsetHeight, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight },
+                html2canvas:  { scale: 200 / 96, useCORS: true, width: element.offsetWidth, height: element.offsetHeight, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true }
             };
 
