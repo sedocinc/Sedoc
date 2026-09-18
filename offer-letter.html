@@ -188,7 +188,7 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
-        /* Donate Modal (same as homepage / salary-slip) */
+        /* Donate Modal */
         .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .donate-overlay.active { display: flex; }
         .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -241,18 +241,6 @@
         .seo-article-section p { font-size: 1rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 15px; }
     </style>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "sedoc Offer Letter Maker",
-      "operatingSystem": "All",
-      "applicationCategory": "BusinessApplication",
-      "url": "https://www.thesedoc.com/offer-letter.html",
-      "description": "Create professional job offer letters instantly with editable text, standard employment clauses, and 5 design themes.",
-      "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" }
-    }
-    </script>
 </head>
 <body>
 
@@ -456,11 +444,6 @@
     <!-- Google AdSense Real Ad Unit (UPDATED) -->
     <div class="ad-container">
         <span class="ad-label">Advertisement</span>
-        <!-- experience-letter.html / offer-letter.html -->
-        <!-- NOTE: offer-letter.html ki apni koi dedicated AdSense unit nahi hai abhi,
-             isliye generic "Sedoc" unit (8422543747) fallback ke taur pe use ho rahi hai.
-             AdSense dashboard mein "offer-letter.html" ke naam se naya Ad unit banayein
-             aur uski slot ID yahan paste kar dein. -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4598765809021376"
@@ -495,7 +478,7 @@
             <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Offer Letter is Ready</h3>
             <p>Your PDF is being prepared. Thanks for using sedoc!</p>
             <div class="download-ad-slot">
-                <!-- experience-letter.html / offer-letter.html -->                <ins class="adsbygoogle"
+                <ins class="adsbygoogle"
                      style="display:block; width:100%; min-height:100px;"
                      data-ad-client="ca-pub-4598765809021376"
                      data-ad-slot="8422543747"
@@ -509,8 +492,7 @@
         </div>
     </div>
 
-    <!-- Default Footer -->
-    <!-- SEO ARTICLE SECTION (adds genuine unique content per AdSense/Google content guidelines) -->
+    <!-- SEO ARTICLE SECTION -->
     <section class="seo-article-section">
         <h2>Free Offer Letter Maker for HR Teams & Startups</h2>
         <p>A well-formatted offer letter sets the tone for a new hire's entire experience with your company. The <strong>sedoc Offer Letter Maker</strong> turns a candidate's job title, salary, and joining date into a professional, ready-to-sign letter in seconds — no legal template hunting required.</p>
@@ -525,7 +507,7 @@
         <p>The template already includes a compensation summary, probation period, and a confidentiality/terms acceptance clause, keeping the letter close to what most HR departments require before it goes to a candidate for signature.</p>
     </section>
 
-    <!-- Related Tools (internal linking for SEO + navigation) -->
+    <!-- Related Tools -->
     <section class="related-tools-section">
         <h2>Explore More Free Tools</h2>
         <p class="rt-sub">Everything you need to run HR & finance paperwork, all in one place.</p>
@@ -620,17 +602,13 @@
                     const el = document.getElementById(id.trim());
                     if(el) {
                         if(this.id === 'in-salary') {
-                            // If salary is empty, insert zero-width space instead of '0' so it can be blank
                             el.innerText = this.value ? Number(this.value).toLocaleString() : '\u200B';
                         } else {
-                            // Empty string defaults to zero-width space to keep formatting intact
                             el.innerText = this.value || '\u200B';
                         }
                     }
                 });
             });
-            
-            // Trigger input initially to clear placeholders and set defaults
             const event = new Event('input');
             input.dispatchEvent(event);
         });
@@ -653,47 +631,29 @@
         function changeTheme() {
             const selectedTheme = document.getElementById('in-theme').value;
             const letterPaper = document.getElementById('letter-paper');
-            letterPaper.className = 'letter-paper'; // Reset classes
-            letterPaper.classList.add(selectedTheme); // Apply new theme
+            letterPaper.className = 'letter-paper';
+            letterPaper.classList.add(selectedTheme);
         }
 
-        // --- 4. PDF Exporter ---
+        // --- 4. PDF Exporter (THE BLANK PAGE FIX + ULTRA HIGH RES) ---
         function downloadPDF() {
-            const original = document.getElementById('letter-paper');
+            const element = document.getElementById('letter-paper');
             const candName = document.getElementById('in-cand-name').value || 'Candidate';
 
             // Un-focus any editable content to hide the purple hover/focus outlines in PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
-            // FIX: agar page scroll hua hota hai to position:fixed wrapper ka
-            // capture galat offset se start hota tha (content cut / low-res
-            // dikhta tha). Capture se pehle scroll top par reset, baad mein restore.
+            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // Clone the letter into an isolated, off-screen container so the
-            // page's grid + sticky preview layout can never shift html2canvas's
-            // capture offset and clip the output — this was cutting off part of
-            // the letter in exported PDFs. The clone also gets its fixed-height
-            // + overflow:hidden released so longer edited text isn't cut off.
-            const clone = original.cloneNode(true);
-            clone.style.height = 'auto';
-            clone.style.maxHeight = 'none';
-            clone.style.overflow = 'visible';
+            // 2. Temporarily remove shadow so PDF borders remain clean
+            const originalBoxShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
 
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
-
-            // Logo jaisi images fully load hone ka wait karte hain
-            const imgs = wrapper.querySelectorAll('img');
+            // 3. Ensure images are loaded before capture
+            const imgs = element.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
                     new Promise(res => { img.onload = res; img.onerror = res; })
@@ -705,31 +665,27 @@
                     margin:       0,
                     pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
                     filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    // windowWidth/windowHeight matched to the isolated clone's own
-                    // size (not the full page or the device's width) so capture is
-                    // always full-size, high-res, and correctly framed — on desktop
-                    // and mobile alike.
+                    image:        { type: 'png' }, // PNG FOR CRISP LOSSLESS TEXT
                     html2canvas:  {
-                        scale: 3, // HD resolution (blur khatam karega)
+                        scale: 5, // SCALE 5 FOR ULTRA HD RESOLUTION
                         useCORS: true,
-                        scrollX: 0,
                         scrollY: 0,
-                        windowWidth: clone.scrollWidth,
-                        windowHeight: clone.scrollHeight
+                        scrollX: 0,
+                        windowWidth: 794 // Locks capture window to exactly A4 proportion
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } 
                 };
 
-                html2pdf().set(opt).from(clone).save().then(() => {
-                    document.body.removeChild(wrapper);
+                // DIRECTLY pass the element (no wrapper, no cloning) -> fixes the blank page issue
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore original styles & scroll position
+                    element.style.boxShadow = originalBoxShadow;
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
             });
         }
 
-        // --- 5. Download flow: show ad modal first (highest-intent ad placement),
-        //     then trigger the actual PDF generation when user clicks "Download Now" ---
+        // --- 5. Download flow ---
         const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');
         const downloadOverlay = document.getElementById('downloadOverlay');
         const downloadClose = document.getElementById('downloadClose');
@@ -787,6 +743,7 @@
             }
         });
     </script>
+    
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
         #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
@@ -864,7 +821,6 @@
         })();
     </script>
     <!-- ===== end sedoc Language Switcher ===== -->
-
 
 </body>
 </html>
