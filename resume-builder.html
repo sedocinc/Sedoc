@@ -553,7 +553,8 @@
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
             <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Resume is Ready</h3>
             <p>Your PDF is being prepared. Thanks for using sedoc!</p>
-            <div class="download-ad-slot">                <ins class="adsbygoogle"
+            <div class="download-ad-slot">                
+                <ins class="adsbygoogle"
                      style="display:block; width:100%; min-height:100px;"
                      data-ad-client="ca-pub-4598765809021376"
                      data-ad-slot="8422543747"
@@ -1229,25 +1230,50 @@
             document.getElementById('in-show-photo').checked = state.showPhoto;
         }
 
+        // --- UNIFIED PDF EXPORT LOGIC ---
         function downloadPDF() {
             const element = document.getElementById('resume-paper');
             const name = state.personal.name || 'Resume';
-            const opt = {
-                margin: 0,
-                filename: `Resume_${name.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 1 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: document.documentElement.scrollWidth,
-                    windowHeight: document.documentElement.scrollHeight
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css', 'legacy'] }
-            };
-            html2pdf().set(opt).from(element).save();
+
+            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
+            const savedScrollX = window.scrollX;
+            const savedScrollY = window.scrollY;
+            window.scrollTo(0, 0);
+
+            // 2. Temporarily remove shadow so PDF borders remain clean
+            const originalBoxShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
+
+            // 3. Ensure profile photo and other images are fully loaded before capture
+            const imgs = element.querySelectorAll('img');
+            const waitForImages = Promise.all(
+                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
+                    new Promise(res => { img.onload = res; img.onerror = res; })
+                )
+            );
+
+            waitForImages.then(() => {
+                const opt = {
+                    margin:       0,
+                    filename:     `Resume_${name.replace(/\s+/g, '_')}.pdf`,
+                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
+                    html2canvas:  {
+                        scale: 3, // Scale 3 is perfect here: crisp text, but prevents mobile Safari memory crashes on 2+ page resumes
+                        useCORS: true,
+                        scrollX: 0,
+                        scrollY: 0
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+                    pagebreak:    { mode: ['css', 'legacy'] } // Allows smooth natural breaks for resumes
+                };
+
+                // DIRECTLY pass the element for perfect sizing and memory safety
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore original styles & scroll position
+                    element.style.boxShadow = originalBoxShadow;
+                    window.scrollTo(savedScrollX, savedScrollY);
+                });
+            });
         }
 
         const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');
@@ -1265,6 +1291,7 @@
         });
         downloadClose.addEventListener('click', function () { downloadOverlay.classList.remove('active'); });
         downloadOverlay.addEventListener('click', function (e) { if (e.target === downloadOverlay) downloadOverlay.classList.remove('active'); });
+        
         downloadNowBtn.addEventListener('click', function () {
             downloadNowBtn.disabled = true;
             downloadNowBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
@@ -1305,6 +1332,7 @@
             render();
         })();
     </script>
+    
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
         #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
@@ -1382,7 +1410,6 @@
         })();
     </script>
     <!-- ===== end sedoc Language Switcher ===== -->
-
 
 </body>
 </html>
