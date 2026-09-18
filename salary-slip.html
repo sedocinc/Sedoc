@@ -733,14 +733,23 @@
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const month = document.getElementById('in-month').value || 'Month';
 
+            // FIX: agar page scroll hua hota hai (lambi form ke saath aam baat hai),
+            // to position:fixed wrapper ka capture galat offset se start hota tha —
+            // isi wajah se PDF mein content left/side se cut nazar aata tha.
+            // Capture se pehle scroll ko top par reset karte hain aur baad mein restore.
+            const savedScrollX = window.scrollX;
+            const savedScrollY = window.scrollY;
+            window.scrollTo(0, 0);
+
             const clone = original.cloneNode(true);
 
             // Wrapper ko explicitly width dena zaroori hai taake mobile screens
             // par HTML squish ho kar cut na ho jaye.
             const wrapper = document.createElement('div');
-            wrapper.style.position = 'fixed';
+            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
             wrapper.style.top = '0';
             wrapper.style.left = '0';
+            wrapper.style.margin = '0';
             wrapper.style.width = '800px'; // Forces desktop width for A4 proportion
             wrapper.style.height = 'max-content';
             wrapper.style.overflow = 'visible';
@@ -750,23 +759,36 @@
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
-            const opt = {
-                margin:       [5, 5, 5, 5], // Thora sa margin taake borders cut na hon
-                filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
-                image:        { type: 'jpeg', quality: 1.0 }, // PNG se JPEG 1.0 par shift for better crispness
-                html2canvas:  {
-                    scale: 3, // HD resolution (blur khatam karega)
-                    useCORS: true,
-                    scrollY: 0,
-                    scrollX: 0,
-                    windowWidth: wrapper.scrollWidth,
-                    windowHeight: wrapper.scrollHeight
-                },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+            // Logo jaisi images fully load hone ka wait karte hain, warna kabhi
+            // kabhi image blank/torn PDF mein aa jati thi.
+            const imgs = wrapper.querySelectorAll('img');
+            const waitForImages = Promise.all(
+                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
+                    new Promise(res => { img.onload = res; img.onerror = res; })
+                )
+            );
 
-            html2pdf().set(opt).from(clone).save().then(() => {
-                document.body.removeChild(wrapper);
+            waitForImages.then(() => {
+                const opt = {
+                    margin:       0,
+                    filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
+                    image:        { type: 'jpeg', quality: 1.0 }, // PNG se JPEG 1.0 par shift for better crispness
+                    html2canvas:  {
+                        scale: 3, // HD resolution (blur khatam karega)
+                        useCORS: true,
+                        scrollY: 0,
+                        scrollX: 0,
+                        windowWidth: wrapper.scrollWidth,
+                        windowHeight: wrapper.scrollHeight
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: ['avoid-all'] }
+                };
+
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    document.body.removeChild(wrapper);
+                    window.scrollTo(savedScrollX, savedScrollY);
+                });
             });
         }
 

@@ -862,6 +862,13 @@
             const original = document.getElementById('printArea');
             const docNum = document.getElementById('invNum').value || 'Invoice';
 
+            // FIX: agar page scroll hua hota hai to position:fixed wrapper ka
+            // capture galat offset se start hota tha (content cut / low-res
+            // dikhta tha). Capture se pehle scroll top par reset, baad mein restore.
+            const savedScrollX = window.scrollX;
+            const savedScrollY = window.scrollY;
+            window.scrollTo(0, 0);
+
             // Clone the invoice into an isolated, off-screen container so the
             // page's flex + sticky preview layout can never shift html2canvas's
             // capture offset and clip the output (this was cutting off the left
@@ -876,33 +883,45 @@
             clone.style.minHeight = '297mm';
 
             const wrapper = document.createElement('div');
-            wrapper.style.position = 'fixed';
+            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
             wrapper.style.top = '0';
             wrapper.style.left = '0';
             wrapper.style.margin = '0';
+            wrapper.style.background = '#ffffff';
             wrapper.style.zIndex = '-9999';
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
-            // html2pdf options
-            const opt = {
-                margin:       0,
-                filename:     docNum + '.pdf',
-                image:        { type: 'png' },
-                // windowWidth/windowHeight matched to the isolated clone's own
-                // size (not the full page or the device's width) so capture is
-                // always full-size, high-res, and correctly framed — on desktop
-                // and mobile alike.
-                html2canvas:  { scale: 200 / 96, useCORS: true, windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
-                // If content is taller than one A4 page, add extra pages instead of
-                // cutting content off mid-row.
-                pagebreak:    { mode: ['css', 'legacy'] }
-            };
+            // Logo jaisi images fully load hone ka wait karte hain
+            const imgs = wrapper.querySelectorAll('img');
+            const waitForImages = Promise.all(
+                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
+                    new Promise(res => { img.onload = res; img.onerror = res; })
+                )
+            );
 
-            // Generate and save
-            html2pdf().set(opt).from(clone).save().then(() => {
-                document.body.removeChild(wrapper);
+            waitForImages.then(() => {
+                // html2pdf options
+                const opt = {
+                    margin:       0,
+                    filename:     docNum + '.pdf',
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    // windowWidth/windowHeight matched to the isolated clone's own
+                    // size (not the full page or the device's width) so capture is
+                    // always full-size, high-res, and correctly framed — on desktop
+                    // and mobile alike.
+                    html2canvas:  { scale: 3, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight },
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
+                    // If content is taller than one A4 page, add extra pages instead of
+                    // cutting content off mid-row.
+                    pagebreak:    { mode: ['css', 'legacy'] }
+                };
+
+                // Generate and save
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    document.body.removeChild(wrapper);
+                    window.scrollTo(savedScrollX, savedScrollY);
+                });
             });
         }
 

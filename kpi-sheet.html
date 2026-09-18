@@ -630,6 +630,13 @@
             // Remove focus outline before generating PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
+            // FIX: agar page scroll hua hota hai to position:fixed wrapper ka
+            // capture galat offset se start hota tha (content cut / low-res
+            // dikhta tha). Capture se pehle scroll top par reset, baad mein restore.
+            const savedScrollX = window.scrollX;
+            const savedScrollY = window.scrollY;
+            window.scrollTo(0, 0);
+
             // Clone the sheet into an isolated, off-screen container so the
             // page's grid + sticky preview layout can never shift html2canvas's
             // capture offset and clip the output — this was cutting off part of
@@ -641,33 +648,47 @@
             clone.style.overflow = 'visible';
 
             const wrapper = document.createElement('div');
-            wrapper.style.position = 'fixed';
+            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
             wrapper.style.top = '0';
             wrapper.style.left = '0';
             wrapper.style.margin = '0';
+            wrapper.style.background = '#ffffff';
             wrapper.style.zIndex = '-9999';
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
-            const opt = {
-                margin: 0,
-                pagebreak: { mode: 'avoid-all' }, // STRICT A4 Single Page Fit
-                filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'png' },
-                // windowWidth/windowHeight matched to the isolated clone's own
-                // size (not the full page or the device's width) so capture is
-                // always full-size, high-res, and correctly framed — on desktop
-                // and mobile alike.
-                html2canvas: {
-                    scale: 200 / 96, // ~200 DPI output
-                    useCORS: true,
-                    windowWidth: clone.scrollWidth,
-                    windowHeight: clone.scrollHeight
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
-            };
-            html2pdf().set(opt).from(clone).save().then(() => {
-                document.body.removeChild(wrapper);
+            // Logo jaisi images fully load hone ka wait karte hain
+            const imgs = wrapper.querySelectorAll('img');
+            const waitForImages = Promise.all(
+                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
+                    new Promise(res => { img.onload = res; img.onerror = res; })
+                )
+            );
+
+            waitForImages.then(() => {
+                const opt = {
+                    margin: 0,
+                    pagebreak: { mode: 'avoid-all' }, // STRICT A4 Single Page Fit
+                    filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
+                    image: { type: 'jpeg', quality: 1.0 },
+                    // windowWidth/windowHeight matched to the isolated clone's own
+                    // size (not the full page or the device's width) so capture is
+                    // always full-size, high-res, and correctly framed — on desktop
+                    // and mobile alike.
+                    html2canvas: {
+                        scale: 3, // HD resolution (blur khatam karega)
+                        useCORS: true,
+                        scrollX: 0,
+                        scrollY: 0,
+                        windowWidth: clone.scrollWidth,
+                        windowHeight: clone.scrollHeight
+                    },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
+                };
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    document.body.removeChild(wrapper);
+                    window.scrollTo(savedScrollX, savedScrollY);
+                });
             });
         }
 
