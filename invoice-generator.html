@@ -866,6 +866,20 @@
             const originalShadow = element.style.boxShadow;
             element.style.boxShadow = 'none';
 
+            // The on-screen paper uses a fixed A4 aspect-ratio + overflow:hidden
+            // so it LOOKS like a clean A4 sheet at a glance. That's fine for short
+            // documents, but once the content (line items, notes, etc.) grows taller
+            // than that fixed ratio, overflow:hidden clips it — both on screen and
+            // in the exported PDF. Temporarily release those constraints so the
+            // paper expands to its true content height before we measure/capture it,
+            // then restore the original look right after export.
+            const originalAspectRatio = element.style.aspectRatio;
+            const originalOverflow = element.style.overflow;
+            const originalMinHeight = element.style.minHeight;
+            element.style.aspectRatio = 'auto';
+            element.style.overflow = 'visible';
+            element.style.minHeight = '297mm';
+
             // html2pdf options
             const opt = {
                 margin:       0,
@@ -874,12 +888,18 @@
                 // windowWidth fixed (not device width) so mobile phones capture the same
                 // full-size, high-res layout as desktop instead of a shrunk mobile view.
                 html2canvas:  { scale: 200 / 96, useCORS: true, width: element.offsetWidth, height: element.offsetHeight, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true }
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
+                // If content is taller than one A4 page, add extra pages instead of
+                // cutting content off mid-row.
+                pagebreak:    { mode: ['css', 'legacy'] }
             };
 
             // Generate and save
             html2pdf().set(opt).from(element).save().then(() => {
                 element.style.boxShadow = originalShadow;
+                element.style.aspectRatio = originalAspectRatio;
+                element.style.overflow = originalOverflow;
+                element.style.minHeight = originalMinHeight;
             });
         }
 

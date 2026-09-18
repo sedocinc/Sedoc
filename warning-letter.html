@@ -639,6 +639,18 @@
             // Un-focus any editable content to hide the purple hover/focus outlines in PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
+            // The on-screen paper is locked to a fixed 295mm height with
+            // overflow:hidden to guarantee a clean single-page look while editing.
+            // If the warning text grows longer than that, overflow:hidden silently
+            // CLIPS the extra content instead of showing it. Release that lock just
+            // for the capture so nothing is cut off, then restore the on-screen look.
+            const originalHeight = element.style.height;
+            const originalMaxHeight = element.style.maxHeight;
+            const originalOverflow = element.style.overflow;
+            element.style.height = 'auto';
+            element.style.maxHeight = 'none';
+            element.style.overflow = 'visible';
+
             const opt = {
                 margin:       0,
                 pagebreak:    { mode: 'avoid-all' }, // Strictly stops the PDF from splitting into a second page
@@ -663,7 +675,11 @@
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
 
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.style.height = originalHeight;
+                element.style.maxHeight = originalMaxHeight;
+                element.style.overflow = originalOverflow;
+            });
         }
 
         // --- 5. Download flow: show ad modal first (highest-intent ad placement),
