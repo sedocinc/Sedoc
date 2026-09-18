@@ -135,12 +135,19 @@
 
         /* RIGHT: Live Preview Sticky Pane */
         .preview-side { width: 800px; flex-shrink: 0; position: sticky; top: 80px; }
-        .preview-wrapper { background: #e2e8f0; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+        .preview-wrapper { background: #e2e8f0; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); overflow-x: auto; }
         
         /* THE A4 PAPER BASE & DYNAMIC VARIABLE */
         .a4-paper { 
             --brand-color: #0f172a; 
-            background: #ffffff; width: 100%; aspect-ratio: 1 / 1.414; padding: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); position: relative; overflow: hidden; transition: all 0.3s ease; 
+            background: #ffffff; 
+            width: 210mm; /* Strict A4 Width */
+            min-height: 297mm; /* Allows multi-page expansion */
+            padding: 20mm; /* Standard print padding */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            margin: 0 auto;
+            position: relative; 
+            transition: all 0.3s ease; 
         }
 
         .p-logo-wrapper { height: 80px; margin-bottom: 15px; display: flex; align-items: flex-end; justify-content: flex-start; }
@@ -157,7 +164,7 @@
         .tpl-modern .p-table td { padding: 15px 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #0f172a; }
         .tpl-modern .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 2px solid #e2e8f0; font-size: 1.2rem; font-weight: 800; color: var(--brand-color); }
 
-        .tpl-corporate .p-header { display: flex; justify-content: space-between; background: var(--brand-color); color: white; padding: 35px; margin: -45px -45px 35px -45px; align-items: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-corporate .p-header { display: flex; justify-content: space-between; background: var(--brand-color); color: white; padding: 20mm; margin: -20mm -20mm 35px -20mm; align-items: center; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
         .tpl-corporate .p-title { font-size: 2.2rem; font-weight: 800; color: white; margin: 0;}
         .tpl-corporate .p-logo-wrapper { height: 60px; margin: 0;}
         .tpl-corporate #p-logo-img { filter: brightness(0) invert(1); }
@@ -205,7 +212,7 @@
         .tpl-elegant .p-totals-box { background: transparent; padding: 20px; border: 1px solid var(--brand-color); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
         .tpl-elegant .tot-grand { margin-top: 10px; padding-top: 15px; border-top: 1px solid var(--brand-color); font-size: 1.3rem; font-weight: 600; color: var(--brand-color); font-style: italic;}
 
-        .tpl-bold { border: 6px solid #000 !important; box-shadow: 15px 15px 0px var(--brand-color) !important; padding: 40px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+        .tpl-bold { border: 6px solid #000 !important; box-shadow: 15px 15px 0px var(--brand-color) !important; padding: 20mm !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;}
         .tpl-bold .p-header { display: flex; justify-content: space-between; border-bottom: 4px solid #000; padding-bottom: 20px; margin-bottom: 30px; align-items: flex-end;}
         .tpl-bold .p-title { font-size: 3.2rem; font-weight: 900; color: #000; text-transform: uppercase; line-height: 0.8; letter-spacing: -2px;}
         .tpl-bold .text-muted { color: #000; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; font-size: 0.85rem;}
@@ -311,6 +318,7 @@
         .related-tool-card .rt-text h3 { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0 0 4px; }
         .related-tool-card .rt-text p { font-size: 0.82rem; color: var(--text-gray); margin: 0; line-height: 1.4; }
     </style>
+
 </head>
 <body>
 
@@ -852,43 +860,25 @@
             document.getElementById('p-grandtotal').textContent = formatCash(grandTotal);
         }
 
-        // --- DIRECT PDF GENERATION LOGIC (called after ad modal confirmation) ---
+        // --- DIRECT PDF GENERATION LOGIC (Unified, memory-safe approach) ---
         function generatePDF() {
-            const original = document.getElementById('printArea');
+            const element = document.getElementById('printArea');
             const docNum = document.getElementById('invNum').value || 'Document';
 
-            // FIX: agar page scroll hua hota hai to position:fixed wrapper ka
-            // capture galat offset se start hota tha (content cut / low-res
-            // dikhta tha). Capture se pehle scroll top par reset, baad mein restore.
+            // Remove active focus from any inputs
+            if (document.activeElement) document.activeElement.blur();
+
+            // Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // Clone the document into an isolated, off-screen container so the
-            // page's flex + sticky preview layout can never shift html2canvas's
-            // capture offset and clip the output (this was cutting off the left
-            // side of the document in exported PDFs). The clone gets an explicit
-            // A4 width since the on-screen version only has width:100% (it
-            // normally inherits its size from the sticky preview column).
-            const clone = original.cloneNode(true);
-            clone.style.boxShadow = 'none';
-            clone.style.width = '210mm';
-            clone.style.aspectRatio = 'auto';
-            clone.style.overflow = 'visible';
-            clone.style.minHeight = '297mm';
+            // Temporarily remove shadow so PDF borders remain clean
+            const originalBoxShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
 
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
-
-            // Logo jaisi images fully load hone ka wait karte hain
-            const imgs = wrapper.querySelectorAll('img');
+            // Ensure images (like uploaded logo) are fully loaded
+            const imgs = element.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
                     new Promise(res => { img.onload = res; img.onerror = res; })
@@ -896,25 +886,24 @@
             );
 
             waitForImages.then(() => {
-                // html2pdf options
                 const opt = {
                     margin:       0,
                     filename:     docNum + '.pdf',
                     image:        { type: 'jpeg', quality: 1.0 },
-                    // windowWidth/windowHeight matched to the isolated clone's own
-                    // size (not the full page or the device's width) so capture is
-                    // always full-size, high-res, and correctly framed — on desktop
-                    // and mobile alike.
-                    html2canvas:  { scale: 3, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight },
-                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
-                    // If content is taller than one A4 page, add extra pages instead of
-                    // cutting content off mid-row.
+                    html2canvas:  { 
+                        scale: 3, 
+                        useCORS: true, 
+                        scrollX: 0, 
+                        scrollY: 0 
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
                     pagebreak:    { mode: ['css', 'legacy'] }
                 };
 
-                // Generate and save
-                html2pdf().set(opt).from(clone).save().then(() => {
-                    document.body.removeChild(wrapper);
+                // DIRECTLY pass the element for perfect sizing and memory safety
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore original styles & scroll position
+                    element.style.boxShadow = originalBoxShadow;
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
             });
@@ -1060,7 +1049,6 @@
         })();
     </script>
     <!-- ===== end sedoc Language Switcher ===== -->
-
 
 </body>
 </html>
