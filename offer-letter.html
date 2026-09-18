@@ -15,12 +15,6 @@
     <meta property="og:url" content="https://www.thesedoc.com/offer-letter.html">
     <meta property="og:type" content="website">
 
-    <!-- ============================================================
-         FAVICON FIX: same as homepage. favicon.png / favicon.ico /
-         apple-touch-icon.png files root folder mein hona zaroori hai
-         (jahan index.html hai) — sab pages inhi shared files ko
-         use karenge kyunke path root-relative (/) hai.
-    ============================================================ -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -103,9 +97,8 @@
         .letter-paper { 
             background: #ffffff; 
             width: 210mm; /* Strict A4 Width */
-            height: 295mm; /* Safe A4 Height */
-            max-height: 295mm;
-            padding: 20mm; /* Adjusted padding */
+            min-height: 297mm; /* Standard A4 Height (Allows content to push to next page safely) */
+            padding: 20mm; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             margin: 0 auto;
             color: #1e293b;
@@ -114,7 +107,6 @@
             line-height: 1.5;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden; /* Prevent spillover to next page */
         }
 
         /* Inline Editing Style */
@@ -441,7 +433,7 @@
         </div>
     </main>
 
-    <!-- Google AdSense Real Ad Unit (UPDATED) -->
+    <!-- Google AdSense Real Ad Unit -->
     <div class="ad-container">
         <span class="ad-label">Advertisement</span>
         <ins class="adsbygoogle"
@@ -471,7 +463,7 @@
         </div>
     </div>
 
-    <!-- Download Ad Modal (UPDATED) -->
+    <!-- Download Ad Modal -->
     <div class="donate-overlay" id="downloadOverlay">
         <div class="download-modal">
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
@@ -640,7 +632,7 @@
             const element = document.getElementById('letter-paper');
             const candName = document.getElementById('in-cand-name').value || 'Candidate';
 
-            // Un-focus any editable content to hide the purple hover/focus outlines in PDF
+            // IMPORTANT: Un-focus any editable content to hide the purple hover/focus outlines & cursors in PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
             // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
@@ -663,15 +655,13 @@
             waitForImages.then(() => {
                 const opt = {
                     margin:       0,
-                    pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
                     filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'png' }, // PNG FOR CRISP LOSSLESS TEXT
+                    image:        { type: 'jpeg', quality: 1.0 }, // REVERTED TO JPEG FOR MOBILE STABILITY
                     html2canvas:  {
-                        scale: 5, // SCALE 5 FOR ULTRA HD RESOLUTION
+                        scale: 4, // SCALE 4 IS OPTIMAL (Scale 5 + PNG crashes mobile Safari)
                         useCORS: true,
                         scrollY: 0,
-                        scrollX: 0,
-                        windowWidth: 794 // Locks capture window to exactly A4 proportion
+                        scrollX: 0
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } 
                 };
