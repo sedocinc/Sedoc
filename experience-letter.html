@@ -564,11 +564,9 @@
                 <img src="Logo.png" alt="sedoc footer logo">
             </a>
             <div class="footer-links">
-                <a href="index.html">Home</a>
                 <a href="features.html">Features</a>
                 <a href="about.html">About Us</a>
                 <a href="pricing.html">Pricing</a>
-                <a href="insights.html">Insights</a>
                 <a href="privacy-policy.html">Privacy Policy</a>
                 <a href="terms-of-use.html">Terms of Use</a>
                 <a href="contact.html">Contact Support</a>
@@ -629,18 +627,6 @@
             // Un-focus any editable content to hide the purple hover/focus outlines in PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
-            // The on-screen paper is locked to a fixed 295mm height with
-            // overflow:hidden to guarantee a clean single-page look while editing.
-            // If the letter text grows longer than that, overflow:hidden silently
-            // CLIPS the extra content instead of showing it. Release that lock just
-            // for the capture so nothing is cut off, then restore the on-screen look.
-            const originalHeight = element.style.height;
-            const originalMaxHeight = element.style.maxHeight;
-            const originalOverflow = element.style.overflow;
-            element.style.height = 'auto';
-            element.style.maxHeight = 'none';
-            element.style.overflow = 'visible';
-
             const opt = {
                 margin:       0,
                 pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
@@ -652,7 +638,7 @@
                 // intact during capture — using a narrow width here would trigger the
                 // site's mobile layout mid-capture and corrupt the output.
                 html2canvas:  {
-                    scale: 200 / 96, // ~200 DPI output
+                    scale: 2,
                     useCORS: true,
                     scrollX: 0,
                     scrollY: 0,
@@ -662,11 +648,7 @@
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                element.style.height = originalHeight;
-                element.style.maxHeight = originalMaxHeight;
-                element.style.overflow = originalOverflow;
-            });
+            html2pdf().set(opt).from(element).save();
         }
 
         // --- 5. Download flow: show ad modal first (highest-intent ad placement),
