@@ -733,36 +733,36 @@
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const month = document.getElementById('in-month').value || 'Month';
 
-            // Clone the slip into an isolated, off-screen container so the
-            // page's grid + sticky preview layout can never shift html2canvas's
-            // capture offset and clip the output — this was cutting off part of
-            // the slip in exported PDFs.
             const clone = original.cloneNode(true);
 
+            // Wrapper ko explicitly width dena zaroori hai taake mobile screens
+            // par HTML squish ho kar cut na ho jaye.
             const wrapper = document.createElement('div');
             wrapper.style.position = 'fixed';
             wrapper.style.top = '0';
             wrapper.style.left = '0';
-            wrapper.style.margin = '0';
+            wrapper.style.width = '800px'; // Forces desktop width for A4 proportion
+            wrapper.style.height = 'max-content';
+            wrapper.style.overflow = 'visible';
+            wrapper.style.background = '#ffffff'; // Prevents transparent black background
             wrapper.style.zIndex = '-9999';
+            
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
             const opt = {
-                margin:       0,
+                margin:       [5, 5, 5, 5], // Thora sa margin taake borders cut na hon
                 filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
-                image:        { type: 'png' },
-                // windowWidth/windowHeight matched to the isolated clone's own
-                // size (not the full page or the device's width) so capture is
-                // always full-size, high-res, and correctly framed — on desktop
-                // and mobile alike.
+                image:        { type: 'jpeg', quality: 1.0 }, // PNG se JPEG 1.0 par shift for better crispness
                 html2canvas:  {
-                    scale: 200 / 96, // ~200 DPI output
+                    scale: 3, // HD resolution (blur khatam karega)
                     useCORS: true,
-                    windowWidth: clone.scrollWidth,
-                    windowHeight: clone.scrollHeight
+                    scrollY: 0,
+                    scrollX: 0,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
                 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(clone).save().then(() => {
@@ -910,7 +910,6 @@
         })();
     </script>
     <!-- ===== end sedoc Language Switcher ===== -->
-
 
 </body>
 </html>
