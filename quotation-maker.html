@@ -854,35 +854,41 @@
 
         // --- DIRECT PDF GENERATION LOGIC (called after ad modal confirmation) ---
         function generatePDF() {
-            const element = document.getElementById('printArea');
+            const original = document.getElementById('printArea');
             const docNum = document.getElementById('invNum').value || 'Document';
 
-            // Remove box-shadow temporarily to avoid ugly edges in PDF
-            const originalShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none';
+            // Clone the document into an isolated, off-screen container so the
+            // page's flex + sticky preview layout can never shift html2canvas's
+            // capture offset and clip the output (this was cutting off the left
+            // side of the document in exported PDFs). The clone gets an explicit
+            // A4 width since the on-screen version only has width:100% (it
+            // normally inherits its size from the sticky preview column).
+            const clone = original.cloneNode(true);
+            clone.style.boxShadow = 'none';
+            clone.style.width = '210mm';
+            clone.style.aspectRatio = 'auto';
+            clone.style.overflow = 'visible';
+            clone.style.minHeight = '297mm';
 
-            // The on-screen paper uses a fixed A4 aspect-ratio + overflow:hidden
-            // so it LOOKS like a clean A4 sheet at a glance. That's fine for short
-            // documents, but once the content (line items, notes, etc.) grows taller
-            // than that fixed ratio, overflow:hidden clips it — both on screen and
-            // in the exported PDF. Temporarily release those constraints so the
-            // paper expands to its true content height before we measure/capture it,
-            // then restore the original look right after export.
-            const originalAspectRatio = element.style.aspectRatio;
-            const originalOverflow = element.style.overflow;
-            const originalMinHeight = element.style.minHeight;
-            element.style.aspectRatio = 'auto';
-            element.style.overflow = 'visible';
-            element.style.minHeight = '297mm';
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'fixed';
+            wrapper.style.top = '0';
+            wrapper.style.left = '0';
+            wrapper.style.margin = '0';
+            wrapper.style.zIndex = '-9999';
+            wrapper.appendChild(clone);
+            document.body.appendChild(wrapper);
 
             // html2pdf options
             const opt = {
                 margin:       0,
                 filename:     docNum + '.pdf',
                 image:        { type: 'png' },
-                // windowWidth fixed (not device width) so mobile phones capture the same
-                // full-size, high-res layout as desktop instead of a shrunk mobile view.
-                html2canvas:  { scale: 200 / 96, useCORS: true, width: element.offsetWidth, height: element.offsetHeight, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight },
+                // windowWidth/windowHeight matched to the isolated clone's own
+                // size (not the full page or the device's width) so capture is
+                // always full-size, high-res, and correctly framed — on desktop
+                // and mobile alike.
+                html2canvas:  { scale: 200 / 96, useCORS: true, windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
                 // If content is taller than one A4 page, add extra pages instead of
                 // cutting content off mid-row.
@@ -890,11 +896,8 @@
             };
 
             // Generate and save
-            html2pdf().set(opt).from(element).save().then(() => {
-                element.style.boxShadow = originalShadow;
-                element.style.aspectRatio = originalAspectRatio;
-                element.style.overflow = originalOverflow;
-                element.style.minHeight = originalMinHeight;
+            html2pdf().set(opt).from(clone).save().then(() => {
+                document.body.removeChild(wrapper);
             });
         }
 

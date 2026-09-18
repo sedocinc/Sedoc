@@ -624,52 +624,50 @@
 
         // --- 4. PDF Exporter ---
         function downloadPDF() {
-            const element = document.getElementById('letter-paper');
+            const original = document.getElementById('letter-paper');
             const empName = document.getElementById('in-name').value || 'Employee';
             
             // Remove focus outline before generating PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
-            // The on-screen sheet is locked to a fixed 295mm height with
-            // overflow:hidden to guarantee a clean single-page look while editing.
-            // If KPI rows or comments grow longer than that, overflow:hidden
-            // silently CLIPS the extra content instead of showing it. Release that
-            // lock just for the capture so nothing is cut off, then restore the
-            // on-screen look.
-            const originalHeight = element.style.height;
-            const originalMaxHeight = element.style.maxHeight;
-            const originalOverflow = element.style.overflow;
-            element.style.height = 'auto';
-            element.style.maxHeight = 'none';
-            element.style.overflow = 'visible';
+            // Clone the sheet into an isolated, off-screen container so the
+            // page's grid + sticky preview layout can never shift html2canvas's
+            // capture offset and clip the output — this was cutting off part of
+            // the sheet in exported PDFs. The clone also gets its fixed-height
+            // + overflow:hidden released so longer content isn't cut off.
+            const clone = original.cloneNode(true);
+            clone.style.height = 'auto';
+            clone.style.maxHeight = 'none';
+            clone.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'fixed';
+            wrapper.style.top = '0';
+            wrapper.style.left = '0';
+            wrapper.style.margin = '0';
+            wrapper.style.zIndex = '-9999';
+            wrapper.appendChild(clone);
+            document.body.appendChild(wrapper);
 
             const opt = {
                 margin: 0,
                 pagebreak: { mode: 'avoid-all' }, // STRICT A4 Single Page Fit
                 filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'png' },
-                // scrollX/scrollY reset the capture to the top-left regardless of page
-                // scroll position. windowWidth/windowHeight are FIXED (not tied to the
-                // visiting device's actual screen width) so the page's normal desktop
-                // layout stays intact during capture on every device, including phones —
-                // using the device's own narrow width here still triggers the site's
-                // mobile layout mid-capture on real phones and produces a low-res PDF.
+                // windowWidth/windowHeight matched to the isolated clone's own
+                // size (not the full page or the device's width) so capture is
+                // always full-size, high-res, and correctly framed — on desktop
+                // and mobile alike.
                 html2canvas: {
                     scale: 200 / 96, // ~200 DPI output
                     useCORS: true,
-                    scrollX: 0,
-                    scrollY: 0,
-                    width: element.offsetWidth,
-                    height: element.offsetHeight,
-                    windowWidth: element.scrollWidth,
-                    windowHeight: element.scrollHeight
+                    windowWidth: clone.scrollWidth,
+                    windowHeight: clone.scrollHeight
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
-            html2pdf().set(opt).from(element).save().then(() => {
-                element.style.height = originalHeight;
-                element.style.maxHeight = originalMaxHeight;
-                element.style.overflow = originalOverflow;
+            html2pdf().set(opt).from(clone).save().then(() => {
+                document.body.removeChild(wrapper);
             });
         }
 
