@@ -463,7 +463,7 @@
         </div>
     </div>
 
-    <!-- Download Ad Modal -->
+    <!-- Download Ad Modal (UPDATED: Cleaned up script tag) -->
     <div class="donate-overlay" id="downloadOverlay">
         <div class="download-modal">
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
@@ -476,9 +476,6 @@
                      data-ad-slot="8422543747"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
             <button class="download-now-btn" id="downloadNowBtn"><i class="fas fa-download"></i> Download Now</button>
         </div>
@@ -627,9 +624,9 @@
             letterPaper.classList.add(selectedTheme);
         }
 
-        // --- 4. PDF Exporter (THE BLANK PAGE FIX + ULTRA HIGH RES) ---
+        // --- 4. PDF Exporter (Unified, Memory-Safe Approach) ---
         function downloadPDF() {
-            const element = document.getElementById('letter-paper');
+            const original = document.getElementById('letter-paper');
             const candName = document.getElementById('in-cand-name').value || 'Candidate';
 
             // IMPORTANT: Un-focus any editable content to hide the purple hover/focus outlines & cursors in PDF
@@ -640,12 +637,25 @@
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // 2. Temporarily remove shadow so PDF borders remain clean
-            const originalBoxShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none';
+            // 2. Clone the document into an isolated off-screen wrapper
+            const clone = original.cloneNode(true);
+            clone.style.boxShadow = 'none';
+            clone.style.width = '210mm'; // Force exact A4 width
+            clone.style.minHeight = '297mm';
+            clone.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.top = '0';
+            wrapper.style.left = '0';
+            wrapper.style.margin = '0';
+            wrapper.style.background = '#ffffff';
+            wrapper.style.zIndex = '-9999';
+            wrapper.appendChild(clone);
+            document.body.appendChild(wrapper);
 
             // 3. Ensure images are loaded before capture
-            const imgs = element.querySelectorAll('img');
+            const imgs = wrapper.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
                     new Promise(res => { img.onload = res; img.onerror = res; })
@@ -656,20 +666,23 @@
                 const opt = {
                     margin:       0,
                     filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 }, // REVERTED TO JPEG FOR MOBILE STABILITY
+                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
                     html2canvas:  {
-                        scale: 4, // SCALE 4 IS OPTIMAL (Scale 5 + PNG crashes mobile Safari)
+                        scale: 3, // Scale 3 is optimal for crisp text without crashing mobile devices
                         useCORS: true,
                         scrollY: 0,
-                        scrollX: 0
+                        scrollX: 0,
+                        windowWidth: clone.scrollWidth,
+                        windowHeight: clone.scrollHeight
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } 
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+                    pagebreak:    { mode: ['css', 'legacy'] } // Allows multi-page if content is long
                 };
 
-                // DIRECTLY pass the element (no wrapper, no cloning) -> fixes the blank page issue
-                html2pdf().set(opt).from(element).save().then(() => {
-                    // Restore original styles & scroll position
-                    element.style.boxShadow = originalBoxShadow;
+                // Generate PDF from the isolated clone
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    // Cleanup
+                    document.body.removeChild(wrapper);
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
             });
@@ -681,8 +694,13 @@
         const downloadClose = document.getElementById('downloadClose');
         const downloadNowBtn = document.getElementById('downloadNowBtn');
 
+        let downloadAdLoaded = false;
         downloadTriggerBtn.addEventListener('click', function() {
             downloadOverlay.classList.add('active');
+            if (!downloadAdLoaded) {
+                downloadAdLoaded = true;
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
         });
         downloadClose.addEventListener('click', function() {
             downloadOverlay.classList.remove('active');
