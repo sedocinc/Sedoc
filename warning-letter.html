@@ -103,8 +103,7 @@
         .letter-paper { 
             background: #ffffff; 
             width: 210mm; /* Strict A4 Width */
-            height: 295mm; /* Safe Height (slightly less than 297mm to prevent 2nd page spill) */
-            max-height: 295mm;
+            min-height: 297mm; /* Standard A4 Height (Allows content to push to next page safely without cutting off) */
             padding: 20mm; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             margin: 0 auto;
@@ -114,7 +113,6 @@
             line-height: 1.5;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden; /* STRICTLY Prevents content from expanding height */
         }
 
         /* Inline Editing Style */
@@ -181,7 +179,7 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
-        /* Donate Modal (same as homepage / offer-letter) */
+        /* Donate Modal */
         .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .donate-overlay.active { display: flex; }
         .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -630,44 +628,26 @@
             letterPaper.classList.add(selectedTheme); // Apply new theme
         }
 
-        // --- 4. PDF Exporter ---
+        // --- 4. PDF Exporter (THE CLEAN UNIFIED APPROACH) ---
         function downloadPDF() {
-            const original = document.getElementById('letter-paper');
+            const element = document.getElementById('letter-paper');
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const warningLevel = document.getElementById('in-warning-level').value || 'Warning';
             
-            // Un-focus any editable content to hide the purple hover/focus outlines in PDF
+            // IMPORTANT: Un-focus any editable content to hide the purple hover/focus outlines & cursors in PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
 
-            // FIX: agar page scroll hua hota hai to position:fixed wrapper ka
-            // capture galat offset se start hota tha (content cut / low-res
-            // dikhta tha). Capture se pehle scroll top par reset, baad mein restore.
+            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // Clone the letter into an isolated, off-screen container so the
-            // page's grid + sticky preview layout can never shift html2canvas's
-            // capture offset and clip the output — this was cutting off part of
-            // the letter in exported PDFs. The clone also gets its fixed-height
-            // + overflow:hidden released so longer warning text isn't cut off.
-            const clone = original.cloneNode(true);
-            clone.style.height = 'auto';
-            clone.style.maxHeight = 'none';
-            clone.style.overflow = 'visible';
+            // 2. Temporarily remove shadow so PDF borders remain clean
+            const originalBoxShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
 
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute'; // fixed → absolute: scroll-reset ke saath zyada reliable
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
-
-            // Logo jaisi images fully load hone ka wait karte hain
-            const imgs = wrapper.querySelectorAll('img');
+            // 3. Ensure images are loaded before capture
+            const imgs = element.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
                     new Promise(res => { img.onload = res; img.onerror = res; })
@@ -677,26 +657,22 @@
             waitForImages.then(() => {
                 const opt = {
                     margin:       0,
-                    pagebreak:    { mode: 'avoid-all' }, // Strictly stops the PDF from splitting into a second page
+                    pagebreak:    { mode: 'avoid-all' }, // Strictly stops the PDF from splitting into a second page randomly
                     filename:     `${warningLevel}_Warning_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    // windowWidth/windowHeight matched to the isolated clone's own
-                    // size (not the full page or the device's width) so capture is
-                    // always full-size, high-res, and correctly framed — on desktop
-                    // and mobile alike.
+                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for mobile stability
                     html2canvas:  {
-                        scale: 3, // HD resolution (blur khatam karega)
+                        scale: 4, // Optimal scale (avoids iPhone canvas memory crash)
                         useCORS: true,
-                        scrollX: 0,
                         scrollY: 0,
-                        windowWidth: clone.scrollWidth,
-                        windowHeight: clone.scrollHeight
+                        scrollX: 0
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                html2pdf().set(opt).from(clone).save().then(() => {
-                    document.body.removeChild(wrapper);
+                // DIRECTLY pass the element (no wrapper, no cloning) -> clean, memory-safe, perfect sizing
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore original styles & scroll position
+                    element.style.boxShadow = originalBoxShadow;
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
             });
@@ -764,6 +740,7 @@
         // Initial setup
         changeTheme();
     </script>
+    
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
         #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
