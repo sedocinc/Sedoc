@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Offer Letter Maker | sedoc</title>
-    <meta name="description" content="Create legally binding and professional job offer letters instantly. Free online offer letter generator with PDF export.">
-    <meta name="keywords" content="Offer Letter Generator, Job Offer Letter, Employment Letter, sedoc tools">
+    <title>Professional KPI Sheet Maker | sedoc</title>
+    <meta name="description" content="Generate professional employee KPI sheets and performance reviews. Free online KPI generator with auto-calculations and PDF export.">
+    <meta name="keywords" content="KPI Sheet Generator, Employee Performance Review, KPI Template, sedoc tools">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="sedoc">
-    <link rel="canonical" href="https://www.thesedoc.com/offer-letter.html" />
+    <link rel="canonical" href="https://www.thesedoc.com/kpi-sheet.html" />
 
-    <meta property="og:title" content="Professional Offer Letter Maker | sedoc">
-    <meta property="og:description" content="Create legally binding and professional job offer letters instantly. Free online offer letter generator with PDF export.">
-    <meta property="og:url" content="https://www.thesedoc.com/offer-letter.html">
+    <meta property="og:title" content="Professional KPI Sheet Maker | sedoc">
+    <meta property="og:description" content="Generate professional employee KPI sheets and performance reviews. Free online KPI generator with auto-calculations and PDF export.">
+    <meta property="og:url" content="https://www.thesedoc.com/kpi-sheet.html">
     <meta property="og:type" content="website">
 
+    <!-- ============================================================
+         FAVICON FIX: same as homepage. favicon.png / favicon.ico /
+         apple-touch-icon.png files root folder mein hona zaroori hai
+         (jahan index.html hai) — sab pages inhi shared files ko
+         use karenge kyunke path root-relative (/) hai.
+    ============================================================ -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -27,7 +33,7 @@
       gtag('js', new Date());
       gtag('config', 'G-NS6MJR5G0R');
     </script>
-    
+
     <!-- Premium Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -68,20 +74,23 @@
 
         /* Left: Editor Panel */
         .editor-panel { background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .editor-panel h1 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .editor-panel h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         
-        .form-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
+        .form-section { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border); }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .section-title { font-size: 0.9rem; font-weight: 700; color: #a302ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .section-title { font-size: 0.85rem; font-weight: 700; color: #a302ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
         .input-group.full { grid-column: span 2; }
         
-        label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
-        input, select { padding: 10px 14px; border: 1px solid var(--input-border); border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s; background: #f8fafc; width: 100%; }
-        input:focus, select:focus { border-color: var(--input-focus); background: #ffffff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
+        label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); }
+        input, select, textarea { padding: 10px; border: 1px solid var(--input-border); border-radius: 8px; font-size: 0.85rem; outline: none; transition: 0.3s; background: #f8fafc; width: 100%; }
+        input:focus, select:focus, textarea:focus { border-color: var(--input-focus); background: #ffffff; box-shadow: 0 0 0 3px rgba(163, 2, 255, 0.1); }
         input[type="file"] { padding: 8px; background: #ffffff; cursor: pointer; }
+
+        .btn-add-row { background: #f1f5f9; color: var(--text-dark); border: 1px solid var(--border); padding: 8px 15px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-add-row:hover { background: #e2e8f0; }
 
         /* Right: Live Preview Panel */
         .preview-panel { position: sticky; top: 90px; margin-bottom: 20px; }
@@ -89,82 +98,59 @@
         .btn-primary { background: var(--brand-color); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-primary:hover { background: #1e293b; }
         .editable-hint { font-size: 0.85rem; color: #fe0097; font-weight: 600; display: flex; align-items: center; gap: 5px; background: rgba(254,0,151,0.1); padding: 6px 12px; border-radius: 50px; }
-
+        
         /* =========================================
-           STRICT A4 PAGE FIT DESIGN
+           MULTI-PAGE SAFE A4 KPI SHEET DESIGN
            ========================================= */
         .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
         .letter-paper { 
             background: #ffffff; 
-            width: 210mm; /* Strict A4 Width */
-            min-height: 297mm; /* Standard A4 Height (Allows content to push to next page safely) */
-            padding: 20mm; 
+            width: 210mm; 
+            min-height: 297mm; /* Allows multi-page expansion */
+            padding: 15mm; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             margin: 0 auto;
             color: #1e293b;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            transition: all 0.3s ease;
+            font-size: 12px;
+            line-height: 1.4;
             position: relative;
         }
 
-        /* Inline Editing Style */
-        [contenteditable="true"] { outline: none; transition: background 0.2s; border-radius: 4px; }
+        .kpi-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 20px; }
+        .kpi-header h1 { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .kpi-header p { font-size: 11px; color: var(--text-gray); margin-top: 4px; }
+
+        .info-table { width: 100%; margin-bottom: 20px; border-collapse: collapse; page-break-inside: avoid; break-inside: avoid; }
+        .info-table td { padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+        .info-table td:nth-child(odd) { font-weight: 700; width: 20%; color: #64748b; }
+        .info-table td:nth-child(even) { width: 30%; color: #0f172a; }
+
+        /* KPI Data Table */
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
+        .data-table th { background: #0f172a; color: white; padding: 10px; font-size: 11px; text-align: left; text-transform: uppercase; }
+        .data-table td { padding: 10px; border: 1px solid #e2e8f0; font-size: 11px; vertical-align: top; word-wrap: break-word; }
+        .data-table tr { page-break-inside: avoid; break-inside: avoid; } /* Prevents rows splitting across pages */
+        .data-table .center { text-align: center; }
+        
+        .total-row { background: #f8fafc; font-weight: 800; font-size: 13px; page-break-inside: avoid; break-inside: avoid; }
+        .total-row td { border-top: 2px solid #0f172a; }
+
+        .comments-section { margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; page-break-inside: avoid; break-inside: avoid; }
+        .comments-section h3 { font-size: 12px; margin-bottom: 8px; text-transform: uppercase; color: #64748b; }
+
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 40px; page-break-inside: avoid; break-inside: avoid; }
+        .sign-box { border-top: 1px solid #0f172a; padding-top: 8px; text-align: center; }
+        .sign-box strong { display: block; font-size: 12px; }
+        .sign-box span { font-size: 10px; color: #64748b; }
+
+        /* Editable fields highlighting */
+        [contenteditable="true"] { outline: none; border-radius: 3px; transition: background 0.2s; }
         [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
         [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
-        
-        /* Elements Base Styles - Compacted Margins */
-        .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; border-bottom: 2px solid #0f172a; padding-bottom: 15px; }
-        .company-logo { max-height: 50px; max-width: 180px; object-fit: contain; }
-        .company-details { text-align: right; }
-        .company-details h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; color: #0f172a; }
-        .company-details p { font-size: 12px; color: #475569; line-height: 1.3; }
 
-        .date-row { margin-bottom: 20px; font-weight: 600; }
-        .candidate-address { margin-bottom: 20px; }
-        .candidate-address strong { display: block; font-size: 15px; margin-bottom: 4px; color: #0f172a; }
-        
-        .subject-line { font-weight: 700; margin-bottom: 15px; font-size: 15px; text-decoration: underline; }
-        .salutation { margin-bottom: 15px; }
-        
-        .letter-body p { margin-bottom: 12px; text-align: justify; line-height: 1.6; }
-        .highlight-var { font-weight: 700; color: #0f172a; }
-
-        /* MULTI-PAGE FIXES: Prevent these blocks from being split awkwardly across pages */
-        .compensation-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 15px; border-radius: 8px; margin: 15px 0; page-break-inside: avoid; break-inside: avoid; }
-        .compensation-box p { margin: 0; font-weight: 600; color: #0f172a; }
-
-        .signature-section { margin-top: 30px; display: flex; justify-content: space-between; page-break-inside: avoid; break-inside: avoid; }
-        .sign-block { width: 45%; }
-        .sign-line { border-bottom: 1px solid #0f172a; margin-bottom: 8px; height: 35px; }
-        .sign-block strong { display: block; font-size: 14px; color: #0f172a; }
-        .sign-block span { font-size: 12px; color: #64748b; }
-
-        /* =========================================
-           5 PROFESSIONAL THEMES
-           ========================================= */
-        .theme-standard { }
-
-        .theme-modern .letter-header { border-top: 6px solid; border-image: var(--brand-gradient) 1; padding-top: 15px; border-bottom: 1px solid #cbd5e1; }
-        .theme-modern .company-details h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .theme-modern .compensation-box { border-left: 4px solid #fe0097; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-
-        .theme-executive .letter-header { background: #0f172a; color: white; padding: 20mm; margin: -20mm -20mm 25px -20mm; border-bottom: none; }
-        .theme-executive .company-details h2 { color: white; }
-        .theme-executive .company-details p { color: #94a3b8; }
-        .theme-executive .compensation-box { background: #0f172a; color: white; border: none; }
-        .theme-executive .compensation-box p, .theme-executive .compensation-box .highlight-var { color: white; }
-
-        .theme-agency .letter-header { background: #f8fafc; padding: 20px; border-radius: 12px; border-bottom: none; border-left: 6px solid #3b82f6; margin-bottom: 25px; }
-        .theme-agency .compensation-box { background: #f0f9ff; border: 1px dashed #bae6fd; border-radius: 12px; }
-        .theme-agency .sign-line { border-bottom: 1px dashed #94a3b8; }
-
-        .theme-formal .letter-header { border-bottom: 4px double #000; padding-bottom: 15px; }
-        .theme-formal .company-details h2 { font-family: "Georgia", "Times New Roman", serif; letter-spacing: 1px; }
-        .theme-formal .subject-line { text-transform: uppercase; font-family: "Georgia", serif; }
-        .theme-formal .compensation-box { border: 2px solid #000; background: transparent; border-radius: 0; }
-        .theme-formal .highlight-var { text-decoration: underline; }
+        /* Utility */
+        .highlight { color: #a302ff; font-weight: 700; }
 
         /* =========================================
            ADSENSE & FOOTER
@@ -181,7 +167,7 @@
         .footer-links a:hover { color: #a302ff; }
         .footer-bottom { color: #94a3b8; font-size: 0.8rem; border-top: 1px solid var(--border); width: 100%; padding-top: 20px; }
 
-        /* Donate Modal */
+        /* Donate Modal (same as homepage / offer-letter) */
         .donate-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .donate-overlay.active { display: flex; }
         .donate-modal { background: #ffffff; border-radius: 24px; padding: 40px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -234,6 +220,18 @@
         .seo-article-section p { font-size: 1rem; color: var(--text-gray); line-height: 1.7; margin-bottom: 15px; }
     </style>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "sedoc KPI Sheet Maker",
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication",
+      "url": "https://www.thesedoc.com/kpi-sheet.html",
+      "description": "Build weighted employee KPI and performance review sheets with automatic scoring, ready for signature and filing.",
+      "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" }
+    }
+    </script>
 </head>
 <body>
 
@@ -248,109 +246,61 @@
     <main class="workspace">
         
         <!-- EDITOR PANEL -->
-        <div class="editor-panel" id="form-container">
-            <h1><i class="fas fa-envelope-open-text"></i> Offer Letter Setup</h1>
-            
+        <div class="editor-panel">
+            <h2><i class="fas fa-tasks"></i> KPI Sheet Setup</h2>
+
             <!-- Settings & Branding -->
             <div class="form-section">
                 <div class="section-title">Settings & Branding</div>
                 <div class="input-grid">
-                    <div class="input-group">
-                        <label>Design Theme</label>
-                        <select id="in-theme" onchange="changeTheme()">
-                            <option value="theme-standard" selected>1. Standard Corporate</option>
-                            <option value="theme-modern">2. sedoc Modern Tech</option>
-                            <option value="theme-executive">3. Executive Dark Header</option>
-                            <option value="theme-agency">4. Creative Agency</option>
-                            <option value="theme-formal">5. Formal Legal / Classic</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
+                    <div class="input-group full">
                         <label>Company Logo</label>
                         <input type="file" id="in-logo" accept="image/*">
                     </div>
                 </div>
             </div>
 
-            <!-- Company Details -->
+            <!-- Employee Info -->
             <div class="form-section">
-                <div class="section-title">Company Info</div>
+                <div class="section-title">Employee Information</div>
                 <div class="input-grid">
-                    <div class="input-group full">
-                        <label>Company Name</label>
-                        <input type="text" id="in-company" value="Your Company Name" class="sync-text" data-target="out-company, out-company-body">
+                    <div class="input-group">
+                        <label>Employee Name</label>
+                        <input type="text" id="in-name" placeholder="John Doe" class="sync-text" data-target="out-name">
                     </div>
-                    <div class="input-group full">
-                        <label>Company Address</label>
-                        <input type="text" id="in-comp-address" value="Company Full Address" class="sync-text" data-target="out-comp-address">
+                    <div class="input-group">
+                        <label>Employee ID</label>
+                        <input type="text" id="in-id" placeholder="EMP-405" class="sync-text" data-target="out-id">
+                    </div>
+                    <div class="input-group">
+                        <label>Department</label>
+                        <input type="text" id="in-dept" placeholder="Sales / IT" class="sync-text" data-target="out-dept">
+                    </div>
+                    <div class="input-group">
+                        <label>Review Period</label>
+                        <input type="text" id="in-period" placeholder="Q1 2026" class="sync-text" data-target="out-period">
                     </div>
                 </div>
             </div>
 
-            <!-- Candidate Details -->
+            <!-- KPI Rows Editor -->
             <div class="form-section">
-                <div class="section-title">Candidate Info</div>
-                <div class="input-grid">
-                    <div class="input-group full">
-                        <label>Candidate Name</label>
-                        <input type="text" id="in-cand-name" placeholder="John Doe" class="sync-text" data-target="out-cand-name, out-cand-salutation">
-                    </div>
-                    <div class="input-group full">
-                        <label>Candidate Address</label>
-                        <input type="text" id="in-cand-address" placeholder="456 Avenue, NY 10001" class="sync-text" data-target="out-cand-address">
+                <div class="section-title">Key Performance Indicators</div>
+                <div id="kpi-rows-container">
+                    <!-- Row Input Template -->
+                    <div class="kpi-input-row" style="display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" placeholder="KPI Indicator" class="row-indicator" oninput="calculateKPI()">
+                        <input type="number" placeholder="Weight %" class="row-weight" oninput="calculateKPI()">
+                        <input type="number" placeholder="Score 1-10" class="row-score" oninput="calculateKPI()">
                     </div>
                 </div>
+                <button class="btn-add-row" onclick="addInputRow()"><i class="fas fa-plus"></i> Add KPI Row</button>
             </div>
 
-            <!-- Job Details -->
+            <!-- Comments -->
             <div class="form-section">
-                <div class="section-title">Job Details</div>
-                <div class="input-grid">
-                    <div class="input-group full">
-                        <label>Designation / Job Title</label>
-                        <input type="text" id="in-job-title" placeholder="Senior Software Engineer" class="sync-text" data-target="out-job-title, out-job-body">
-                    </div>
-                    <div class="input-group">
-                        <label>Date of Issue</label>
-                        <input type="date" id="in-issue-date" class="sync-text" data-target="out-issue-date">
-                    </div>
-                    <div class="input-group">
-                        <label>Joining Date</label>
-                        <input type="date" id="in-join-date" class="sync-text" data-target="out-join-date">
-                    </div>
-                    <div class="input-group">
-                        <label>Currency</label>
-                        <select id="in-currency" class="sync-text" data-target="out-currency">
-                            <option value="PKR" selected>PKR (Rs)</option>
-                            <option value="USD">USD ($)</option>
-                            <option value="EUR">EUR (€)</option>
-                            <option value="GBP">GBP (£)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Annual Salary</label>
-                        <input type="number" id="in-salary" placeholder="1200000" class="sync-text" data-target="out-salary">
-                    </div>
-                    <div class="input-group full">
-                        <label>Probation Period</label>
-                        <input type="text" id="in-probation" value="3 Months" class="sync-text" data-target="out-probation">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Signatory Details -->
-            <div class="form-section">
-                <div class="section-title">Authorized Signatory</div>
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label>Signatory Name</label>
-                        <input type="text" id="in-sig-name" value="Jane Smith" class="sync-text" data-target="out-sig-name">
-                    </div>
-                    <div class="input-group">
-                        <label>Signatory Title</label>
-                        <input type="text" id="in-sig-title" value="HR Manager" class="sync-text" data-target="out-sig-title">
-                    </div>
-                </div>
+                <div class="section-title">Reviewer Remarks</div>
+                <textarea id="in-remarks" rows="3" placeholder="Manager's feedback..." oninput="updateRemarks()"></textarea>
             </div>
         </div>
 
@@ -358,74 +308,68 @@
         <div class="preview-panel">
             <div class="preview-header">
                 <div class="editable-hint"><i class="fas fa-magic"></i> Click any text below to edit directly</div>
-                <button class="btn-primary" id="downloadTriggerBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                <button class="btn-primary" id="downloadTriggerBtn"><i class="fas fa-file-pdf"></i> Download KPI PDF</button>
             </div>
 
             <div class="letter-container">
-                <!-- The Actual A4 Paper Letter -->
-                <div class="letter-paper theme-standard" id="letter-paper">
+                <div class="letter-paper" id="letter-paper">
                     
-                    <!-- Header -->
-                    <div class="letter-header">
-                        <div class="letter-header-left">
-                            <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
+                    <div class="kpi-header">
+                        <img id="out-logo" src="" style="display:none; max-height:45px; max-width:170px; object-fit:contain; margin:0 auto 10px;" alt="Company Logo">
+                        <h1 contenteditable="true">Employee Performance KPI Sheet</h1>
+                        <p contenteditable="true">Confidential Review Document - 2026</p>
+                    </div>
+
+                    <table class="info-table">
+                        <tr>
+                            <td contenteditable="true">Employee Name:</td>
+                            <td id="out-name" contenteditable="true"></td>
+                            <td contenteditable="true">Employee ID:</td>
+                            <td id="out-id" contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true">Department:</td>
+                            <td id="out-dept" contenteditable="true"></td>
+                            <td contenteditable="true">Review Period:</td>
+                            <td id="out-period" contenteditable="true"></td>
+                        </tr>
+                    </table>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%;" contenteditable="true">Performance Indicator (KPI)</th>
+                                <th class="center" style="width: 15%;" contenteditable="true">Weight (%)</th>
+                                <th class="center" style="width: 15%;" contenteditable="true">Score (1-10)</th>
+                                <th class="center" style="width: 20%;" contenteditable="true">Weighted Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="out-kpi-body">
+                            <!-- Dynamic rows will appear here with contenteditable -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td contenteditable="true">TOTAL PERFORMANCE SCORE</td>
+                                <td id="total-weight" class="center" contenteditable="true">0%</td>
+                                <td class="center" contenteditable="true">-</td>
+                                <td id="final-avg" class="center" style="color:#a302ff;" contenteditable="true">0%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="comments-section">
+                        <h3 contenteditable="true">Reviewer's Comments & Feedback</h3>
+                        <p id="out-remarks" contenteditable="true" style="min-height: 60px;">Excellent performance during this period. Key targets were met with high efficiency.</p>
+                    </div>
+
+                    <div class="signature-grid">
+                        <div class="sign-box">
+                            <strong contenteditable="true">Line Manager Name</strong>
+                            <span contenteditable="true">Appraiser Signature</span>
                         </div>
-                        <div class="company-details" contenteditable="true">
-                            <h2 id="out-company">Your Company Name</h2>
-                            <p id="out-comp-address">Company Full Address</p>
-                        </div>
-                    </div>
-
-                    <!-- Letter Content -->
-                    <div class="date-row" contenteditable="true">
-                        Date: <span id="out-issue-date"></span>
-                    </div>
-
-                    <div class="candidate-address" contenteditable="true">
-                        <strong id="out-cand-name"></strong>
-                        <span id="out-cand-address"></span>
-                    </div>
-
-                    <div class="subject-line" contenteditable="true">
-                        Subject: Offer of Employment - <span id="out-job-title"></span>
-                    </div>
-
-                    <div class="salutation" contenteditable="true">
-                        Dear <span id="out-cand-salutation"></span>,
-                    </div>
-
-                    <div class="letter-body">
-                        <p contenteditable="true">
-                            We are thrilled to offer you the position of <span class="highlight-var" id="out-job-body"></span> at <span class="highlight-var" id="out-company-body"></span>. During our interview process, we were highly impressed by your skills, experience, and cultural fit for our team. We believe you will be a valuable addition to our company.
-                        </p>
-                        <p contenteditable="true">
-                            Your expected starting date will be <span class="highlight-var" id="out-join-date"></span>. You will be on a probation period of <span class="highlight-var" id="out-probation"></span>, during which your performance will be evaluated. 
-                        </p>
-
-                        <div class="compensation-box" contenteditable="true">
-                            <p>Compensation Package:</p>
-                            Your starting annual compensation will be <span class="highlight-var"><span id="out-currency">PKR</span> <span id="out-salary"></span></span>, subject to standard tax deductions as per government regulations.
-                        </div>
-
-                        <p contenteditable="true">
-                            By accepting this offer, you agree to the standard terms and conditions of employment, confidentiality, and non-disclosure agreements of the company. A detailed employment contract will be provided to you on your joining date.
-                        </p>
-                        <p contenteditable="true">
-                            Please sign and return a copy of this letter to indicate your acceptance of this offer. We look forward to welcoming you aboard and achieving great success together!
-                        </p>
-                    </div>
-
-                    <!-- Signatures -->
-                    <div class="signature-section">
-                        <div class="sign-block">
-                            <div class="sign-line"></div>
-                            <strong id="out-sig-name" contenteditable="true">Jane Smith</strong>
-                            <span id="out-sig-title" contenteditable="true">HR Manager</span>
-                        </div>
-                        <div class="sign-block">
-                            <div class="sign-line"></div>
-                            <strong contenteditable="true">Accepted By:</strong>
-                            <span contenteditable="true">Candidate Signature</span>
+                        <div class="sign-box">
+                            <strong id="out-name-sign" contenteditable="true">Employee Name</strong>
+                            <span contenteditable="true">Employee Acknowledgment</span>
                         </div>
                     </div>
 
@@ -434,13 +378,14 @@
         </div>
     </main>
 
-    <!-- Google AdSense Real Ad Unit -->
+    <!-- Google AdSense Real Ad Unit (UPDATED) -->
     <div class="ad-container">
         <span class="ad-label">Advertisement</span>
+        <!-- kpi-sheet.html -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4598765809021376"
-             data-ad-slot="8422543747"
+             data-ad-slot="8315601107"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -464,40 +409,39 @@
         </div>
     </div>
 
-    <!-- Download Ad Modal -->
+    <!-- Download Ad Modal (UPDATED) -->
     <div class="donate-overlay" id="downloadOverlay">
         <div class="download-modal">
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
-            <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your Offer Letter is Ready</h3>
+            <h3><i class="fas fa-file-pdf" style="color:#ef4444; margin-right:6px;"></i>Your KPI Sheet is Ready</h3>
             <p>Your PDF is being prepared. Thanks for using sedoc!</p>
             <div class="download-ad-slot">
+                <!-- kpi-sheet.html -->
                 <ins class="adsbygoogle"
                      style="display:block; width:100%; min-height:100px;"
                      data-ad-client="ca-pub-4598765809021376"
-                     data-ad-slot="8422543747"
+                     data-ad-slot="8315601107"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
             <button class="download-now-btn" id="downloadNowBtn"><i class="fas fa-download"></i> Download Now</button>
         </div>
     </div>
 
+    <!-- Default Footer -->
     <!-- SEO ARTICLE SECTION -->
     <section class="seo-article-section">
-        <h2>Free Offer Letter Maker for HR Teams & Startups</h2>
-        <p>A well-formatted offer letter sets the tone for a new hire's entire experience with your company. The <strong>sedoc Offer Letter Maker</strong> turns a candidate's job title, salary, and joining date into a professional, ready-to-sign letter in seconds — no legal template hunting required.</p>
+        <h2>Free KPI Sheet & Employee Performance Review Template</h2>
+        <p>Tracking performance in a plain spreadsheet makes it easy to lose consistency between reviewers. The <strong>sedoc KPI Sheet Maker</strong> gives every review a standard, weighted format so scores stay comparable across employees and review cycles.</p>
 
-        <h3>1. Five Design Themes for Every Company Style</h3>
-        <p>Pick from Standard Corporate, sedoc Modern Tech, Executive Dark Header, Creative Agency, or Formal Legal / Classic layouts, so the letter fits anything from a startup to a legal firm.</p>
+        <h3>1. Weighted Scoring, Calculated Automatically</h3>
+        <p>Assign a weight percentage and a 1–10 score to each KPI row, and the tool calculates the weighted score per indicator and the total performance score for the review period without any manual arithmetic.</p>
 
-        <h3>2. Click-to-Edit Letter Text</h3>
-        <p>Beyond the form fields, every sentence in the generated letter — the welcome paragraph, compensation clause, and probation terms — can be edited directly in the live preview, so you can adjust wording without touching a Word document.</p>
+        <h3>2. Works for Any Department</h3>
+        <p>Because KPI rows are fully custom — you name the indicator, set the weight, and add the score — the same sheet works for sales targets, engineering delivery metrics, customer support ratings, or any other department's KPIs.</p>
 
-        <h3>3. Standard Employment Clauses Built In</h3>
-        <p>The template already includes a compensation summary, probation period, and a confidentiality/terms acceptance clause, keeping the letter close to what most HR departments require before it goes to a candidate for signature.</p>
+        <h3>3. Signature-Ready for Filing</h3>
+        <p>Each sheet includes a reviewer comments section plus signature lines for the line manager and the employee, so the exported PDF is ready to be filed as an official record without further editing.</p>
     </section>
 
     <!-- Related Tools -->
@@ -512,6 +456,13 @@
                         <p>Create payslips with tax auto-calculation.</p>
                     </div>
                 </a>
+                <a href="offer-letter.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="rt-text">
+                        <h3>Offer Letter Maker</h3>
+                        <p>Draft professional job offer letters.</p>
+                    </div>
+                </a>
                 <a href="experience-letter.html" class="related-tool-card">
                     <div class="rt-icon"><i class="fas fa-award"></i></div>
                     <div class="rt-text">
@@ -519,11 +470,11 @@
                         <p>Generate official experience certificates.</p>
                     </div>
                 </a>
-                <a href="kpi-sheet.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-chart-line"></i></div>
+                <a href="resume-builder.html" class="related-tool-card">
+                    <div class="rt-icon"><i class="fas fa-id-card"></i></div>
                     <div class="rt-text">
-                        <h3>KPI Sheet Maker</h3>
-                        <p>Build employee performance review sheets.</p>
+                        <h3>Resume Builder</h3>
+                        <p>Build an ATS-friendly resume in minutes.</p>
                     </div>
                 </a>
                 <a href="warning-letter.html" class="related-tool-card">
@@ -531,13 +482,6 @@
                     <div class="rt-text">
                         <h3>Warning Letter Maker</h3>
                         <p>Create HR disciplinary warning letters.</p>
-                    </div>
-                </a>
-                <a href="resume-builder.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-id-card"></i></div>
-                    <div class="rt-text">
-                        <h3>Resume Builder</h3>
-                        <p>Build an ATS-friendly resume in minutes.</p>
                     </div>
                 </a>
                 <a href="invoice-generator.html" class="related-tool-card">
@@ -587,26 +531,21 @@
 
     <!-- Core Logic Script -->
     <script>
-        // --- 1. Intelligent Text Syncing ---
+        // --- 1. Sync Basic Info ---
         document.querySelectorAll('.sync-text').forEach(input => {
             input.addEventListener('input', function() {
-                const targetIds = this.getAttribute('data-target').split(',');
-                targetIds.forEach(id => {
-                    const el = document.getElementById(id.trim());
-                    if(el) {
-                        if(this.id === 'in-salary') {
-                            el.innerText = this.value ? Number(this.value).toLocaleString() : '\u200B';
-                        } else {
-                            el.innerText = this.value || '\u200B';
-                        }
-                    }
-                });
+                const targetId = this.getAttribute('data-target');
+                const el = document.getElementById(targetId);
+                const elSign = document.getElementById(targetId + '-sign');
+                if(el) el.innerText = this.value || '\u200B';
+                if(elSign) elSign.innerText = this.value || '\u200B';
             });
+            // Initial trigger
             const event = new Event('input');
             input.dispatchEvent(event);
         });
 
-        // --- 2. Logo Upload ---
+        // --- 1b. Logo Upload ---
         document.getElementById('in-logo').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -620,29 +559,81 @@
             }
         });
 
-        // --- 3. Theme Switcher ---
-        function changeTheme() {
-            const selectedTheme = document.getElementById('in-theme').value;
-            const letterPaper = document.getElementById('letter-paper');
-            letterPaper.className = 'letter-paper';
-            letterPaper.classList.add(selectedTheme);
+        // --- 2. Dynamic Rows Management ---
+        function addInputRow() {
+            const container = document.getElementById('kpi-rows-container');
+            const div = document.createElement('div');
+            div.className = 'kpi-input-row';
+            div.style = "display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 10px; margin-bottom: 10px;";
+            div.innerHTML = `
+                <input type="text" placeholder="KPI Indicator" class="row-indicator" oninput="calculateKPI()">
+                <input type="number" placeholder="Weight %" class="row-weight" oninput="calculateKPI()">
+                <input type="number" placeholder="Score 1-10" class="row-score" oninput="calculateKPI()">
+            `;
+            container.appendChild(div);
+            calculateKPI();
+        }
+
+        // --- 3. Main Calculation Logic ---
+        function calculateKPI() {
+            const indicators = document.querySelectorAll('.row-indicator');
+            const weights = document.querySelectorAll('.row-weight');
+            const scores = document.querySelectorAll('.row-score');
+            const outBody = document.getElementById('out-kpi-body');
+            
+            let totalWeight = 0;
+            let weightedSum = 0;
+            let html = '';
+
+            indicators.forEach((ind, index) => {
+                const w = parseFloat(weights[index].value) || 0;
+                const s = parseFloat(scores[index].value) || 0;
+                const weightedScore = (w * s) / 10; // Assuming score is out of 10
+
+                totalWeight += w;
+                weightedSum += weightedScore;
+
+                // Make dynamic cells directly editable too!
+                html += `
+                    <tr>
+                        <td contenteditable="true">${ind.value || '\u200B'}</td>
+                        <td class="center" contenteditable="true">${w}%</td>
+                        <td class="center" contenteditable="true">${s}/10</td>
+                        <td class="center" contenteditable="true">${weightedScore.toFixed(1)}%</td>
+                    </tr>
+                `;
+            });
+
+            outBody.innerHTML = html;
+            document.getElementById('total-weight').innerText = totalWeight + '%';
+            document.getElementById('final-avg').innerText = weightedSum.toFixed(1) + '%';
+            
+            // Highlight color based on performance
+            const finalEl = document.getElementById('final-avg');
+            if(weightedSum >= 80) finalEl.style.color = '#10b981'; // Green
+            else if(weightedSum >= 50) finalEl.style.color = '#f59e0b'; // Amber
+            else finalEl.style.color = '#ef4444'; // Red
+        }
+
+        function updateRemarks() {
+            document.getElementById('out-remarks').innerText = document.getElementById('in-remarks').value || '\u200B';
         }
 
         // --- 4. PDF Exporter (Unified, Memory-Safe Approach) ---
         function downloadPDF() {
             const original = document.getElementById('letter-paper');
-            const candName = document.getElementById('in-cand-name').value || 'Candidate';
-
-            // IMPORTANT: Un-focus any editable content to hide the purple hover/focus outlines & cursors in PDF
+            const empName = document.getElementById('in-name').value || 'Employee';
+            
+            // Remove focus outline before generating PDF
             document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
             if (document.activeElement) document.activeElement.blur(); // Extra safety measure
 
-            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
+            // Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // 2. Clone the document into an isolated off-screen wrapper
+            // Clone the sheet into an isolated off-screen wrapper
             const clone = original.cloneNode(true);
             clone.style.boxShadow = 'none';
             clone.style.width = '210mm'; // Force exact A4 width
@@ -661,7 +652,7 @@
             wrapper.appendChild(clone);
             document.body.appendChild(wrapper);
 
-            // 3. Ensure images are loaded before capture
+            // Ensure images are fully loaded before capture
             const imgs = wrapper.querySelectorAll('img');
             const waitForImages = Promise.all(
                 Array.from(imgs).map(img => img.complete ? Promise.resolve() :
@@ -671,19 +662,19 @@
 
             waitForImages.then(() => {
                 const opt = {
-                    margin:       0,
-                    filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
-                    html2canvas:  {
+                    margin: 0,
+                    filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
+                    image: { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
+                    html2canvas: {
                         scale: 3, // Scale 3 is optimal for crisp text without crashing mobile devices
                         useCORS: true,
-                        scrollY: 0,
                         scrollX: 0,
+                        scrollY: 0,
                         windowWidth: clone.scrollWidth,
                         windowHeight: clone.scrollHeight
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-                    pagebreak:    { mode: ['css', 'legacy'] } // Allows multi-page if content is long
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+                    pagebreak: { mode: ['css', 'legacy'] } // Allows multi-page if content is long
                 };
 
                 // Generate PDF from the isolated clone
@@ -706,7 +697,9 @@
             downloadOverlay.classList.add('active');
             if (!downloadAdLoaded) {
                 downloadAdLoaded = true;
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                if (window.adsbygoogle) {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
             }
         });
         downloadClose.addEventListener('click', function() {
@@ -757,8 +750,10 @@
                 downloadOverlay.classList.remove('active');
             }
         });
+
+        // Initial Row execution
+        calculateKPI();
     </script>
-    
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
         #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
