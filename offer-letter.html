@@ -96,25 +96,26 @@
         .letter-container { background: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; }
         .letter-paper { 
             background: #ffffff; 
-            width: 210mm; /* Strict A4 Width */
-            min-height: 297mm; /* Standard A4 Height (Allows content to push to next page safely) */
+            width: 210mm; 
+            min-height: 297mm; 
             padding: 20mm; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            margin: 0 auto;
-            color: #1e293b;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            transition: all 0.3s ease;
-            position: relative;
+            margin: 0 auto; 
+            color: #1e293b; 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            font-size: 14px; 
+            line-height: 1.5; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            box-sizing: border-box;
         }
 
         /* Inline Editing Style */
-        [contenteditable="true"] { outline: none; transition: background 0.2s; border-radius: 4px; }
-        [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); cursor: text; }
-        [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); box-shadow: 0 0 0 2px rgba(163, 2, 255, 0.3); }
+        [contenteditable="true"] { outline: none; transition: background 0.2s; border-radius: 4px; border: 1px solid transparent; }
+        [contenteditable="true"]:hover { background: rgba(163, 2, 255, 0.05); border: 1px dashed rgba(163, 2, 255, 0.3); cursor: text; }
+        [contenteditable="true"]:focus { background: rgba(163, 2, 255, 0.1); border: 1px solid rgba(163, 2, 255, 0.5); }
         
-        /* Elements Base Styles - Compacted Margins */
+        /* Elements Base Styles */
         .letter-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; border-bottom: 2px solid #0f172a; padding-bottom: 15px; }
         .company-logo { max-height: 50px; max-width: 180px; object-fit: contain; }
         .company-details { text-align: right; }
@@ -463,7 +464,7 @@
         </div>
     </div>
 
-    <!-- Download Ad Modal (UPDATED: Cleaned up script tag) -->
+    <!-- Download Ad Modal -->
     <div class="donate-overlay" id="downloadOverlay">
         <div class="download-modal">
             <button class="donate-close" id="downloadClose"><i class="fas fa-times"></i></button>
@@ -501,62 +502,62 @@
         <h2>Explore More Free Tools</h2>
         <p class="rt-sub">Everything you need to run HR & finance paperwork, all in one place.</p>
         <div class="related-tools-grid">
-                <a href="salary-slip.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <div class="rt-text">
-                        <h3>Salary Slip Generator</h3>
-                        <p>Create payslips with tax auto-calculation.</p>
-                    </div>
-                </a>
-                <a href="experience-letter.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-award"></i></div>
-                    <div class="rt-text">
-                        <h3>Experience Letter Maker</h3>
-                        <p>Generate official experience certificates.</p>
-                    </div>
-                </a>
-                <a href="kpi-sheet.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="rt-text">
-                        <h3>KPI Sheet Maker</h3>
-                        <p>Build employee performance review sheets.</p>
-                    </div>
-                </a>
-                <a href="warning-letter.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-triangle-exclamation"></i></div>
-                    <div class="rt-text">
-                        <h3>Warning Letter Maker</h3>
-                        <p>Create HR disciplinary warning letters.</p>
-                    </div>
-                </a>
-                <a href="resume-builder.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-id-card"></i></div>
-                    <div class="rt-text">
-                        <h3>Resume Builder</h3>
-                        <p>Build an ATS-friendly resume in minutes.</p>
-                    </div>
-                </a>
-                <a href="invoice-generator.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-file-invoice"></i></div>
-                    <div class="rt-text">
-                        <h3>Invoice Generator</h3>
-                        <p>Design print-ready invoices in seconds.</p>
-                    </div>
-                </a>
-                <a href="tax-calculator.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-calculator"></i></div>
-                    <div class="rt-text">
-                        <h3>GST & VAT Calculator</h3>
-                        <p>Add or reverse-calculate GST/VAT/Sales Tax.</p>
-                    </div>
-                </a>
-                <a href="quotation-maker.html" class="related-tool-card">
-                    <div class="rt-icon"><i class="fas fa-file-contract"></i></div>
-                    <div class="rt-text">
-                        <h3>Quotation Maker</h3>
-                        <p>Create winning project quotations & estimates.</p>
-                    </div>
-                </a>
+            <a href="salary-slip.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="rt-text">
+                    <h3>Salary Slip Generator</h3>
+                    <p>Create payslips with tax auto-calculation.</p>
+                </div>
+            </a>
+            <a href="experience-letter.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-award"></i></div>
+                <div class="rt-text">
+                    <h3>Experience Letter Maker</h3>
+                    <p>Generate official experience certificates.</p>
+                </div>
+            </a>
+            <a href="kpi-sheet.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="rt-text">
+                    <h3>KPI Sheet Maker</h3>
+                    <p>Build employee performance review sheets.</p>
+                </div>
+            </a>
+            <a href="warning-letter.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                <div class="rt-text">
+                    <h3>Warning Letter Maker</h3>
+                    <p>Create HR disciplinary warning letters.</p>
+                </div>
+            </a>
+            <a href="resume-builder.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-id-card"></i></div>
+                <div class="rt-text">
+                    <h3>Resume Builder</h3>
+                    <p>Build an ATS-friendly resume in minutes.</p>
+                </div>
+            </a>
+            <a href="invoice-generator.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-file-invoice"></i></div>
+                <div class="rt-text">
+                    <h3>Invoice Generator</h3>
+                    <p>Design print-ready invoices in seconds.</p>
+                </div>
+            </a>
+            <a href="tax-calculator.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-calculator"></i></div>
+                <div class="rt-text">
+                    <h3>GST & VAT Calculator</h3>
+                    <p>Add or reverse-calculate GST/VAT/Sales Tax.</p>
+                </div>
+            </a>
+            <a href="quotation-maker.html" class="related-tool-card">
+                <div class="rt-icon"><i class="fas fa-file-contract"></i></div>
+                <div class="rt-text">
+                    <h3>Quotation Maker</h3>
+                    <p>Create winning project quotations & estimates.</p>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -624,65 +625,85 @@
             letterPaper.classList.add(selectedTheme);
         }
 
-        // --- 4. PDF Exporter (Unified, Memory-Safe Approach) ---
+        // --- 4. PDF Exporter (Ultimate A4 Fix) ---
         function downloadPDF() {
             const original = document.getElementById('letter-paper');
-            const candName = document.getElementById('in-cand-name').value || 'Candidate';
+            const candName = (document.getElementById('in-cand-name').value || 'Candidate').trim();
 
-            // IMPORTANT: Un-focus any editable content to hide the purple hover/focus outlines & cursors in PDF
-            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
 
-            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
+            // Save scroll state
             const savedScrollX = window.scrollX;
             const savedScrollY = window.scrollY;
             window.scrollTo(0, 0);
 
-            // 2. Clone the document into an isolated off-screen wrapper
+            // Clone the node
             const clone = original.cloneNode(true);
+
+            // --- STRICT JAVASCRIPT STYLING TO OVERRIDE ALL BROWSER QUIRKS ---
+            clone.style.width = '794px';       // Exact 210mm in screen pixels
+            clone.style.minHeight = '1122px';  // Exact 297mm in screen pixels
+            clone.style.padding = '50px 60px'; // Safe interior margin
+            clone.style.margin = '0';
             clone.style.boxShadow = 'none';
-            clone.style.width = '210mm'; // Force exact A4 width
-            clone.style.minHeight = '297mm';
-            clone.style.overflow = 'visible';
+            clone.style.boxSizing = 'border-box';
+            clone.style.backgroundColor = '#ffffff';
 
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute';
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
+            // Strip ALL contenteditable properties from clone so borders/highlights NEVER show in PDF
+            clone.querySelectorAll('[contenteditable]').forEach(el => {
+                el.removeAttribute('contenteditable');
+                el.style.border = 'none';
+                el.style.outline = 'none';
+                el.style.background = 'transparent';
+                el.style.boxShadow = 'none';
+            });
 
-            // 3. Ensure images are loaded before capture
-            const imgs = wrapper.querySelectorAll('img');
-            const waitForImages = Promise.all(
-                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
-                    new Promise(res => { img.onload = res; img.onerror = res; })
-                )
-            );
+            // Create offscreen container
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.top = '0';
+            container.style.left = '-9999px'; // Move fully off-screen to prevent flash
+            container.style.width = '794px';
+            container.style.backgroundColor = '#ffffff';
+            container.appendChild(clone);
+            document.body.appendChild(container);
 
-            waitForImages.then(() => {
+            // Wait for images
+            const images = Array.from(clone.querySelectorAll('img'));
+            const imagePromises = images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(res => { img.onload = res; img.onerror = res; });
+            });
+
+            Promise.all(imagePromises).then(() => {
                 const opt = {
-                    margin:       0,
+                    margin:       0, // Handled safely by our 50px/60px inner padding now
                     filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
+                    image:        { type: 'jpeg', quality: 1.0 },
                     html2canvas:  {
-                        scale: 3, // Scale 3 is optimal for crisp text without crashing mobile devices
+                        scale: 2, // High resolution text
                         useCORS: true,
+                        logging: false,
                         scrollY: 0,
                         scrollX: 0,
-                        windowWidth: clone.scrollWidth,
-                        windowHeight: clone.scrollHeight
+                        width: 794 // Lock to exact width
                     },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-                    pagebreak:    { mode: ['css', 'legacy'] } // Allows multi-page if content is long
+                    jsPDF: { 
+                        unit: 'mm', 
+                        format: 'a4', 
+                        orientation: 'portrait' 
+                    }
                 };
 
-                // Generate PDF from the isolated clone
                 html2pdf().set(opt).from(clone).save().then(() => {
-                    // Cleanup
-                    document.body.removeChild(wrapper);
+                    // Cleanup and restore view
+                    document.body.removeChild(container);
+                    window.scrollTo(savedScrollX, savedScrollY);
+                }).catch(err => {
+                    console.error('PDF export failed:', err);
+                    if (container.parentNode) document.body.removeChild(container);
                     window.scrollTo(savedScrollX, savedScrollY);
                 });
             });
@@ -752,7 +773,7 @@
         });
     </script>
     
-    <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
+    <!-- ===== sedoc Language Switcher ===== -->
     <style>
         #sedocLangWidget { position: fixed; bottom: 22px; right: 22px; z-index: 999999; font-family: 'Inter', sans-serif; }
         #sedocLangWidget .lang-toggle {
@@ -778,7 +799,6 @@
         #sedocLangWidget .lang-panel.open { display: block; }
         #sedocLangWidget .lang-panel-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 800; padding: 4px 6px 8px; }
         #sedocLangWidget #google_translate_element { padding: 2px 4px; }
-        /* Neutralize Google's default widget chrome so it fits our card */
         #sedocLangWidget .goog-te-gadget { font-family: 'Inter', sans-serif !important; font-size: 0px !important; color: transparent !important; }
         #sedocLangWidget .goog-te-gadget > span > a { display: none !important; }
         #sedocLangWidget .goog-te-gadget .goog-te-combo {
@@ -828,7 +848,5 @@
             });
         })();
     </script>
-    <!-- ===== end sedoc Language Switcher ===== -->
-
 </body>
 </html>
