@@ -208,6 +208,10 @@
         details p { margin-top: 15px; font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; padding-top: 15px; border-top: 1px dashed var(--border); }
 
         .testimonials-section { margin: 60px 0; padding: 20px 0; position: relative; }
+        .use-case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 1150px; margin: 0 auto; padding: 0 5%; }
+        .use-case-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 20px; padding: 26px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
+        .use-case-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .use-case-card p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.6; }
         .glass-slider-container { width: 100%; max-width: 1250px; margin: 0 auto; overflow: hidden; padding: 30px 0; position: relative; mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
         .glass-testimonial-track { display: flex; gap: 25px; width: max-content; animation: scrollLeft 35s linear infinite; }
         .glass-testimonial-track:hover { animation-play-state: paused; }
@@ -443,61 +447,36 @@
 
         <section id="testimonials" class="testimonials-section">
             <div class="category-header" style="justify-content: center; margin-bottom: 20px;">
-                <h2 class="category-title"><i class="fas fa-heart"></i> Loved by Professionals</h2>
+                <h2 class="category-title"><i class="fas fa-layer-group"></i> Built For Real HR & Finance Work</h2>
             </div>
 
-            <div class="glass-slider-container">
-                <div class="glass-testimonial-track">
-                    <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image1.png" alt="Syed Athar Bukhari" class="t-img" loading="lazy"></div>
-                        <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                            <p class="t-text">"sedoc has completely transformed how I handle my daily HR documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
-                            <div class="t-profile-info"><h4 class="t-name">Syed Athar Bukhari</h4><span class="t-role">HR Professional</span></div>
-                        </div>
-                    </div>
-
-                    <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image2.png" alt="Osama Adil" class="t-img" loading="lazy"></div>
-                        <div class="t-content">
-                            <!-- FIX: "fa-star-half-alt" FontAwesome 6 mein deprecated ho
-                                 chuka hai (naya naam fa-star-half-stroke hai), CDN 6.4.0
-                                 ke saath purana naam render nahi hota — updated kar diya -->
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i></div>
-                            <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
-                            <div class="t-profile-info"><h4 class="t-name">Osama Adil</h4><span class="t-role">HR Professional</span></div>
-                        </div>
-                    </div>
-
-                    <div class="glass-card">
-                        <div class="t-img-wrapper"><img src="image3.png" alt="Meesha Khan" class="t-img" loading="lazy"></div>
-                        <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                            <p class="t-text">"The invoice generation and quotation templates are exceptionally well-drafted. Plus, the ATS resume builder is a game changer for the candidates we screen."</p>
-                            <div class="t-profile-info"><h4 class="t-name">Meesha Khan</h4><span class="t-role">Finance & Recruitment Expert</span></div>
-                        </div>
-                    </div>
-
-                    <!-- Duplicates for infinite scroll effect (intentional, not a bug).
-                         aria-hidden + inert so screen readers and crawlers treat this
-                         second copy as decorative, not duplicate content. -->
-                    <div class="glass-card" aria-hidden="true" inert>
-                        <div class="t-img-wrapper"><img src="image1.png" alt="" class="t-img" loading="lazy"></div>
-                        <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                            <p class="t-text">"sedoc has completely transformed how I handle my daily HR documentation. It's lightning fast, highly secure, and incredibly intuitive to use."</p>
-                            <div class="t-profile-info"><h4 class="t-name">Syed Athar Bukhari</h4><span class="t-role">HR Professional</span></div>
-                        </div>
-                    </div>
-
-                    <div class="glass-card" aria-hidden="true" inert>
-                        <div class="t-img-wrapper"><img src="image2.png" alt="" class="t-img" loading="lazy"></div>
-                        <div class="t-content">
-                            <div class="t-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i></div>
-                            <p class="t-text">"As an HR professional, generating offer letters, KPI sheets, and salary slips takes me seconds now instead of hours. A true lifesaver!"</p>
-                            <div class="t-profile-info"><h4 class="t-name">Osama Adil</h4><span class="t-role">HR Professional</span></div>
-                        </div>
-                    </div>
+            <!-- NOTE: The old slider used stock headshots with invented names and
+                 star ratings presented as if they were real customer reviews.
+                 That reads as fabricated testimonials to both users and Google's
+                 quality reviewers, so it's replaced here with honest, unattributed
+                 use-case cards. Swap these back in for real reviews once genuine
+                 feedback comes in through the form below (name + role only, with
+                 the person's consent to publish). -->
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <div class="editorial-icon"><i class="fas fa-users-gear"></i></div>
+                    <h4>HR Teams</h4>
+                    <p>Generate offer letters, experience letters, warning letters, and KPI sheets in one place instead of hunting for the right Word template every time.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="editorial-icon"><i class="fas fa-sack-dollar"></i></div>
+                    <h4>Payroll & Finance</h4>
+                    <p>Build payslips with automatic earnings/deductions math, and generate GST/VAT-ready invoices and quotations without a spreadsheet.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="editorial-icon"><i class="fas fa-id-card"></i></div>
+                    <h4>Job Seekers</h4>
+                    <p>Put together an ATS-friendly resume with a layout structured for applicant tracking systems, not just for looking good on screen.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="editorial-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h4>Privacy By Design</h4>
+                    <p>Every document is generated client-side in your browser. Your data isn't uploaded to or stored on our servers.</p>
                 </div>
             </div>
         </section>
