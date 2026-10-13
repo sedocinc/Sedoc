@@ -941,12 +941,14 @@
         downloadNowBtn.addEventListener('click', function() {
             downloadNowBtn.disabled = true;
             downloadNowBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
-            generatePDF();
-            setTimeout(function() {
-                downloadOverlay.classList.remove('active');
-                downloadNowBtn.disabled = false;
-                downloadNowBtn.innerHTML = '<i class="fas fa-download"></i> Download Now';
-            }, 800);
+            var finish = function () {
+                setTimeout(function () {
+                    downloadOverlay.classList.remove('active');
+                    downloadNowBtn.disabled = false;
+                    downloadNowBtn.innerHTML = '<i class="fas fa-download"></i> Download Now';
+                }, 400);
+            };
+            Promise.resolve(generatePDF()).then(finish, finish);
         });
 
         // --- Donate Modal ---
