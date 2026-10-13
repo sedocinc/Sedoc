@@ -60,6 +60,7 @@
 
     <!-- html2pdf Library for Direct PDF Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -916,52 +917,9 @@
         }
 
         // --- DIRECT PDF GENERATION LOGIC (Unified, memory-safe approach) ---
-        function generatePDF() {
-            const element = document.getElementById('printArea');
+                function generatePDF() {
             const docNum = document.getElementById('invNum').value || 'Document';
-
-            // Remove active focus from any inputs
-            if (document.activeElement) document.activeElement.blur();
-
-            // Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
-            const savedScrollX = window.scrollX;
-            const savedScrollY = window.scrollY;
-            window.scrollTo(0, 0);
-
-            // Temporarily remove shadow so PDF borders remain clean
-            const originalBoxShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none';
-
-            // Ensure images (like uploaded logo) are fully loaded
-            const imgs = element.querySelectorAll('img');
-            const waitForImages = Promise.all(
-                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
-                    new Promise(res => { img.onload = res; img.onerror = res; })
-                )
-            );
-
-            waitForImages.then(() => {
-                const opt = {
-                    margin:       0,
-                    filename:     docNum + '.pdf',
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    html2canvas:  { 
-                        scale: 3, 
-                        useCORS: true, 
-                        scrollX: 0, 
-                        scrollY: 0 
-                    },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-                    pagebreak:    { mode: ['css', 'legacy'] }
-                };
-
-                // DIRECTLY pass the element for perfect sizing and memory safety
-                html2pdf().set(opt).from(element).save().then(() => {
-                    // Restore original styles & scroll position
-                    element.style.boxShadow = originalBoxShadow;
-                    window.scrollTo(savedScrollX, savedScrollY);
-                });
-            });
+            return sedocExportPDF(document.getElementById('printArea'), docNum + '.pdf');
         }
 
         // --- Download flow: show ad modal first (highest-intent ad placement),

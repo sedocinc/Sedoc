@@ -40,6 +40,7 @@
 
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -1267,49 +1268,10 @@
         }
 
         // --- UNIFIED PDF EXPORT LOGIC ---
-        function downloadPDF() {
-            const element = document.getElementById('resume-paper');
+                function downloadPDF() {
             const name = state.personal.name || 'Resume';
-
-            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
-            const savedScrollX = window.scrollX;
-            const savedScrollY = window.scrollY;
-            window.scrollTo(0, 0);
-
-            // 2. Temporarily remove shadow so PDF borders remain clean
-            const originalBoxShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none';
-
-            // 3. Ensure profile photo and other images are fully loaded before capture
-            const imgs = element.querySelectorAll('img');
-            const waitForImages = Promise.all(
-                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
-                    new Promise(res => { img.onload = res; img.onerror = res; })
-                )
-            );
-
-            waitForImages.then(() => {
-                const opt = {
-                    margin:       0,
-                    filename:     `Resume_${name.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
-                    html2canvas:  {
-                        scale: 3, // Scale 3 is perfect here: crisp text, but prevents mobile Safari memory crashes on 2+ page resumes
-                        useCORS: true,
-                        scrollX: 0,
-                        scrollY: 0
-                    },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-                    pagebreak:    { mode: ['css', 'legacy'] } // Allows smooth natural breaks for resumes
-                };
-
-                // DIRECTLY pass the element for perfect sizing and memory safety
-                html2pdf().set(opt).from(element).save().then(() => {
-                    // Restore original styles & scroll position
-                    element.style.boxShadow = originalBoxShadow;
-                    window.scrollTo(savedScrollX, savedScrollY);
-                });
-            });
+            return sedocExportPDF(document.getElementById('resume-paper'),
+                `Resume_${name.replace(/\s+/g, '_')}.pdf`);
         }
 
         const downloadTriggerBtn = document.getElementById('downloadTriggerBtn');

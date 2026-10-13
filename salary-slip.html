@@ -40,6 +40,7 @@
     
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -773,49 +774,12 @@
         }
 
         // --- 6. PDF Exporter (THE BLANK PAGE FIX) ---
-        function downloadPDF() {
-            const element = document.getElementById('slip-paper');
+                function downloadPDF() {
             const empName = document.getElementById('in-emp-name').value || 'Employee';
             const month = document.getElementById('in-month').value || 'Month';
-
-            // 1. Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
-            const savedScrollX = window.scrollX;
-            const savedScrollY = window.scrollY;
-            window.scrollTo(0, 0);
-
-            // 2. Temporarily remove shadow so PDF borders remain clean
-            const originalBoxShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none';
-
-            // 3. Ensure images are loaded before capture
-            const imgs = element.querySelectorAll('img');
-            const waitForImages = Promise.all(
-                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
-                    new Promise(res => { img.onload = res; img.onerror = res; })
-                )
-            );
-
-            waitForImages.then(() => {
-                const opt = {
-                    margin:       0,
-                    filename:     `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    html2canvas:  {
-                        scale: 4, // Ultra High Res
-                        useCORS: true,
-                        scrollY: 0,
-                        scrollX: 0
-                    },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                // DIRECTLY pass the element (no wrapper, no cloning) -> fixes the blank page issue
-                html2pdf().set(opt).from(element).save().then(() => {
-                    // Restore original styles & scroll position
-                    element.style.boxShadow = originalBoxShadow;
-                    window.scrollTo(savedScrollX, savedScrollY);
-                });
-            });
+            // Shared exporter (pdf-export.js): fixed A4 width, never cut off on any screen
+            return sedocExportPDF(document.getElementById('slip-paper'),
+                `Payslip_${empName.replace(/\s+/g, '_')}_${month}.pdf`);
         }
 
         // --- 7. Download flow ---

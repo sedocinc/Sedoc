@@ -42,6 +42,7 @@
     
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -676,35 +677,10 @@
         }
 
         // --- 4. PDF Exporter ---
-        function downloadPDF() {
-            const element = document.getElementById('letter-paper');
+                function downloadPDF() {
             const empName = document.getElementById('in-emp-name').value || 'Employee';
-            
-            // Un-focus any editable content to hide the purple hover/focus outlines in PDF
-            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
-
-            const opt = {
-                margin:       0,
-                pagebreak:    { mode: 'avoid-all' }, // STRICTLY Single Page
-                filename:     `Experience_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 1 },
-                // scrollX/scrollY reset the capture to the top-left regardless of page
-                // scroll position. windowWidth/windowHeight use the FULL document size
-                // (not the letter's own size) so the page's normal desktop layout stays
-                // intact during capture — using a narrow width here would trigger the
-                // site's mobile layout mid-capture and corrupt the output.
-                html2canvas:  {
-                    scale: 2,
-                    useCORS: true,
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: document.documentElement.scrollWidth,
-                    windowHeight: document.documentElement.scrollHeight
-                },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(element).save();
+            return sedocExportPDF(document.getElementById('letter-paper'),
+                `Experience_Letter_${empName.replace(/\s+/g, '_')}.pdf`, { singlePage: true });
         }
 
         // --- 5. Download flow: show ad modal first (highest-intent ad placement),

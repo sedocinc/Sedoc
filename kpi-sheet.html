@@ -46,6 +46,7 @@
     
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -656,70 +657,10 @@
         }
 
         // --- 4. PDF Exporter (Unified, Memory-Safe Approach) ---
-        function downloadPDF() {
-            const original = document.getElementById('letter-paper');
+                function downloadPDF() {
             const empName = document.getElementById('in-name').value || 'Employee';
-            
-            // Remove focus outline before generating PDF
-            document.querySelectorAll('[contenteditable]').forEach(el => el.blur());
-            if (document.activeElement) document.activeElement.blur(); // Extra safety measure
-
-            // Scroll offset bug fix (Scroll to top so html2canvas doesn't cut edges)
-            const savedScrollX = window.scrollX;
-            const savedScrollY = window.scrollY;
-            window.scrollTo(0, 0);
-
-            // Clone the sheet into an isolated off-screen wrapper
-            const clone = original.cloneNode(true);
-            clone.style.boxShadow = 'none';
-            clone.style.width = '210mm'; // Force exact A4 width
-            clone.style.minHeight = '297mm'; // Allows expansion for multiple pages
-            clone.style.height = 'auto'; // Force height to auto so content doesn't clip
-            clone.style.maxHeight = 'none';
-            clone.style.overflow = 'visible';
-
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute';
-            wrapper.style.top = '0';
-            wrapper.style.left = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.zIndex = '-9999';
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
-
-            // Ensure images are fully loaded before capture
-            const imgs = wrapper.querySelectorAll('img');
-            const waitForImages = Promise.all(
-                Array.from(imgs).map(img => img.complete ? Promise.resolve() :
-                    new Promise(res => { img.onload = res; img.onerror = res; })
-                )
-            );
-
-            waitForImages.then(() => {
-                const opt = {
-                    margin: 0,
-                    filename: `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`,
-                    image: { type: 'jpeg', quality: 1.0 }, // JPEG for stable multi-page output
-                    html2canvas: {
-                        scale: 3, // Scale 3 is optimal for crisp text without crashing mobile devices
-                        useCORS: true,
-                        scrollX: 0,
-                        scrollY: 0,
-                        windowWidth: clone.scrollWidth,
-                        windowHeight: clone.scrollHeight
-                    },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-                    pagebreak: { mode: ['css', 'legacy'] } // Allows multi-page if content is long
-                };
-
-                // Generate PDF from the isolated clone
-                html2pdf().set(opt).from(clone).save().then(() => {
-                    // Cleanup
-                    document.body.removeChild(wrapper);
-                    window.scrollTo(savedScrollX, savedScrollY);
-                });
-            });
+            return sedocExportPDF(document.getElementById('letter-paper'),
+                `KPI_Sheet_${empName.replace(/\s+/g, '_')}.pdf`);
         }
 
         // --- 5. Download flow ---

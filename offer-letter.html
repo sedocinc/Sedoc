@@ -40,6 +40,7 @@
     
     <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -693,87 +694,10 @@
         }
 
         // --- 4. PDF Exporter (Ultimate A4 Fix) ---
-        function downloadPDF() {
-            const original = document.getElementById('letter-paper');
+                function downloadPDF() {
             const candName = (document.getElementById('in-cand-name').value || 'Candidate').trim();
-
-            if (document.activeElement) {
-                document.activeElement.blur();
-            }
-
-            // Save scroll state
-            const savedScrollX = window.scrollX;
-            const savedScrollY = window.scrollY;
-            window.scrollTo(0, 0);
-
-            // Clone the node
-            const clone = original.cloneNode(true);
-
-            // --- STRICT JAVASCRIPT STYLING TO OVERRIDE ALL BROWSER QUIRKS ---
-            clone.style.width = '794px';       // Exact 210mm in screen pixels
-            clone.style.minHeight = '1122px';  // Exact 297mm in screen pixels
-            clone.style.padding = '50px 60px'; // Safe interior margin
-            clone.style.margin = '0';
-            clone.style.boxShadow = 'none';
-            clone.style.boxSizing = 'border-box';
-            clone.style.backgroundColor = '#ffffff';
-
-            // Strip ALL contenteditable properties from clone so borders/highlights NEVER show in PDF
-            clone.querySelectorAll('[contenteditable]').forEach(el => {
-                el.removeAttribute('contenteditable');
-                el.style.border = 'none';
-                el.style.outline = 'none';
-                el.style.background = 'transparent';
-                el.style.boxShadow = 'none';
-            });
-
-            // Create offscreen container
-            const container = document.createElement('div');
-            container.style.position = 'fixed';
-            container.style.top = '0';
-            container.style.left = '-9999px'; // Move fully off-screen to prevent flash
-            container.style.width = '794px';
-            container.style.backgroundColor = '#ffffff';
-            container.appendChild(clone);
-            document.body.appendChild(container);
-
-            // Wait for images
-            const images = Array.from(clone.querySelectorAll('img'));
-            const imagePromises = images.map(img => {
-                if (img.complete) return Promise.resolve();
-                return new Promise(res => { img.onload = res; img.onerror = res; });
-            });
-
-            Promise.all(imagePromises).then(() => {
-                const opt = {
-                    margin:       0, // Handled safely by our 50px/60px inner padding now
-                    filename:     `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    html2canvas:  {
-                        scale: 2, // High resolution text
-                        useCORS: true,
-                        logging: false,
-                        scrollY: 0,
-                        scrollX: 0,
-                        width: 794 // Lock to exact width
-                    },
-                    jsPDF: { 
-                        unit: 'mm', 
-                        format: 'a4', 
-                        orientation: 'portrait' 
-                    }
-                };
-
-                html2pdf().set(opt).from(clone).save().then(() => {
-                    // Cleanup and restore view
-                    document.body.removeChild(container);
-                    window.scrollTo(savedScrollX, savedScrollY);
-                }).catch(err => {
-                    console.error('PDF export failed:', err);
-                    if (container.parentNode) document.body.removeChild(container);
-                    window.scrollTo(savedScrollX, savedScrollY);
-                });
-            });
+            return sedocExportPDF(document.getElementById('letter-paper'),
+                `Offer_Letter_${candName.replace(/\s+/g, '_')}.pdf`, { padding: '50px 60px' });
         }
 
         // --- 5. Download flow ---
