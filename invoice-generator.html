@@ -24,15 +24,15 @@
     </script>
 
     <!-- ================= VIRAL SEO & META TAGS ================= -->
-    <title>Free Invoice Generator with Logo – Custom PDF Invoices</title>
-    <meta name="description" content="Make a custom invoice with your logo and brand colors. 6 templates, GST/VAT ready, instant A4 PDF download. Free, no registration.">
-    <meta property="og:title" content="Free Invoice Generator with Logo – Custom PDF Invoices">
-    <meta property="og:description" content="Make a custom invoice with your logo and brand colors. 6 templates, GST/VAT ready, instant A4 PDF download. Free, no registration.">
+    <title>Free Invoice Generator with Logo – Custom PDF Invoice Maker</title>
+    <meta name="description" content="Free invoice generator: add your logo and brand colors, pick from 6 templates, add GST/VAT/sales tax and download a PDF invoice in PKR, USD, AED and more. No sign-up.">
+    <meta property="og:title" content="Free Invoice Generator with Logo – Custom PDF Invoice Maker">
+    <meta property="og:description" content="Free invoice generator: add your logo and brand colors, pick from 6 templates, add GST/VAT/sales tax and download a PDF invoice in PKR, USD, AED and more. No sign-up.">
     <meta property="og:image" content="https://www.thesedoc.com/og-image.png">
     <meta property="og:site_name" content="sedoc">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Invoice Generator with Logo – Custom PDF Invoices">
-    <meta name="twitter:description" content="Make a custom invoice with your logo and brand colors. 6 templates, GST/VAT ready, instant A4 PDF download. Free, no registration.">
+    <meta name="twitter:title" content="Free Invoice Generator with Logo – Custom PDF Invoice Maker">
+    <meta name="twitter:description" content="Free invoice generator: add your logo and brand colors, pick from 6 templates, add GST/VAT/sales tax and download a PDF invoice in PKR, USD, AED and more. No sign-up.">
     <meta name="twitter:image" content="https://www.thesedoc.com/og-image.png">
     <meta name="author" content="sedoc">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -53,7 +53,9 @@
   "operatingSystem": "All",
   "applicationCategory": "BusinessApplication",
   "url": "https://www.thesedoc.com/invoice-generator.html",
-  "description": "Create and download professional PDF invoices with custom brand colors, 6 creative templates, auto-calculations, and multi-currency support.",
+  "description": "Create and download professional PDF invoices with your logo, custom brand colors, 6 templates, automatic tax and total calculations, and multi-currency support.",
+  "inLanguage": "en",
+  "featureList": ["Add your logo", "Custom brand color", "6 invoice templates", "GST, VAT or sales tax rate", "Flat discount", "PKR, USD, EUR, GBP, INR, AED and SAR", "A4 PDF download", "No sign-up", "Browser-only processing"],
   "offers": {
     "@type": "Offer",
     "price": "0.00",
@@ -67,6 +69,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="/pdf-export.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -364,7 +368,49 @@
         "@type": "Answer",
         "text": "A quotation is an offer of a price before work starts. An invoice is a request for payment after the work is agreed or done. See quotation vs invoice for examples."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What should an invoice include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your business name and contact details, the client's name and address, a unique invoice number, the issue date and due date, a description of each item with quantity and price, any tax, the total due, and payment terms or bank details. If you are registered for tax, add your tax registration number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I number my invoices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use a unique, sequential number such as INV-001, INV-002 or 2026-001, and never reuse one. Consistent numbering makes invoices easy to track and reference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment terms should I put on an invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common terms are due on receipt, Net 7, Net 15 or Net 30, meaning payment is due that many days after the issue date. Write the due date on the invoice and add late-payment terms if you use them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make an invoice in PKR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. PKR is selected by default, and you can switch to USD, EUR, GBP, INR, AED or SAR. Enter your tax rate and the total updates automatically."
+      }
     }
+  ]
+}
+</script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "sedoc", "item": "https://www.thesedoc.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Invoice Generator", "item": "https://www.thesedoc.com/invoice-generator.html" }
   ]
 }
 </script>
@@ -373,8 +419,8 @@
 
     <header>
         <div class="logo-link">
-            <a href="/" class="back-btn-icon" title="Go Back"><i class="fas fa-arrow-left"></i></a>
-            <a href="/"><img src="Logo.png" alt="sedoc logo"></a>
+            <a href="/" class="back-btn-icon" title="Go Back" aria-label="Back to all tools"><i class="fas fa-arrow-left"></i></a>
+            <a href="/"><img src="Logo.png" alt="sedoc logo" height="38"></a>
         </div>
         <div class="header-right">
             <a href="#" id="donateBtn" class="donate-header-btn"><i class="fas fa-heart"></i> Donate</a>
@@ -383,8 +429,8 @@
     </header>
 
     <div class="hero-section">
-        <h1>Brand Custom Invoice Generator</h1>
-        <p>Create high-conversion invoices that impress. Select a template, pick your brand color, upload your logo, and instantly generate an A4 PDF for your clients.</p>
+        <h1>Free Invoice Generator with Logo &amp; Custom Templates</h1>
+        <p>Make a professional invoice online in minutes. Upload your logo, pick a template and brand color, add GST/VAT, and download an A4 PDF. Free, no sign-up.</p>
     </div>
 
     <div class="workspace-container">
@@ -427,7 +473,7 @@
                         <div class="input-wrapper">
                             <select id="currency" onchange="syncData()">
                                 <option value="$">USD ($)</option>
-                                <option value="Rs">PKR (Rs)</option>
+                                <option value="Rs" selected>PKR (Rs)</option>
                                 <option value="€">EUR (€)</option>
                                 <option value="£">GBP (£)</option>
                                 <option value="₹">INR (₹)</option>
@@ -511,7 +557,7 @@
                     <div class="item-row">
                         <div class="input-wrapper"><input type="text" class="i-name" placeholder="Web Development Services" oninput="syncData()"></div>
                         <div class="input-wrapper"><input type="number" class="i-qty" value="1" oninput="syncData()"></div>
-                        <div class="input-wrapper"><input type="number" class="i-price" value="500" oninput="syncData()"></div>
+                        <div class="input-wrapper"><input type="number" class="i-price" value="50000" oninput="syncData()"></div>
                         <button class="btn-icon" onclick="removeRow(this)"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
@@ -529,13 +575,13 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <label class="input-label">Tax Rate (%)</label>
+                        <label class="input-label">Tax Rate % (GST / VAT / Sales Tax)</label>
                         <div class="input-wrapper" style="margin-bottom: 12px;">
                             <input type="number" id="inpTax" value="0" placeholder="e.g. 5" oninput="syncData()">
                         </div>
-                        <label class="input-label">Discount (Flat)</label>
+                        <label class="input-label">Discount (flat, taken off after tax)</label>
                         <div class="input-wrapper">
-                            <input type="number" id="inpDisc" value="0" placeholder="e.g. 50" oninput="syncData()">
+                            <input type="number" id="inpDisc" value="0" placeholder="e.g. 500" oninput="syncData()">
                         </div>
                     </div>
                 </div>
@@ -551,10 +597,10 @@
                     <div class="p-header">
                         <div style="flex: 1;">
                             <div class="p-logo-wrapper">
-                                <img id="p-logo-img" src="" alt="Logo">
+                                <img id="p-logo-img" src="" alt="Company logo on invoice">
                             </div>
                             <h2 class="font-extrabold" id="p-bName" style="font-size: 1.4rem; margin-bottom: 5px;">Your Company Name</h2>
-                            <p class="text-body" id="p-bDetails">123 Business Avenue, Suite 100<br>City, State, Zip Code</p>
+                            <p class="text-body" id="p-bDetails">123 Business Avenue, Suite 100<br>City, State, Zip Code<br>contact@yourcompany.com</p>
                         </div>
                         <div class="text-right">
                             <h2 class="p-title">INVOICE</h2>
@@ -636,6 +682,32 @@
         <h3>3. Global Currency & Auto-Calculations</h3>
         <p>Select from worldwide currencies including USD, EUR, GBP, PKR, INR, and AED. Input your line items, apply a tax rate, or add a flat discount. The engine dynamically calculates your subtotal, tax amount, and grand total error-free.</p>
     
+                <h2 style="margin-top:35px">How to Create an Invoice Online in 5 Steps</h2>
+        <ol style="margin:0 0 15px 22px;color:var(--text-gray);line-height:1.8;">
+            <li><strong>Add your branding:</strong> upload your logo, choose one of the 6 templates and pick your brand color.</li>
+            <li><strong>Enter your details:</strong> company name, address, contact details and your tax registration number if you have one.</li>
+            <li><strong>Add the client:</strong> client name and address, a unique invoice number, the issue date and the due date.</li>
+            <li><strong>List the items:</strong> a description, quantity and price for each line. Totals update automatically.</li>
+            <li><strong>Set tax and download:</strong> enter your GST, VAT or sales tax rate, add a discount if needed, then download the A4 PDF.</li>
+        </ol>
+
+        <h2 style="margin-top:35px">What Every Invoice Should Include</h2>
+        <ul style="margin:0 0 15px 22px;color:var(--text-gray);line-height:1.8;">
+            <li>Your business name, address and contact details (and tax registration number if you are registered).</li>
+            <li>The client's name and address.</li>
+            <li>A unique invoice number, the issue date and the due date.</li>
+            <li>A clear description, quantity and price for every item.</li>
+            <li>Subtotal, tax and the total amount due.</li>
+            <li>Payment terms and how to pay (bank account, wallet or other details).</li>
+        </ul>
+        <p>If you charge tax, check the rules for your country. For example, a sales tax invoice may need specific registration numbers, so confirm requirements with your tax authority or accountant. Put those numbers in the Company Details box and they will appear on the invoice.</p>
+
+        <h2 style="margin-top:35px">Invoice Numbers and Payment Terms</h2>
+        <p>Use a unique, sequential number (INV-001, INV-002, or 2026-001) and never reuse one. For payment terms, common choices are due on receipt, Net 7, Net 15 or Net 30, meaning payment is due that many days after the issue date. This generator sets the due date 15 days after the issue date by default, and you can change it.</p>
+
+        <h2 style="margin-top:35px">Need to Work Out Tax First, or Send a Quote?</h2>
+        <p>If you only have a tax-inclusive price, use the <a href="tax-calculator.html#remove-gst">GST/VAT calculator</a> to find the net amount and tax. If the work has not started, send a price offer with the <a href="quotation-maker.html">Quotation Maker</a> first. Not sure which to use? Read <a href="quotation-vs-invoice.html">quote vs invoice</a> or the <a href="professional-invoice-guide.html">professional invoice guide</a>.</p>
+
         <h2 style="margin-top:35px">Frequently Asked Questions</h2>
         <h3>How do I create a custom invoice with my logo?</h3>
         <p>Upload your logo, enter your business and client details, add line items, then choose one of the 6 templates and a brand color. Download the finished invoice as an A4 PDF.</p>
@@ -643,6 +715,14 @@
         <p>Yes. sedoc is free to use and supported by advertising and optional donations. See the <a href="pricing.html">pricing page</a> for details.</p>
         <h3>Can I add GST or VAT to my invoice?</h3>
         <p>Yes. Enter a tax rate and it is added to the total. If you need to work out tax from a price first, use the <a href="tax-calculator.html">GST and VAT calculator</a> or read our <a href="gst-vat-calculation-guide.html">GST/VAT guide</a>.</p>
+        <h3>What should an invoice include?</h3>
+        <p>Your business name and contact details, the client's name and address, a unique invoice number, the issue date and due date, a description of each item with quantity and price, any tax, the total due, and payment terms or bank details. If you are registered for tax, add your tax registration number.</p>
+        <h3>How should I number my invoices?</h3>
+        <p>Use a unique, sequential number such as INV-001, INV-002 or 2026-001, and never reuse one. Consistent numbering makes invoices easy to track and reference.</p>
+        <h3>What payment terms should I put on an invoice?</h3>
+        <p>Common terms are due on receipt, Net 7, Net 15 or Net 30, meaning payment is due that many days after the issue date. Write the due date on the invoice and add late-payment terms if you use them.</p>
+        <h3>Can I make an invoice in PKR?</h3>
+        <p>Yes. PKR is selected by default, and you can switch to USD, EUR, GBP, INR, AED or SAR. Enter your tax rate and the total updates automatically.</p>
         <h3>What is the difference between an invoice and a quotation?</h3>
         <p>A quotation is an offer of a price before work starts. An invoice is a request for payment after the work is agreed or done. See <a href="quotation-vs-invoice.html">quotation vs invoice</a> for examples.</p>
     </section>
@@ -859,6 +939,8 @@
             }
         }
 
+        const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
         function syncData() {
             const sym = document.getElementById('currency').value;
             const formatCash = (num) => sym + ' ' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -885,7 +967,7 @@
 
                 tbody.innerHTML += `
                     <tr>
-                        <td class="font-bold text-body">${name}</td>
+                        <td class="font-bold text-body">${esc(name)}</td>
                         <td class="text-right text-body">${qty}</td>
                         <td class="text-right text-body">${formatCash(price)}</td>
                         <td class="text-right font-bold text-body">${formatCash(amt)}</td>
