@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Salary Slip Generator – Create Payslips Online</title>
-    <meta name="description" content="Create a professional payslip online in 2 minutes. Add your logo, earnings and deductions, then download the PDF free. No sign-up needed.">
-    <meta property="og:title" content="Free Salary Slip Generator – Create Payslips Online">
-    <meta property="og:description" content="Create a professional payslip online in 2 minutes. Add your logo, earnings and deductions, then download the PDF free. No sign-up needed.">
+    <title>Free Payslip Generator – Salary Slip Maker (PDF, No Signup)</title>
+    <meta name="description" content="Create a payslip or salary slip online free in 2 minutes. PKR, USD, AED &amp; more, with EOBI and tax lines for Pakistan. Add your logo and download the PDF. No sign-up.">
+    <meta property="og:title" content="Free Payslip Generator – Salary Slip Maker (PDF, No Signup)">
+    <meta property="og:description" content="Create a payslip or salary slip online free in 2 minutes. PKR, USD, AED &amp; more, with EOBI and tax lines for Pakistan. Add your logo and download the PDF. No sign-up.">
     <meta property="og:image" content="https://www.thesedoc.com/og-image.png">
     <meta property="og:site_name" content="sedoc">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Salary Slip Generator – Create Payslips Online">
-    <meta name="twitter:description" content="Create a professional payslip online in 2 minutes. Add your logo, earnings and deductions, then download the PDF free. No sign-up needed.">
+    <meta name="twitter:title" content="Free Payslip Generator – Salary Slip Maker (PDF, No Signup)">
+    <meta name="twitter:description" content="Create a payslip or salary slip online free in 2 minutes. PKR, USD, AED &amp; more, with EOBI and tax lines for Pakistan. Add your logo and download the PDF. No sign-up.">
     <meta name="twitter:image" content="https://www.thesedoc.com/og-image.png">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="sedoc">
@@ -36,12 +36,14 @@
     </script>
 
     <!-- Premium Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- PDF Generation Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="/pdf-export.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script defer src="/pdf-export.js"></script>
 
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598765809021376" crossorigin="anonymous"></script>
@@ -288,6 +290,14 @@
     },
     {
       "@type": "Question",
+      "name": "Is a payslip the same as a salary slip?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Payslip, pay slip and salary slip are different names for the same monthly pay statement."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Which currencies can I use?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -309,9 +319,11 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "sedoc Salary Slip Generator",
+  "name": "sedoc Payslip & Salary Slip Generator",
+  "inLanguage": "en",
+  "featureList": ["5 payslip themes", "Automatic earnings and deductions totals", "PKR, USD, EUR, GBP, INR and AED", "PDF download", "No sign-up", "Browser-only processing"],
   "url": "https://www.thesedoc.com/salary-slip.html",
-  "description": "Create a professional payslip online in 2 minutes. Add your logo, earnings and deductions, then download the PDF free. No sign-up needed.",
+  "description": "Create a payslip or salary slip online free in 2 minutes. PKR, USD, AED &amp; more, with EOBI and tax lines for Pakistan. Add your logo and download the PDF. No sign-up.",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Any",
   "offers": {
@@ -326,14 +338,24 @@
   }
 }
 </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "sedoc", "item": "https://www.thesedoc.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Payslip Generator", "item": "https://www.thesedoc.com/salary-slip.html" }
+  ]
+}
+</script>
 </head>
 <body>
 
     <!-- Header -->
     <header>
         <div class="header-left">
-            <a href="/" class="back-btn" title="Back to Tools"><i class="fas fa-arrow-left"></i></a>
-            <a href="/" class="logo-link"><img src="Logo.png" alt="sedoc"></a>
+            <a href="/" class="back-btn" title="Back to Tools" aria-label="Back to all tools"><i class="fas fa-arrow-left"></i></a>
+            <a href="/" class="logo-link"><img src="Logo.png" alt="sedoc – free payslip and invoice generator" height="35"></a>
         </div>
         <a href="#" id="donateBtn" class="donate-header-btn"><i class="fas fa-heart"></i> Donate</a>
     </header>
@@ -342,7 +364,8 @@
         
         <!-- EDITOR PANEL -->
         <div class="editor-panel" id="form-container">
-            <h1><i class="fas fa-file-invoice"></i> Corporate Payslip Setup</h1>
+            <h1><i class="fas fa-file-invoice"></i> Free Payslip &amp; Salary Slip Generator</h1>
+            <p style="color:var(--text-gray);font-size:0.9rem;line-height:1.6;margin:-12px 0 22px;">Fill in the details below, watch the live preview update, then download your payslip as a PDF. Free, no sign-up, and your data stays in your browser.</p>
             
             <!-- Settings & Logo -->
             <div class="form-section">
@@ -438,7 +461,12 @@
                 <div class="section-title">Deductions</div>
                 <div id="deductions-container">
                     <div class="dynamic-row deduction-item">
-                        <input type="text" class="item-name" value="Income Tax (TDS)" placeholder="Deduction Name">
+                        <input type="text" class="item-name" value="Income Tax" placeholder="Deduction Name">
+                        <input type="number" class="item-amount" value="0" placeholder="Amount">
+                        <button class="btn-remove" onclick="this.parentElement.remove(); updateSlip();"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="dynamic-row deduction-item">
+                        <input type="text" class="item-name" value="EOBI" placeholder="Deduction Name">
                         <input type="number" class="item-amount" value="0" placeholder="Amount">
                         <button class="btn-remove" onclick="this.parentElement.remove(); updateSlip();"><i class="fas fa-trash"></i></button>
                     </div>
@@ -461,7 +489,7 @@
                     <!-- Header -->
                     <div class="slip-header">
                         <div class="slip-header-left">
-                            <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company Logo">
+                            <img id="out-logo" class="company-logo" src="" style="display:none;" alt="Company logo on payslip">
                         </div>
                         <div class="company-details">
                             <h2 id="out-company">sedoc Technologies</h2>
@@ -581,10 +609,16 @@
 
     <!-- SEO ARTICLE SECTION (adds genuine unique content per AdSense/Google content guidelines) -->
     <section class="seo-article-section">
-        <h2>Free Online Salary Slip Generator for HR Teams & Businesses</h2>
+        <h2>Free Online Payslip &amp; Salary Slip Generator for HR Teams &amp; Businesses</h2>
         <p>Manually formatting payslips in Word or Excel every month is slow and error-prone. The <strong>sedoc Salary Slip Generator</strong> lets HR teams, small business owners, and freelancers create a polished, print-ready payslip in under a minute, with earnings and deductions calculated automatically.</p>
         <h3>1. Five Professional Payslip Themes</h3>
         <p>Choose from five distinct layouts — Executive Corporate, sedoc Gradient Tech, Classic Boxed HR, Startup Split-Tone, and Premium Dark Header — so the payslip matches your company's branding instead of looking like a generic template.</p>
+            <h3>Payslip vs Salary Slip: Is There a Difference?</h3>
+        <p>No. "Payslip", "pay slip" and "salary slip" all mean the same document: a monthly statement showing what an employee earned, what was deducted, and the net amount paid. Payslip is the more common spelling internationally, while salary slip is widely used in Pakistan and India. This tool creates either one.</p>
+        <h3>Salary Slip Format for Pakistan</h3>
+        <p>A typical Pakistani salary slip lists basic salary, house rent, utilities and other allowances, then deductions such as income tax and EOBI. This generator defaults to PKR and includes income tax and EOBI deduction lines you can edit or remove. For a full walkthrough, read our <a href="salary-slip-format-pakistan.html">salary slip format in Pakistan</a> guide or the general <a href="salary-slip-guide.html">salary slip guide</a>.</p>
+        <h3>What Should a Payslip Include?</h3>
+        <p>Company name and address, employee name, ID and designation, the pay period, itemized earnings, itemized deductions, and net pay. Many employers also need payslips for bank loans, visa applications and tax filing, so keeping a clear, consistent format matters.</p>
         <h3>2. Automatic Earnings & Deductions Math</h3>
         <p>Add unlimited earning and deduction line items and the tool instantly totals gross earnings, total deductions, and net salary payable, removing the risk of manual calculation mistakes that can lead to payroll disputes.</p>
         <h3>3. Multi-Currency Support & Local PDF Generation</h3>
@@ -597,6 +631,8 @@
         <p>A complete payslip shows the employee name and ID, designation, pay period, basic salary, itemized allowances, deductions such as tax and provident fund, and the net pay. Read our full <a href="salary-slip-guide.html">salary slip guide</a> for details.</p>
         <h3>Is my salary data stored or uploaded?</h3>
         <p>No. Calculations and PDF generation happen in your browser, so employee salary data is not uploaded to or stored on our servers.</p>
+        <h3>Is a payslip the same as a salary slip?</h3>
+        <p>Yes. Payslip, pay slip and salary slip are different names for the same monthly pay statement.</p>
         <h3>Which currencies can I use?</h3>
         <p>You can generate payslips in PKR, USD, EUR, GBP, INR and AED.</p>
         <h3>Can I use this as a salary slip format for Pakistan?</h3>
