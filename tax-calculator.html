@@ -23,15 +23,15 @@
       gtag('config', 'G-NS6MJR5G0R');
     </script>
 
-    <title>GST &amp; VAT Calculator – Add or Remove Tax Online</title>
-    <meta name="description" content="Add GST/VAT to a price or remove it to find the net amount. Free online calculator with an instant breakdown. Works for any country rate.">
-    <meta property="og:title" content="GST &amp; VAT Calculator – Add or Remove Tax Online">
-    <meta property="og:description" content="Add GST/VAT to a price or remove it to find the net amount. Free online calculator with an instant breakdown. Works for any country rate.">
+    <title>GST &amp; VAT Calculator Online – Add or Remove Tax from Price</title>
+    <meta name="description" content="Free GST &amp; VAT calculator: add tax to a price or remove GST from a total (reverse calculation) and see net, tax and gross instantly. Any rate, 17 currencies.">
+    <meta property="og:title" content="GST &amp; VAT Calculator Online – Add or Remove Tax from Price">
+    <meta property="og:description" content="Free GST &amp; VAT calculator: add tax to a price or remove GST from a total (reverse calculation) and see net, tax and gross instantly. Any rate, 17 currencies.">
     <meta property="og:image" content="https://www.thesedoc.com/og-image.png">
     <meta property="og:site_name" content="sedoc">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GST &amp; VAT Calculator – Add or Remove Tax Online">
-    <meta name="twitter:description" content="Add GST/VAT to a price or remove it to find the net amount. Free online calculator with an instant breakdown. Works for any country rate.">
+    <meta name="twitter:title" content="GST &amp; VAT Calculator Online – Add or Remove Tax from Price">
+    <meta name="twitter:description" content="Free GST &amp; VAT calculator: add tax to a price or remove GST from a total (reverse calculation) and see net, tax and gross instantly. Any rate, 17 currencies.">
     <meta name="twitter:image" content="https://www.thesedoc.com/og-image.png">
     <meta name="author" content="sedoc">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -48,9 +48,12 @@
   "@type": "WebApplication",
   "name": "sedoc GST/VAT Calculator",
   "url": "https://www.thesedoc.com/tax-calculator.html",
-  "description": "A free online financial calculator to easily add or extract GST and VAT amounts from any price.",
+  "description": "A free online GST and VAT calculator to add tax to a price or remove it from a tax-inclusive total.",
   "applicationCategory": "FinanceApplication",
-  "operatingSystem": "All"
+  "operatingSystem": "All",
+  "inLanguage": "en",
+  "featureList": ["Add GST or VAT to a price", "Remove GST or VAT from a total (reverse calculation)", "Custom tax rate", "17 currencies", "Optional CGST/SGST split"],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
 
@@ -239,7 +242,49 @@
         "@type": "Answer",
         "text": "Yes. Use the invoice generator and enter the tax rate to produce a tax-ready PDF invoice."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I remove 18% GST from a total?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide the tax-inclusive total by 1.18. For example, 11,800 divided by 1.18 gives a net price of 10,000, so the GST is 1,800. Do not multiply the total by 18%, because that gives 2,124, which is wrong."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate VAT backwards from a gross price?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide the gross price by (1 + VAT rate). At 20% VAT, a gross price of 120 divided by 1.2 gives a net price of 100 and VAT of 20."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate GST in Pakistan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose PKR, enter the amount and the applicable sales tax rate. The standard federal sales tax rate has commonly been 18%, but rates differ by goods, services and province and can change, so confirm the current rate with the FBR or your accountant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is GST the same as sales tax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They are the same idea: a consumption tax added to the price of goods and services. The name (GST, VAT or sales tax) and the rate depend on the country."
+      }
     }
+  ]
+}
+</script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "sedoc", "item": "https://www.thesedoc.com/" },
+    { "@type": "ListItem", "position": 2, "name": "GST / VAT Calculator", "item": "https://www.thesedoc.com/tax-calculator.html" }
   ]
 }
 </script>
@@ -248,11 +293,11 @@
 
     <header>
         <div class="logo-link">
-            <a href="/" class="back-btn-icon" title="Go Back">
+            <a href="/" class="back-btn-icon" title="Go Back" aria-label="Back to all tools">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <a href="/">
-                <img src="Logo.png" alt="sedoc logo">
+                <img src="Logo.png" alt="sedoc logo" height="38">
             </a>
         </div>
         <div class="header-actions">
@@ -264,8 +309,8 @@
         <div class="banner-blob blob-a"></div>
         <div class="banner-blob blob-b"></div>
         <div class="page-banner-content">
-            <h1>GST / VAT Calculator</h1>
-            <p>Accurately calculate net price, tax amount, and gross price. Switch between adding or removing tax values effortlessly with instant financial precision.</p>
+            <h1>GST / VAT Calculator: Add or Remove Tax</h1>
+            <p>Add tax to a price, or remove GST/VAT from a total to find the net amount. See net, tax and gross instantly, for any rate and 17 currencies.</p>
         </div>
     </div>
 
@@ -280,9 +325,9 @@
 
                 <label class="input-label">Select Currency</label>
                 <div class="input-wrapper">
-                    <select id="currencySelect" onchange="changeCurrency()">
-                        <option value="$" selected>USD ($) - US Dollar</option>
-                        <option value="Rs">PKR (Rs) - Pakistani Rupee</option>
+                    <select id="currencySelect" onchange="changeCurrency()" aria-label="Currency">
+                        <option value="$">USD ($) - US Dollar</option>
+                        <option value="Rs" selected>PKR (Rs) - Pakistani Rupee</option>
                         <option value="₹">INR (₹) - Indian Rupee</option>
                         <option value="€">EUR (€) - Euro</option>
                         <option value="£">GBP (£) - British Pound</option>
@@ -304,22 +349,25 @@
 
                 <label class="input-label" id="amountLabel">Amount (Exclusive of Tax)</label>
                 <div class="input-wrapper">
-                    <span class="currency-symbol" id="inputSymbol">$</span>
-                    <input type="number" id="baseAmount" value="1000" placeholder="0.00" oninput="calculateTax()">
+                    <span class="currency-symbol" id="inputSymbol">Rs</span>
+                    <input type="number" id="baseAmount" aria-label="Amount" value="10000" placeholder="0.00" oninput="calculateTax()">
                 </div>
 
                 <label class="input-label">Tax Rate (%)</label>
                 <div class="rate-grid">
                     <div class="rate-btn" onclick="setTaxRate(5)">5%</div>
-                    <div class="rate-btn active" onclick="setTaxRate(12)">12%</div>
-                    <div class="rate-btn" onclick="setTaxRate(18)">18%</div>
+                    <div class="rate-btn" onclick="setTaxRate(12)">12%</div>
+                    <div class="rate-btn active" onclick="setTaxRate(18)">18%</div>
                     <div class="rate-btn" onclick="setTaxRate(22)">22%</div>
                 </div>
 
                 <div class="input-wrapper" style="margin-bottom: 0;">
                     <span class="currency-symbol" style="left: auto; right: 20px; color: var(--text-gray);">%</span>
-                    <input type="number" id="customTaxRate" value="12" placeholder="Custom rate" oninput="customRateInput()" style="padding-left: 20px; padding-right: 40px;">
+                    <input type="number" id="customTaxRate" aria-label="Custom tax rate in percent" value="18" placeholder="Custom rate" oninput="customRateInput()" style="padding-left: 20px; padding-right: 40px;">
                 </div>
+                <label style="display:flex;align-items:center;gap:8px;margin-top:16px;font-size:0.88rem;font-weight:600;color:var(--text-gray);cursor:pointer;">
+                    <input type="checkbox" id="splitToggle" onchange="calculateTax()" style="width:auto;padding:0;"> Show CGST / SGST split (India)
+                </label>
             </div>
 
             <div class="results-panel">
@@ -328,23 +376,23 @@
                     
                     <div class="result-row">
                         <span class="result-label" id="labelNet">Net Price (Base)</span>
-                        <span class="result-value" id="valNet">$ 1,000.00</span>
+                        <span class="result-value" id="valNet">Rs 10,000.00</span>
                     </div>
                     
                     <div class="result-row">
                         <span class="result-label">Calculated Tax Amount</span>
-                        <span class="result-value" id="valTax">$ 120.00</span>
+                        <span class="result-value" id="valTax">Rs 1,800.00</span>
                     </div>
                     
                     <div class="result-row" id="splitTaxBlock" style="display:none;">
                         <span class="result-label">CGST / SGST Split (50/50)</span>
-                        <span class="result-value" id="valSplit">$ 60.00 + $ 60.00</span>
+                        <span class="result-value" id="valSplit">Rs 900.00 + Rs 900.00</span>
                     </div>
                 </div>
 
                 <div class="total-box">
                     <span class="total-label" id="labelTotal">Gross Price (Total)</span>
-                    <span class="total-value" id="valTotal">$ 1,120.00</span>
+                    <span class="total-value" id="valTotal">Rs 11,800.00</span>
                 </div>
             </div>
 
@@ -375,7 +423,7 @@
             <p>If you have a receipt with a final total and need to extract the exact base price and the tax paid, select the <strong>"Remove GST/VAT"</strong> tab. This reverse-calculation method is highly useful for corporate expense claims, ensuring accurate tax credit inputs.</p>
 
             <h3>17 Currencies & Automatic CGST/SGST Split</h3>
-            <p>The calculator supports 17 major currencies — from USD, PKR, and INR to AUD, SGD, and ZAR — so freelancers and businesses billing international clients don't need to convert figures manually. For applicable tax regimes, the tool also shows the CGST/SGST split, giving accountants a ready breakdown for compliance filings.</p>
+            <p>The calculator supports 17 major currencies — from USD, PKR, and INR to AUD, SGD, and ZAR — so freelancers and businesses billing international clients don't need to convert figures manually. For Indian GST, tick "Show CGST / SGST split" to see the tax divided equally between the two components.</p>
         </div>
 
         <!-- Google AdSense Real Ad Unit (UPDATED) -->
@@ -424,6 +472,31 @@
         <h3>3. Numbers You Can Trust on an Invoice</h3>
         <p>The calculation runs locally in your browser the moment you type, with no rounding surprises and no server round-trip, so the figure you copy into an invoice or quotation is the one you can rely on.</p>
     
+                <h2 id="remove-gst" style="margin-top:35px">How to Remove GST or VAT from a Price</h2>
+        <p>To remove GST or VAT from a tax-inclusive total, <strong>divide the total by (1 + rate ÷ 100)</strong>. The result is the net price, and the difference is the tax. <a href="#remove-gst" onclick="setOperation('remove');window.scrollTo({top:0,behavior:'smooth'});return false;">Switch the calculator to "Remove GST / VAT"</a> to do this automatically.</p>
+        <p><strong>Worked example (18% GST):</strong> a bill totals 11,800. Net price = 11,800 ÷ 1.18 = 10,000. GST = 11,800 − 10,000 = 1,800.</p>
+        <p><strong>A common mistake:</strong> multiplying 11,800 by 18% gives 2,124, which is wrong, because 18% applies to the net price and not to the total that already includes tax. Always divide by 1.18.</p>
+
+        <h2 style="margin-top:35px">Quick Reference: Add and Remove Tax by Rate</h2>
+        <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:0.95rem">
+          <thead><tr style="background:#f1f5f9;text-align:left"><th style="padding:10px;border:1px solid #e2e8f0">Tax rate</th><th style="padding:10px;border:1px solid #e2e8f0">To add tax: multiply by</th><th style="padding:10px;border:1px solid #e2e8f0">To remove tax: divide by</th><th style="padding:10px;border:1px solid #e2e8f0">Example: 100 net becomes</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:10px;border:1px solid #e2e8f0">5%</td><td style="padding:10px;border:1px solid #e2e8f0">1.05</td><td style="padding:10px;border:1px solid #e2e8f0">1.05</td><td style="padding:10px;border:1px solid #e2e8f0">105</td></tr>
+            <tr><td style="padding:10px;border:1px solid #e2e8f0">10%</td><td style="padding:10px;border:1px solid #e2e8f0">1.10</td><td style="padding:10px;border:1px solid #e2e8f0">1.10</td><td style="padding:10px;border:1px solid #e2e8f0">110</td></tr>
+            <tr><td style="padding:10px;border:1px solid #e2e8f0">15%</td><td style="padding:10px;border:1px solid #e2e8f0">1.15</td><td style="padding:10px;border:1px solid #e2e8f0">1.15</td><td style="padding:10px;border:1px solid #e2e8f0">115</td></tr>
+            <tr><td style="padding:10px;border:1px solid #e2e8f0">18%</td><td style="padding:10px;border:1px solid #e2e8f0">1.18</td><td style="padding:10px;border:1px solid #e2e8f0">1.18</td><td style="padding:10px;border:1px solid #e2e8f0">118</td></tr>
+            <tr><td style="padding:10px;border:1px solid #e2e8f0">20%</td><td style="padding:10px;border:1px solid #e2e8f0">1.20</td><td style="padding:10px;border:1px solid #e2e8f0">1.20</td><td style="padding:10px;border:1px solid #e2e8f0">120</td></tr>
+          </tbody></table></div>
+
+        <h2 style="margin-top:35px">GST vs VAT vs Sales Tax</h2>
+        <p>GST (Goods and Services Tax), VAT (Value Added Tax) and sales tax are all consumption taxes added to the price of goods and services. The math is the same: only the name and the rate change by country. Always use the rate that applies to your product, service and location, and confirm it with your local tax authority or accountant, since rates and rules change.</p>
+
+        <h2 style="margin-top:35px">Adding a Service Charge and Tax</h2>
+        <p>If you add a service charge as well as tax, work in two steps: first add the service charge to the base price, then add tax using the calculator. Whether tax applies to the service charge depends on local rules, so check them for your case.</p>
+
+        <h2 style="margin-top:35px">Put the Tax on an Invoice or Quotation</h2>
+        <p>Once you have the figures, create a tax-ready document with the <a href="invoice-generator.html">Invoice Generator</a> or send a price offer with the <a href="quotation-maker.html">Quotation Maker</a>. Not sure which to send? Read <a href="quotation-vs-invoice.html">quote vs invoice</a>, or see our <a href="gst-vat-calculation-guide.html">GST/VAT calculation guide</a> for more worked examples.</p>
+
         <h2 style="margin-top:35px">Frequently Asked Questions</h2>
         <h3>How do I remove GST from a price?</h3>
         <p>Divide the total by (1 + rate ÷ 100). The difference between the total and that result is the tax. For example, 118 at 18% GST gives a net price of 100 and tax of 18.</p>
@@ -431,6 +504,14 @@
         <p>Multiply the net price by (1 + rate ÷ 100). For example, 100 with 15% VAT becomes 115.</p>
         <h3>What is the difference between GST and VAT?</h3>
         <p>Both are consumption taxes charged on goods and services. The name and rates depend on the country. See our <a href="gst-vat-calculation-guide.html">GST/VAT calculation guide</a> for worked examples.</p>
+        <h3>How do I remove 18% GST from a total?</h3>
+        <p>Divide the tax-inclusive total by 1.18. For example, 11,800 divided by 1.18 gives a net price of 10,000, so the GST is 1,800. Do not multiply the total by 18%, because that gives 2,124, which is wrong.</p>
+        <h3>How do I calculate VAT backwards from a gross price?</h3>
+        <p>Divide the gross price by (1 + VAT rate). At 20% VAT, a gross price of 120 divided by 1.2 gives a net price of 100 and VAT of 20.</p>
+        <h3>How do I calculate GST in Pakistan?</h3>
+        <p>Choose PKR, enter the amount and the applicable sales tax rate. The standard federal sales tax rate has commonly been 18%, but rates differ by goods, services and province and can change, so confirm the current rate with the FBR or your accountant.</p>
+        <h3>Is GST the same as sales tax?</h3>
+        <p>They are the same idea: a consumption tax added to the price of goods and services. The name (GST, VAT or sales tax) and the rate depend on the country.</p>
         <h3>Can I put the tax on an invoice?</h3>
         <p>Yes. Use the <a href="invoice-generator.html">invoice generator</a> and enter the tax rate to produce a tax-ready PDF invoice.</p>
     </section>
@@ -522,8 +603,8 @@
 
     <script>
         let currentOperation = 'add'; // 'add' or 'remove'
-        let currentRate = 12;
-        let currentSymbol = '$';
+        let currentRate = 18;
+        let currentSymbol = 'Rs';
 
         function changeCurrency() {
             currentSymbol = document.getElementById('currencySelect').value;
@@ -602,7 +683,7 @@
 
             // Dynamic Split calculation parameters panel tracking for subcontinent layouts standard checks
             const splitBlock = document.getElementById('splitTaxBlock');
-            if(currentRate > 0) {
+            if(currentRate > 0 && document.getElementById('splitToggle').checked) {
                 splitBlock.style.display = 'flex';
                 const halfTax = taxAmount / 2;
                 document.getElementById('valSplit').textContent = currentSymbol + ' ' + formatNumber(halfTax) + ' + ' + currentSymbol + ' ' + formatNumber(halfTax);
@@ -644,6 +725,7 @@
 
         // Initialize First Computation Matrix
         calculateTax();
+        if (location.hash === '#remove-gst') { setOperation('remove'); }
     </script>
     <!-- ===== sedoc Language Switcher (auto-translate, English default) ===== -->
     <style>
