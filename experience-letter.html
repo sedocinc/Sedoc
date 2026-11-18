@@ -220,6 +220,11 @@
         .donate-copy-btn:hover { opacity: 0.9; }
         .donate-note { color: #94a3b8; font-size: 0.75rem; margin-top: 16px; }
 
+        /* ===== Watermark ===== */
+        .watermark-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; pointer-events: none; z-index: 0; }
+        .watermark-layer img { max-width: 65%; max-height: 65%; object-fit: contain; opacity: 0.12; }
+        .letter-header, .date-row, .subject-line, .letter-body, .signature-section { position: relative; z-index: 1; }
+
         /* Download Ad Modal */
         .download-modal { background: #ffffff; border-radius: 24px; padding: 36px; max-width: 420px; width: 100%; text-align: center; position: relative; box-shadow: 0 30px 60px -10px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .download-modal h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
@@ -349,6 +354,21 @@
                         <input type="file" id="in-logo" accept="image/*">
                     </div>
                 </div>
+                <div class="input-grid" style="margin-top:15px;">
+                    <div class="input-group">
+                        <label>Watermark Logo</label>
+                        <input type="file" id="in-watermark" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>Watermark Opacity</label>
+                        <input type="range" id="in-wm-opacity" min="5" max="40" value="12">
+                    </div>
+                    <div class="input-group full">
+                        <button type="button" class="btn-primary" id="removeWatermarkBtn" style="background:#ef4444; display:none;">
+                            <i class="fas fa-trash"></i> Remove Watermark
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Company Details -->
@@ -432,6 +452,11 @@
             <div class="letter-container">
                 <!-- The Actual A4 Paper Letter -->
                 <div class="letter-paper theme-standard" id="letter-paper">
+
+                    <!-- Watermark -->
+                    <div class="watermark-layer" id="watermark-layer">
+                        <img id="out-watermark" src="" alt="Watermark">
+                    </div>
                     
                     <!-- Header -->
                     <div class="letter-header">
@@ -753,6 +778,37 @@
                 downloadOverlay.classList.remove('active');
             }
         });
+
+        // --- Watermark ---
+        (function () {
+            const wmInput  = document.getElementById('in-watermark');
+            const wmOpac   = document.getElementById('in-wm-opacity');
+            const wmRemove = document.getElementById('removeWatermarkBtn');
+            const wmLayer  = document.getElementById('watermark-layer');
+            const wmImg    = document.getElementById('out-watermark');
+
+            wmInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    wmImg.src = ev.target.result;
+                    wmImg.style.opacity = wmOpac.value / 100;
+                    wmLayer.style.display = 'flex';
+                    wmRemove.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            });
+            wmOpac.addEventListener('input', function () {
+                wmImg.style.opacity = this.value / 100;
+            });
+            wmRemove.addEventListener('click', function () {
+                wmImg.removeAttribute('src');
+                wmLayer.style.display = 'none';
+                wmInput.value = '';
+                wmRemove.style.display = 'none';
+            });
+        })();
 
         // Initial setup
         changeTheme();
